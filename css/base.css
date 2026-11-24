@@ -1,0 +1,198 @@
+/* 锦囊 · base
+ * 设计令牌（颜色、字号、间距、圆角）和所有人共用的小部件样式。
+ * 外壳和每个互动组件都只用这里的变量和 .jn-* 类，不要写死颜色和字号。
+ * 这个文件由项目负责人维护；视觉设计师在 css/theme.css 里覆盖变量的取值，变量名不能改。
+ * 整个应用只有一套深色外观（刻意为之）：卡片用大块的类型色，界面外框是深色半透明。
+ */
+:root {
+  color-scheme: dark;
+
+  /* 底色与文字 */
+  --bg: #0b0d12;
+  --surface: #151924;
+  --surface-2: #1e2433;
+  --surface-3: #2a3144;
+  --line: rgba(255, 255, 255, 0.1);
+  --ink: #f4f6fb;
+  --ink-2: #c9d0de;
+  --muted: #8f99ad;
+  --on-color: #ffffff;          /* 压在类型色上的文字 */
+  --on-color-2: rgba(255, 255, 255, 0.82);
+  --scrim: rgba(6, 8, 12, 0.72);
+
+  /* 品牌与状态 */
+  --accent: #ffd166;            /* 锦囊金 */
+  --accent-ink: #2a1c00;        /* 压在金色上的文字 */
+  --ok: #3ddc97;
+  --warn: #ffb347;
+  --danger: #ff5a5f;
+
+  /* 七种卡片类型：主色 a / 渐变终点 b */
+  --c-talk-a: #ff7a45;    --c-talk-b: #ff4d6d;
+  --c-play-a: #4d7cfe;    --c-play-b: #7b5cff;
+  --c-puzzle-a: #8a5cf6;  --c-puzzle-b: #4c35c9;
+  --c-show-a: #00b8a9;    --c-show-b: #0091d5;
+  --c-do-a: #2fb36a;      --c-do-b: #12907f;
+  --c-trio-a: #ff4fa3;    --c-trio-b: #b23cf2;
+  --c-insight-a: #1b2a4a; --c-insight-b: #0f1a30;   /* 锦囊：深蓝底 + 金色点缀 */
+
+  /* 两位玩家 / 三位玩家的固定配色（对决类组件统一用） */
+  --p1: #ff7a45;
+  --p2: #4d7cfe;
+  --p3: #3ddc97;
+
+  /* 字体：全部用系统字体，离线也不缺字 */
+  --font-ui: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "MiSans", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  --font-num: ui-rounded, "SF Pro Rounded", "DIN Alternate", "Avenir Next", "PingFang SC", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* 字号阶梯 */
+  --fs-xs: 12px;
+  --fs-sm: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 26px;
+  --fs-2xl: 34px;
+  --fs-3xl: 46px;
+
+  /* 间距与圆角 */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px;  --sp-4: 16px;  --sp-5: 24px;  --sp-6: 32px;
+  --r-s: 10px;  --r-m: 16px;  --r-l: 24px;  --r-pill: 999px;
+
+  --shadow-1: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --ease: cubic-bezier(0.22, 0.8, 0.26, 1);
+  --tap: 44px;                  /* 最小可点尺寸 */
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+/* ---------- 图标与插画 ---------- */
+.jn-ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.22em; }
+.jn-art { width: 120px; height: 120px; flex: none; color: currentColor; }
+
+/* ---------- 按钮 ---------- */
+.jn-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: var(--tap); padding: 0 var(--sp-5);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--accent); color: var(--accent-ink);
+  font-weight: 650; font-size: var(--fs-md); letter-spacing: 0.01em;
+  transition: transform 0.12s var(--ease), opacity 0.12s, background 0.15s;
+  user-select: none; -webkit-user-select: none; touch-action: manipulation;
+}
+.jn-btn:active { transform: scale(0.96); }
+.jn-btn[disabled] { opacity: 0.4; pointer-events: none; }
+.jn-btn--ghost { background: rgba(255, 255, 255, 0.12); color: var(--ink); }
+.jn-btn--line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.35); }
+.jn-btn--light { background: #fff; color: #14161c; }
+.jn-btn--danger { background: var(--danger); color: #fff; }
+.jn-btn--sm { min-height: 36px; padding: 0 var(--sp-4); font-size: var(--fs-sm); }
+.jn-btn--lg { min-height: 54px; padding: 0 var(--sp-6); font-size: var(--fs-lg); }
+.jn-btn--block { display: flex; width: 100%; }
+.jn-btn--icon { width: var(--tap); padding: 0; }
+
+/* ---------- 小标签、分段控件 ---------- */
+.jn-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 32px; padding: 0 var(--sp-3);
+  border: 0; border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.1); color: var(--ink-2);
+  font-size: var(--fs-sm); white-space: nowrap;
+  user-select: none; -webkit-user-select: none; touch-action: manipulation;
+}
+.jn-chip.is-on { background: #fff; color: #14161c; font-weight: 600; }
+.jn-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 10px; border-radius: var(--r-pill);
+  background: rgba(0, 0, 0, 0.22); color: var(--on-color);
+  font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.04em;
+}
+.jn-seg { display: inline-flex; padding: 3px; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.1); }
+.jn-seg > button {
+  min-height: 34px; padding: 0 var(--sp-4); border: 0; border-radius: var(--r-pill);
+  background: transparent; color: var(--ink-2); font-size: var(--fs-sm);
+}
+.jn-seg > button.is-on { background: #fff; color: #14161c; font-weight: 600; }
+
+/* ---------- 版面小工具 ---------- */
+.jn-row { display: flex; align-items: center; gap: var(--sp-3); }
+.jn-row--wrap { flex-wrap: wrap; }
+.jn-row--between { justify-content: space-between; }
+.jn-row--center { justify-content: center; }
+.jn-col { display: flex; flex-direction: column; gap: var(--sp-3); }
+.jn-center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.jn-grow { flex: 1 1 auto; min-width: 0; min-height: 0; }
+.jn-panel { background: var(--surface); border-radius: var(--r-m); padding: var(--sp-4); }
+.jn-panel--2 { background: var(--surface-2); }
+.jn-title { font-size: var(--fs-xl); font-weight: 750; line-height: 1.25; letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+.jn-sub { font-size: var(--fs-md); color: var(--ink-2); margin: 0; }
+.jn-muted { color: var(--muted); font-size: var(--fs-sm); }
+.jn-num { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; }
+.jn-big { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 800; font-size: var(--fs-3xl); line-height: 1; }
+.jn-input {
+  width: 100%; min-height: var(--tap); padding: 0 var(--sp-4);
+  border: 0; border-radius: var(--r-s);
+  background: rgba(255, 255, 255, 0.1); color: var(--ink);
+}
+.jn-input::placeholder { color: var(--muted); }
+.jn-range { width: 100%; accent-color: var(--accent); }
+
+/* ---------- 互动组件的舞台根节点 ----------
+ * 外壳把组件挂进一个铺满舞台的 .jn-widget-root。组件自己决定内部版面，
+ * 但必须在 320×480 到 430×900 之间都不溢出、不需要整页滚动（内部列表可以自己滚）。 */
+.jn-widget-root {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  color: var(--ink);
+  user-select: none; -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.jn-widget-root canvas { display: block; touch-action: none; }
+.jn-widget-error { margin: auto; padding: var(--sp-5); color: var(--muted); text-align: center; }
+
+/* 对决类：上半屏给对面的人看，整体旋转 180° */
+.jn-flip { transform: rotate(180deg); }
+
+/* ---------- toast ---------- */
+.jn-toast {
+  padding: 10px 16px; border-radius: var(--r-pill);
+  background: rgba(20, 24, 34, 0.94); color: var(--ink);
+  font-size: var(--fs-sm); box-shadow: var(--shadow-1);
+  animation: jn-toast-in 0.25s var(--ease);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.jn-toast.out { opacity: 0; transform: translateY(8px); }
+@keyframes jn-toast-in { from { opacity: 0; transform: translateY(10px); } }
+
+/* ---------- 通用动效 ---------- */
+@keyframes jn-pop { 0% { transform: scale(0.85); opacity: 0; } 60% { transform: scale(1.04); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes jn-shake { 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+.jn-pop { animation: jn-pop 0.28s var(--ease) both; }
+.jn-shake { animation: jn-shake 0.32s linear; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

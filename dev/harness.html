@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>锦囊 · 组件测试台</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/widgets-basic.css">
+<link rel="stylesheet" href="../css/widgets-logic.css">
+<link rel="stylesheet" href="../css/widgets-duel.css">
+<link rel="stylesheet" href="../css/widgets-party.css">
+<link rel="stylesheet" href="../css/widgets-sim.css">
+<link rel="stylesheet" href="../css/widgets-phys.css">
+<style>
+  body { display: flex; min-height: 100vh; }
+  aside { width: 300px; flex: none; padding: 16px; border-right: 1px solid var(--line); overflow: auto; max-height: 100vh; }
+  main { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px; }
+  h1 { font-size: 18px; margin: 0 0 12px; }
+  .w { margin-bottom: 12px; }
+  .w b { display: block; margin-bottom: 4px; }
+  .w button { display: block; width: 100%; text-align: left; margin: 2px 0; padding: 6px 10px; border: 0; border-radius: 8px; background: var(--surface-2); color: var(--ink-2); font-size: 13px; }
+  .w button:hover { background: var(--surface-3); }
+  #phone { width: 390px; height: 720px; border-radius: 28px; overflow: hidden; background: var(--bg); box-shadow: 0 0 0 2px var(--surface-3); display: flex; flex-direction: column; }
+  #bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--surface); font-weight: 650; }
+  #stage { flex: 1; min-height: 0; }
+  textarea { width: 390px; height: 90px; background: var(--surface); color: var(--ink); border: 0; border-radius: 10px; padding: 10px; font: 12px var(--font-mono); }
+  #log { width: 390px; white-space: pre-wrap; font: 12px var(--font-mono); color: var(--danger); }
+  @media (max-width: 760px) { body { flex-direction: column; } aside { width: auto; max-height: 34vh; border-right: 0; border-bottom: 1px solid var(--line); } #phone, textarea, #log { width: 100%; } #phone { height: 78vh; border-radius: 0; } main { padding: 0; } }
+</style>
+</head>
+<body>
+<aside>
+  <h1>组件测试台</h1>
+  <p class="jn-muted">点一行，用那张卡片的参数挂载组件。舞台大小可选。</p>
+  <div class="jn-row jn-row--wrap" style="margin-bottom:12px">
+    <button class="jn-chip" data-size="320x480">320×480</button>
+    <button class="jn-chip" data-size="375x600">375×600</button>
+    <button class="jn-chip is-on" data-size="390x720">390×720</button>
+    <button class="jn-chip" data-size="430x860">430×860</button>
+    <label class="jn-chip"><input type="checkbox" id="asPreview"> 预览模式</label>
+  </div>
+  <div id="list"></div>
+</aside>
+<main>
+  <div id="phone">
+    <div id="bar"><span id="name">选一个组件</span><span class="jn-muted" id="done"></span></div>
+    <div id="stage"></div>
+  </div>
+  <textarea id="params" spellcheck="false">{}</textarea>
+  <button class="jn-btn jn-btn--sm" id="remount">用上面的参数重新挂载</button>
+  <div id="log"></div>
+</main>
+<script src="../js/core.js"></script>
+<script src="../js/sprites.js"></script>
+<script src="../data/cards.js"></script>
+<script src="../js/widgets/basic.js"></script>
+<script src="../js/widgets/logic.js"></script>
+<script src="../js/widgets/duel.js"></script>
+<script src="../js/widgets/party.js"></script>
+<script src="../js/widgets/sim.js"></script>
+<script src="../js/widgets/phys.js"></script>
+<script>
+(function () {
+  var U = JN.util, cur = null, curId = null;
+  var stage = document.getElementById('stage'), log = document.getElementById('log');
+  window.addEventListener('error', function (e) { log.textContent += e.message + '  @' + (e.filename || '').split('/').pop() + ':' + e.lineno + '\n'; });
+  function mount(id, params) {
+    if (cur) cur.destroy();
+    curId = id;
+    log.textContent = '';
+    document.getElementById('done').textContent = '';
+    document.getElementById('name').textContent = (JN.widgets[id] && JN.widgets[id].name) || id;
+    document.getElementById('params').value = JSON.stringify(params || {}, null, 1);
+    cur = JN.mountWidget(id, stage, params, {
+      preview: document.getElementById('asPreview').checked,
+      onDone: function (r, first) { document.getElementById('done').textContent = 'done' + (first ? '（首次）' : '') + ' ' + JSON.stringify(r); },
+      onError: function (err) { log.textContent += String(err && err.stack || err) + '\n'; }
+    });
+  }
+  var cards = (window.JN_CARDS || []).filter(function (c) { return c.format === 'widget'; });
+  var list = document.getElementById('list');
+  Object.keys(JN.widgets).sort().forEach(function (id) {
+    var box = U.el('div.w', [U.el('b', { text: id + ' · ' + (JN.widgets[id].name || '') + (JN.widgets[id].preview ? ' ▶' : '') })]);
+    box.appendChild(U.el('button', { text: '默认参数 {}', on: { click: function () { mount(id, {}); } } }));
+    cards.filter(function (c) { return c.widget === id; }).forEach(function (c) {
+      box.appendChild(U.el('button', { text: c.id + ' ' + c.title, on: { click: function () { mount(id, c.params || {}); } } }));
+    });
+    list.appendChild(box);
+  });
+  document.getElementById('remount').onclick = function () {
+    try { mount(curId, JSON.parse(document.getElementById('params').value || '{}')); } catch (e) { log.textContent = '参数不是合法 JSON：' + e.message; }
+  };
+  document.querySelectorAll('[data-size]').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('[data-size]').forEach(function (x) { x.classList.remove('is-on'); });
+      b.classList.add('is-on');
+      var s = b.getAttribute('data-size').split('x');
+      var ph = document.getElementById('phone');
+      ph.style.width = s[0] + 'px';
+      ph.style.height = s[1] + 'px';
+    };
+  });
+  var q = new URLSearchParams(location.search);
+  if (q.get('w')) mount(q.get('w'), q.get('p') ? JSON.parse(q.get('p')) : {});
+})();
+</script>
+</body>
+</html>

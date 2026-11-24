@@ -1,0 +1,374 @@
+/* 锦囊 · widgets/sim 的样式（G4：概率与算法模拟）。
+ * 类名一律 w-<组件 id>- 开头，只用 base.css 里的变量和 .jn-* 通用类。
+ * 七个组件共用同一套骨架（提示语、「为什么」面板、数字牌、按钮行、画布舞台），
+ * 所以前半部分的选择器是七个类名并列；后半部分是各组件自己的东西。
+ */
+
+/* ====================================================================
+ * 一、共用骨架
+ * ==================================================================== */
+.w-monty-wrap,
+.w-galton-wrap,
+.w-chaosgame-wrap,
+.w-montepi-wrap,
+.w-life-wrap,
+.w-sorting-wrap,
+.w-birthday-wrap {
+  position: relative; flex: 1 1 auto; min-width: 0; min-height: 0;
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3) var(--sp-3);
+  overflow: hidden;
+}
+
+/* 顶上一行提示语 + 「为什么？」 */
+.w-monty-head,
+.w-galton-head,
+.w-chaosgame-head,
+.w-montepi-head,
+.w-life-head,
+.w-sorting-head,
+.w-birthday-head { display: flex; align-items: center; gap: var(--sp-2); flex: none; }
+.w-monty-say,
+.w-galton-say,
+.w-chaosgame-say,
+.w-montepi-say,
+.w-life-say,
+.w-sorting-say,
+.w-birthday-say {
+  flex: 1 1 auto; min-width: 0; min-height: calc(3 * 1.38em);
+  display: flex; align-items: center;
+  font-size: var(--fs-sm); font-weight: 600; line-height: 1.38; color: var(--ink);
+}
+.w-monty-wrap.is-roomy .w-monty-say,
+.w-galton-wrap.is-roomy .w-galton-say,
+.w-chaosgame-wrap.is-roomy .w-chaosgame-say,
+.w-montepi-wrap.is-roomy .w-montepi-say,
+.w-life-wrap.is-roomy .w-life-say,
+.w-sorting-wrap.is-roomy .w-sorting-say,
+.w-birthday-wrap.is-roomy .w-birthday-say { font-size: var(--fs-md); }
+.w-monty-whybtn,
+.w-galton-whybtn,
+.w-chaosgame-whybtn,
+.w-montepi-whybtn,
+.w-life-whybtn,
+.w-sorting-whybtn,
+.w-birthday-whybtn {
+  flex: none; min-height: var(--tap); padding: 0 var(--sp-3);
+  background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); font-weight: 600;
+}
+.w-monty-whybtn.is-on,
+.w-galton-whybtn.is-on,
+.w-chaosgame-whybtn.is-on,
+.w-montepi-whybtn.is-on,
+.w-life-whybtn.is-on,
+.w-sorting-whybtn.is-on,
+.w-birthday-whybtn.is-on { background: var(--accent); color: var(--accent-ink); }
+
+/* 「为什么」：默认收起；点开从底部升起，内容自己滚动，不挤占舞台 */
+.w-monty-why,
+.w-galton-why,
+.w-chaosgame-why,
+.w-montepi-why,
+.w-life-why,
+.w-sorting-why,
+.w-birthday-why {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; max-height: 84%;
+  display: flex; flex-direction: column;
+  border-radius: var(--r-l) var(--r-l) 0 0;
+  background: var(--surface-2); box-shadow: 0 -12px 32px var(--scrim);
+  animation: w-monty-rise 0.24s var(--ease) both;
+}
+.w-monty-why-head,
+.w-galton-why-head,
+.w-chaosgame-why-head,
+.w-montepi-why-head,
+.w-life-why-head,
+.w-sorting-why-head,
+.w-birthday-why-head {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4); font-size: var(--fs-md);
+}
+.w-monty-why-x,
+.w-galton-why-x,
+.w-chaosgame-why-x,
+.w-montepi-why-x,
+.w-life-why-x,
+.w-sorting-why-x,
+.w-birthday-why-x { flex: none; padding: 0 var(--sp-4); font-size: var(--fs-sm); }
+.w-monty-why-body,
+.w-galton-why-body,
+.w-chaosgame-why-body,
+.w-montepi-why-body,
+.w-life-why-body,
+.w-sorting-why-body,
+.w-birthday-why-body {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 0 var(--sp-4) var(--sp-5);
+  font-size: var(--fs-sm); line-height: 1.7; color: var(--ink-2);
+}
+.w-monty-why-body p,
+.w-galton-why-body p,
+.w-chaosgame-why-body p,
+.w-montepi-why-body p,
+.w-life-why-body p,
+.w-sorting-why-body p,
+.w-birthday-why-body p { margin: 0 0 var(--sp-3); }
+.w-monty-why-body ul,
+.w-galton-why-body ul,
+.w-chaosgame-why-body ul,
+.w-montepi-why-body ul,
+.w-life-why-body ul,
+.w-sorting-why-body ul,
+.w-birthday-why-body ul { margin: 0 0 var(--sp-3); padding-left: 1.3em; }
+.w-monty-why-body strong,
+.w-galton-why-body strong,
+.w-chaosgame-why-body strong,
+.w-montepi-why-body strong,
+.w-life-why-body strong,
+.w-sorting-why-body strong,
+.w-birthday-why-body strong { color: var(--accent); font-weight: 650; }
+@keyframes w-monty-rise { from { transform: translateY(24px); opacity: 0; } }
+
+/* 数字牌：上面一行小字，下面一个数（模拟值 / 理论值都用它） */
+.w-galton-stats,
+.w-chaosgame-stats,
+.w-montepi-stats,
+.w-life-stats,
+.w-birthday-stats { display: flex; gap: var(--sp-2); flex: none; }
+.w-monty-stat,
+.w-galton-stat,
+.w-chaosgame-stat,
+.w-montepi-stat,
+.w-life-stat,
+.w-sorting-stat,
+.w-birthday-stat {
+  flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: center;
+  padding: 5px var(--sp-2); border-radius: var(--r-s); background: var(--surface);
+}
+.w-monty-stat-k,
+.w-galton-stat-k,
+.w-chaosgame-stat-k,
+.w-montepi-stat-k,
+.w-life-stat-k,
+.w-sorting-stat-k,
+.w-birthday-stat-k { font-size: var(--fs-xs); line-height: 1.35; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w-monty-stat-v,
+.w-galton-stat-v,
+.w-chaosgame-stat-v,
+.w-montepi-stat-v,
+.w-life-stat-v,
+.w-sorting-stat-v,
+.w-birthday-stat-v { font-size: var(--fs-md); line-height: 1.3; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w-monty-wrap.is-roomy .w-monty-stat-v,
+.w-galton-wrap.is-roomy .w-galton-stat-v,
+.w-chaosgame-wrap.is-roomy .w-chaosgame-stat-v,
+.w-montepi-wrap.is-roomy .w-montepi-stat-v,
+.w-life-wrap.is-roomy .w-life-stat-v,
+.w-sorting-wrap.is-roomy .w-sorting-stat-v,
+.w-birthday-wrap.is-roomy .w-birthday-stat-v { font-size: var(--fs-lg); }
+
+/* 按钮行：一行放得下三四个，每个至少 44×44 */
+.w-monty-ctl,
+.w-galton-ctl,
+.w-chaosgame-ctl,
+.w-montepi-ctl,
+.w-life-ctl,
+.w-sorting-ctl,
+.w-birthday-ctl { display: flex; align-items: center; justify-content: center; gap: var(--sp-2); flex: none; min-height: var(--tap); }
+.w-monty-b,
+.w-galton-b,
+.w-chaosgame-b,
+.w-montepi-b,
+.w-life-b,
+.w-sorting-b,
+.w-birthday-b { flex: 1 1 auto; min-width: var(--tap); padding: 0 var(--sp-2); font-size: var(--fs-sm); white-space: nowrap; }
+.w-galton-seg,
+.w-chaosgame-seg,
+.w-life-seg { flex: none; }
+.w-galton-seg > button,
+.w-chaosgame-seg > button,
+.w-life-seg > button { min-width: var(--tap); min-height: var(--tap); padding: 0 var(--sp-3); white-space: nowrap; }
+.w-galton-tip,
+.w-life-tip,
+.w-sorting-tip { flex: 1 1 auto; text-align: center; font-size: var(--fs-xs); line-height: 1.4; color: var(--muted); }
+
+/* 画布舞台：占掉剩下的全部空间。画布绝对定位铺满，尺寸由脚本按 devicePixelRatio 设置 */
+.w-galton-stage,
+.w-chaosgame-stage,
+.w-life-stage,
+.w-sorting-stage { position: relative; flex: 1 1 0; min-width: 0; min-height: 0; overflow: hidden; border-radius: var(--r-s); }
+.w-galton-stage > canvas,
+.w-chaosgame-stage > canvas,
+.w-life-stage > canvas,
+.w-sorting-stage > canvas,
+.w-montepi-board > canvas, .w-montepi-chart > canvas,
+.w-birthday-cal > canvas, .w-birthday-chart > canvas,
+.w-monty-pv > canvas,
+.w-galton-pv > canvas,
+.w-chaosgame-pv > canvas,
+.w-montepi-pv > canvas,
+.w-life-pv > canvas,
+.w-sorting-pv > canvas,
+.w-birthday-pv > canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+
+/* 卡片上的预览：铺满、不接收触摸 */
+.w-monty-pv,
+.w-galton-pv,
+.w-chaosgame-pv,
+.w-montepi-pv,
+.w-life-pv,
+.w-sorting-pv,
+.w-birthday-pv { position: relative; flex: 1 1 auto; min-width: 0; min-height: 0; overflow: hidden; pointer-events: none; }
+
+/* 滑块行 */
+.w-galton-prow, .w-birthday-nrow { display: flex; align-items: center; gap: var(--sp-3); flex: none; min-height: var(--tap); font-size: var(--fs-sm); color: var(--ink-2); }
+.w-galton-range, .w-birthday-range { flex: 1 1 auto; min-width: 0; height: var(--tap); margin: 0; touch-action: pan-y; }
+.w-galton-prow > span, .w-birthday-nrow > span { flex: none; white-space: nowrap; }
+.w-galton-pval, .w-birthday-nval { min-width: 3.2em; text-align: right; color: var(--ink); }
+
+/* ====================================================================
+ * 二、monty 三门问题
+ * ==================================================================== */
+.w-monty-doors {
+  flex: 1 1 0; min-height: 0; overflow: hidden;
+  display: grid; grid-template-columns: repeat(var(--cols, 3), var(--dw, 40px)); grid-auto-rows: var(--dh, 60px); gap: var(--gap, 12px);
+  justify-content: center; align-content: center;
+}
+.w-monty-door {
+  position: relative; width: var(--dw, 40px); height: var(--dh, 60px); padding: 0; border: 0;
+  border-radius: var(--r-s); background: var(--bg); color: var(--ink);
+  perspective: 520px; touch-action: manipulation;
+}
+.w-monty-in {
+  position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14%;
+  border-radius: inherit; background: linear-gradient(180deg, var(--surface), var(--surface-3));
+  box-shadow: inset 0 0 0 2px var(--line);
+}
+.w-monty-ball { width: 62%; max-width: 76px; height: auto; animation: jn-pop 0.3s var(--ease) both; }
+.w-monty-ball-fill { fill: var(--p1); }
+.w-monty-ball-line { fill: none; stroke: var(--bg); stroke-width: 2.4; stroke-linecap: round; }
+.w-monty-leaf {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  border-radius: inherit; background: linear-gradient(160deg, var(--c-show-a), var(--c-show-b));
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--on-color) 24%, transparent);
+  transform-origin: 0 50%;
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
+}
+.w-monty-leaf::after { content: ""; position: absolute; right: 12%; top: 54%; width: 10%; aspect-ratio: 1; border-radius: 50%; background: var(--accent); }
+.w-monty-no { font-size: var(--fs-2xl); line-height: 1; color: var(--on-color); }
+.w-monty-door.is-open .w-monty-leaf { transform: rotateY(80deg); opacity: 0.6; }
+.w-monty-door.is-pick::after { content: ""; position: absolute; inset: 0; z-index: 2; border: 3px solid var(--accent); border-radius: inherit; pointer-events: none; }
+/* 一百扇门：小格子，不写号码，开门就是淡出 */
+.w-monty-doors.is-many .w-monty-door { border-radius: 4px; perspective: none; }
+.w-monty-doors.is-many .w-monty-in { padding: 0; align-items: center; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.w-monty-doors.is-many .w-monty-ball { width: 82%; }
+.w-monty-doors.is-many .w-monty-leaf { box-shadow: none; transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); transform-origin: 50% 50%; }
+.w-monty-doors.is-many .w-monty-leaf::after { display: none; }
+.w-monty-doors.is-many .w-monty-door.is-open .w-monty-leaf { transform: scale(0.4); opacity: 0; }
+.w-monty-doors.is-many .w-monty-door.is-pick::after { border-width: 2px; }
+
+.w-monty-act { display: flex; align-items: center; justify-content: center; gap: var(--sp-2); flex: none; min-height: 48px; }
+.w-monty-hint { color: var(--muted); font-size: var(--fs-sm); }
+.w-monty-b.is-narrow { flex: 0 0 auto; padding: 0 var(--sp-4); }
+
+/* 两根柱子：换 / 不换 的胜率；虚线是理论值 */
+.w-monty-board { flex: none; display: flex; flex-direction: column; gap: 6px; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-m); background: var(--surface); }
+.w-monty-line { display: flex; align-items: center; gap: var(--sp-2); }
+.w-monty-key { flex: none; width: 2.4em; font-size: var(--fs-sm); font-weight: 700; }
+.w-monty-track { position: relative; flex: 1 1 auto; min-width: 0; height: 16px; border-radius: var(--r-pill); background: var(--surface-3); }
+.w-monty-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: var(--r-pill); transition: width 0.3s var(--ease); }
+.w-monty-fill.is-swap { background: var(--accent); }
+/* 柱子画在深色底上：优先用亮色 --c-show-hi，theme.css 没提供时退回 --c-show-a */
+.w-monty-fill.is-stay { background: var(--c-show-hi, var(--c-show-a)); }
+.w-monty-board.is-auto .w-monty-fill { transition: none; }
+.w-monty-mark { position: absolute; top: -4px; bottom: -4px; width: 0; margin-left: -1px; border-left: 2px dashed var(--ink); }
+.w-monty-val { flex: none; width: 3.6em; text-align: right; font-size: var(--fs-md); }
+.w-monty-sub { margin-left: calc(2.4em + var(--sp-2)); font-size: var(--fs-xs); line-height: 1.3; color: var(--muted); }
+
+/* ====================================================================
+ * 三、galton 高尔顿板
+ * ==================================================================== */
+/* 猜球：一排押注按钮，和画布里的槽一一对齐（画布左右不留边） */
+/* 猜球时画布和押注按钮都左右顶到舞台边：320 宽的屏上 7 个槽每个也有 45 像素 */
+.w-galton-stage.is-bet, .w-galton-odds { margin-left: calc(-1 * var(--sp-3)); margin-right: calc(-1 * var(--sp-3)); border-radius: 0; }
+.w-galton-odds { flex: none; display: grid; grid-template-columns: repeat(var(--bins, 7), minmax(0, 1fr)); margin-top: calc(2px - var(--sp-2)); }
+.w-galton-odd {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-width: 0; min-height: 48px; padding: 0; border: 0; border-radius: 0;
+  background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line);
+  touch-action: manipulation;
+}
+.w-galton-odd b { font-size: var(--fs-md); line-height: 1.15; }
+.w-galton-odd i { font-style: normal; font-size: var(--fs-xs); line-height: 1.15; color: var(--muted); }
+.w-galton-odd:active { background: var(--surface-3); }
+.w-galton-odd[disabled] { opacity: 0.5; }
+.w-galton-odd.is-on, .w-galton-odd.is-on[disabled] { opacity: 1; background: var(--accent); color: var(--accent-ink); }
+.w-galton-odd.is-on i { color: inherit; }
+
+/* ====================================================================
+ * 四、chaosgame 混沌游戏
+ * ==================================================================== */
+.w-chaosgame-stage { background: var(--surface); }
+.w-chaosgame-guess {
+  flex: 1 1 0; min-width: 0; min-height: var(--tap); justify-content: center; padding: 0 var(--sp-1);
+  background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); font-weight: 600;
+}
+.w-chaosgame-seg { align-self: center; }
+
+/* ====================================================================
+ * 五、montepi 扔飞镖算圆周率
+ * ==================================================================== */
+.w-montepi-board { position: relative; flex: 3 1 0; min-width: 0; min-height: 0; overflow: hidden; }
+.w-montepi-chart { position: relative; flex: 1 1 0; min-width: 0; min-height: 64px; max-height: 130px; overflow: hidden; border-radius: var(--r-s); background: var(--surface); }
+
+/* ====================================================================
+ * 六、life 生命游戏
+ * ==================================================================== */
+.w-life-status {
+  flex: none; min-height: calc(2 * 1.4em); display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: var(--fs-xs); line-height: 1.4; color: var(--ink-2); font-variant-numeric: tabular-nums;
+}
+.w-life-menu {
+  position: absolute; left: var(--sp-3); right: var(--sp-3); bottom: calc(var(--sp-3) + var(--tap) + var(--sp-2)); z-index: 4;
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); padding: var(--sp-2);
+  border-radius: var(--r-m); background: var(--surface-2); box-shadow: var(--shadow-1);
+  animation: jn-pop 0.2s var(--ease) both;
+}
+.w-life-item {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  min-width: 0; min-height: 52px; padding: var(--sp-2) var(--sp-3); border: 0; border-radius: var(--r-s);
+  background: var(--surface-3); color: var(--ink); text-align: left; touch-action: manipulation;
+}
+.w-life-item b { font-size: var(--fs-sm); }
+.w-life-item span { font-size: var(--fs-xs); line-height: 1.3; color: var(--muted); }
+.w-life-item:active { background: var(--surface); }
+
+/* ====================================================================
+ * 七、sorting 排序赛跑
+ * ==================================================================== */
+.w-sorting-lane { flex: 1 1 0; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-1); }
+.w-sorting-lab { flex: none; display: flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); }
+.w-sorting-name { flex: none; min-height: var(--tap); font-weight: 700; color: var(--on-color); }
+.w-sorting-lane.is-a .w-sorting-name, .w-sorting-b.is-a { background: var(--p1); color: var(--on-color); }
+.w-sorting-lane.is-b .w-sorting-name, .w-sorting-b.is-b { background: var(--p2); color: var(--on-color); }
+.w-sorting-mid {
+  flex: 1 1 auto; min-width: 0; font-size: var(--fs-xs); line-height: 1.3; color: var(--muted);
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+.w-sorting-cnt { flex: none; font-size: var(--fs-sm); white-space: nowrap; color: var(--ink); }
+.w-sorting-stage { background: var(--surface); }
+
+/* ====================================================================
+ * 八、birthday 生日悖论
+ * ==================================================================== */
+.w-birthday-guess { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-3); padding: 0 var(--sp-3); }
+.w-birthday-gtip { font-size: var(--fs-sm); color: var(--muted); }
+.w-birthday-gnum { min-height: 1em; color: var(--accent); }
+.w-birthday-guess .w-birthday-range { flex: none; width: 100%; }
+.w-birthday-gscale { display: flex; justify-content: space-between; width: 100%; margin-top: calc(-1 * var(--sp-2)); font-size: var(--fs-xs); color: var(--muted); }
+.w-birthday-go { margin-top: var(--sp-3); }
+.w-birthday-sim { flex: 1 1 auto; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-2); }
+/* 日历 12 行 × 31 列：高度跟着宽度走，剩下的地方都给曲线图 */
+.w-birthday-cal { position: relative; flex: 0 1 auto; width: 100%; aspect-ratio: 31 / 12.4; min-height: 84px; max-height: 46%; overflow: hidden; }
+.w-birthday-chart { position: relative; flex: 1 1 0; min-width: 0; min-height: 76px; overflow: hidden; border-radius: var(--r-s); background: var(--surface); }
+.w-birthday-stat.is-hit .w-birthday-stat-v { color: var(--accent); }

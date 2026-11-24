@@ -1,0 +1,121 @@
+[
+  {
+    "id": "play-201", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "出游"], "mins": 2,
+    "title": "我的手速，你确定要比？",
+    "body": "手机平放在两人中间，一人守一头。屏幕一变绿就拍，先拍到的赢一轮；没变绿就拍算抢跑，这轮白送。5 局 3 胜。",
+    "more": "实验室里，年轻人看到灯亮再按键，平均要 0.2 秒上下。手机屏幕和触摸本身还有延迟，这里测出来会更慢一些——所以只和对面的人比，别和网上的数字比。",
+    "widget": "reaction", "params": {"players": 2, "mode": "simple"}, "cta": "开打",
+    "hint": "别放水，他多半真比你快。输了就认，然后要求再来一局；你自己抢跑了，先笑的应该是你。",
+    "refs": [{"t": "Mental chronometry · Wikipedia", "u": "https://en.wikipedia.org/wiki/Mental_chronometry", "lv": "常识"}],
+    "art": "stopwatch", "tags": ["反应", "手速", "对决"]
+  },
+  {
+    "id": "play-202", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "周末"], "mins": 3,
+    "title": "三个人，看谁先上当",
+    "body": "屏幕会闪各种图案，只有和“目标”颜色、形状都一样的那个才能拍。手快没用，拍错直接出局。先赢 3 轮的人，今晚遥控器归他。",
+    "widget": "reaction", "params": {"players": 3, "mode": "trick"}, "cta": "开打",
+    "hint": "这局拼的是忍住不拍，大人一点便宜都不占。被假信号骗了就大方认栽，别说“我是故意的”。",
+    "art": "target", "tags": ["反应", "三个人", "对决"]
+  },
+  {
+    "id": "play-203", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "出游"], "mins": 1,
+    "title": "指尖拔河，手别抖",
+    "body": "一人一半屏幕，开始以后就狂点。绳结会被点得快的人拉走，拉过自己面前那条线就赢。一局最多 15 秒，手酸算正常。",
+    "widget": "tapwar", "params": {"handicap": 0}, "cta": "开拔",
+    "hint": "真点，别让。输了甩甩手说“换只手再来”。他要是用两根手指轮流点，那是他聪明，别喊犯规。",
+    "art": "flag", "tags": ["手速", "对决", "拔河"]
+  },
+  {
+    "id": "play-204", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "周末"], "mins": 2,
+    "title": "让你三成力，照样拉过来",
+    "body": "还是指尖拔河，不过坐下方的人要“负重”：每点一下只算七成力气。大人坐下方。开打前拖底下的滑块，负重还能再加。",
+    "widget": "tapwar", "params": {"handicap": 0.3}, "cta": "开拔",
+    "hint": "先别动滑块。你连赢 2 局，就自己把负重往上加，加到他能赢为止；被他反超了，别急着调回来。",
+    "art": "trophy", "tags": ["手速", "对决", "拔河", "让分"]
+  },
+  {
+    "id": "play-205", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "出游"], "mins": 3,
+    "title": "我做难题，照样比你快",
+    "body": "两边同时出题，谁先点对谁得 1 分；点错要冻住 1.5 秒。先到 7 分赢。坐下方的人做难题，对面做简单的，难度开局前自己还能改。",
+    "widget": "mathduel", "params": {"kind": "arith", "levels": {"bottom": "hard", "top": "easy"}}, "cta": "抢答",
+    "hint": "你这边有两位数乘两位数，多半要输。输了别说“题不一样”，把两边的难度对调，再来一局。",
+    "art": "pencil", "tags": ["心算", "抢答", "对决"]
+  },
+  {
+    "id": "play-206", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "出游"], "mins": 3,
+    "title": "哪边大？小心有坑",
+    "body": "两个数或两个式子摆出来，先点中大的那个得 1 分；一样大就点中间的等号。有些看着差很多，其实一样大。先到 7 分赢。",
+    "widget": "mathduel", "params": {"kind": "compare", "levels": {"bottom": "mid", "top": "mid"}}, "cta": "抢答",
+    "hint": "两边是同一道题，纯拼眼力。掉坑里就笑着认，再问他一句“这俩为啥一样大”，让他讲，你别讲。",
+    "art": "magnifier", "tags": ["心算", "比大小", "对决"]
+  },
+  {
+    "id": "play-207", "type": "play", "sub": "下棋", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["饭桌", "周末", "睡前", "出游"], "mins": 8,
+    "title": "五子棋，输的人洗碗",
+    "body": "轮流落子，横、竖、斜先连成 5 个的赢。点一下只是预选，再点一下才真的落下，不怕手滑；下错了还能悔棋。",
+    "more": "正式比赛里，先走的一方优势太大，所以“连珠”规则专门给先手加了禁手。这里不设禁手，但输的人下一盘先走，算是找补。",
+    "widget": "gomoku", "params": {}, "cta": "落子",
+    "hint": "别一上来就把他堵死，等他摆出三连再动手。输了不复盘、不讲棋理，只说两个字：“再来”。",
+    "refs": [{"t": "Gomoku · Wikipedia", "u": "https://en.wikipedia.org/wiki/Gomoku", "lv": "经典"}, {"t": "Renju · Wikipedia", "u": "https://en.wikipedia.org/wiki/Renju", "lv": "常识"}],
+    "art": "chess", "tags": ["五子棋", "棋", "对决"]
+  },
+  {
+    "id": "play-208", "type": "play", "sub": "下棋", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["周末", "睡前", "出游"], "mins": 10,
+    "title": "咱俩联手，把电脑下赢",
+    "body": "这回不是对手，是队友。两个人商量着落子，对面是电脑。先打「普通」，赢了再去挑战「高手」；走错了可以悔棋，不丢人。",
+    "widget": "gomoku", "params": {"ai": true, "level": 2}, "cta": "开局",
+    "hint": "手指交给他，你只出主意，而且每一步最多说一句。他想下的地方就算不对，也照他的下。",
+    "art": "gamepad", "tags": ["五子棋", "棋", "合作", "人机"]
+  },
+  {
+    "id": "play-209", "type": "play", "sub": "下棋", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "睡前", "出游"], "mins": 5,
+    "title": "围格子，看谁先沉不住气",
+    "body": "轮流在两个点之间画一条边。谁画下第 4 条边、围成一个格子，这格就归谁，而且还得接着画。16 个格子，多的赢。",
+    "more": "这个纸笔游戏最早是 19 世纪法国数学家爱德华·卢卡斯写进书里的。他还有一个更出名的发明：汉诺塔。",
+    "widget": "dots", "params": {"players": 2}, "cta": "开画",
+    "hint": "前半盘谁都不想画“第 3 条边”。这个窍门别说破，等他自己发现，然后被他反过来坑一次。",
+    "refs": [{"t": "Dots and boxes · Wikipedia", "u": "https://en.wikipedia.org/wiki/Dots_and_boxes", "lv": "经典"}],
+    "art": "puzzle", "tags": ["点格棋", "纸笔游戏", "对决"]
+  },
+  {
+    "id": "play-210", "type": "play", "sub": "下棋", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "周末"], "mins": 5,
+    "title": "三人圈地，谁也别信谁",
+    "body": "三个人轮流画边，围成格子就归自己，还能接着画。两个人可以联手坑第三个，不过格子只算自己的，联盟随时会散。",
+    "widget": "dots", "params": {"players": 3}, "cta": "开画",
+    "hint": "要结盟就跟他结，别和妈妈一起围他。被他俩联手坑了，哀嚎两声，然后老老实实数格子。",
+    "art": "map", "tags": ["点格棋", "三个人", "纸笔游戏"]
+  },
+  {
+    "id": "play-211", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "睡前", "出游"], "mins": 2,
+    "title": "10 秒有多长？你数不准",
+    "body": "按下开始，表走 2 秒就藏起来。心里接着数，觉得到 10 秒了就按停。差距精确到 0.01 秒，谁离 10 秒更近谁赢。",
+    "widget": "tensec", "params": {"target": 10, "players": 2}, "cta": "开数",
+    "hint": "他数的时候别出声捣乱，等他按完再笑。你自己差了一大截，就老实报出来，别找理由。",
+    "art": "hourglass", "tags": ["时间", "估计", "对决"]
+  },
+  {
+    "id": "play-212", "type": "play", "sub": "对决", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "周末", "出游"], "mins": 3,
+    "title": "红字写着“蓝”，点哪个？",
+    "body": "屏幕上跳出红、蓝、绿、黄几个字，可字的颜色偏偏和意思不一样。别读字，点字的颜色。20 题，看谁的脑子更不容易被带跑。",
+    "more": "这叫斯特鲁普效应，1935 年由美国心理学家斯特鲁普发表。认字练得太熟，就成了自动反应：眼睛一扫到字，意思先冒出来，和“看颜色”抢跑，大脑得先把它按住。\n\n「干扰代价」就是打架的题比不打架的题平均慢了多少毫秒。一轮只有 20 题，每次会有几十毫秒的出入，多测几次更准。",
+    "widget": "stroop", "params": {"players": 2}, "cta": "开测",
+    "hint": "多半是你被带跑得更厉害，认了。他赢了，就请他讲讲为什么字和颜色打架时会慢，你听着就行。",
+    "refs": [
+      {"t": "Stroop effect · Wikipedia", "u": "https://en.wikipedia.org/wiki/Stroop_effect", "lv": "常识"},
+      {"t": "J. R. Stroop (1935), Journal of Experimental Psychology 18(6)", "lv": "实证"}
+    ],
+    "art": "brain", "tags": ["斯特鲁普", "心理学", "反应", "颜色"]
+  }
+]

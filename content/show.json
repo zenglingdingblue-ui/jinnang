@@ -1,0 +1,458 @@
+[
+  {
+    "id": "show-001", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上"], "mins": 2,
+    "title": "24 秒是怎么算出来的？",
+    "body": "NBA 一次进攻限时 24 秒。不是 20，不是 30，偏偏是 24。这个数当年是怎么定下来的？",
+    "options": ["照搬了大学篮球的规定", "试过几种时长，挑了最流畅的", "48 分钟 ÷ 120 次出手"], "answer": 2,
+    "explain": "1954 年，一位球队老板翻了翻他觉得好看的那些比赛：两队各出手 60 次左右，加起来 120 次。一场 48 分钟是 2880 秒，2880÷120=24。在这之前，领先的一方可以一直倒球不投，1950 年甚至打出过 19 比 18 的比分。",
+    "more": "这位老板叫丹尼·比亚索内，球队是锡拉丘兹民族队。那场 19 比 18 的比赛，第 4 节两队加起来只得了 4 分。\n\nNBA 从 1954–55 赛季开始用 24 秒。国际篮联 1956 年先用的是 30 秒，到 2000 年才改成 24 秒。",
+    "hint": "先用手挡住选项，让他自己编个理由，你也编一个，比谁编得像真的。揭晓后一起按计算器：2880÷120。",
+    "refs": [{"t": "Shot clock · Wikipedia", "u": "https://en.wikipedia.org/wiki/Shot_clock", "lv": "常识"}],
+    "art": "stopwatch", "tags": ["篮球", "NBA", "规则"]
+  },
+  {
+    "id": "show-002", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上"], "mins": 2,
+    "title": "最早的篮球，接到球能干嘛？",
+    "body": "1891 年篮球刚发明时，规则一共只有 13 条。那时候球员接到球以后，可以做什么？",
+    "options": ["只能站在原地把球传出去", "最多拍 3 下球", "抱着球最多跑 3 步"], "answer": 0,
+    "explain": "最初的规则写得很死：不许带着球跑，必须在接到球的地方把它传出去。运球是后来才有的——1901 年前后才写进规则，而且只许拍一下，拍完还不许投篮。1909 年起，才可以连续运球、运完直接投。",
+    "more": "有记录的第一支靠运球打比赛的球队，是 1897 年的耶鲁大学队。\n\n没有运球的篮球更像传球接力：一队 9 个人满场站好，谁拿到球，谁就得定在原地找人。",
+    "hint": "他多半不信。问他：一场谁都不许运球的比赛该怎么打？下次去球场，真来 2 分钟“只传不运”，输了你认。",
+    "refs": [
+      {"t": "Rules of basketball · Wikipedia", "u": "https://en.wikipedia.org/wiki/Rules_of_basketball", "lv": "常识"},
+      {"t": "Dribbling · Wikipedia", "u": "https://en.wikipedia.org/wiki/Dribbling", "lv": "常识"}
+    ],
+    "art": "whistle", "tags": ["篮球", "规则", "运球"]
+  },
+  {
+    "id": "show-003", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "饭桌"], "mins": 2,
+    "title": "NBA 哪年才有三分球？",
+    "body": "NBA 从 1946 年开打。一开始，站多远投进都只算 2 分。三分线是哪一年才画上去的？",
+    "options": ["1954 年", "1967 年", "1979 年", "1988 年"], "answer": 2,
+    "explain": "NBA 的头 33 年没有三分球。1979–80 赛季才画上三分线，而且一开始只说“先试一年”。国际篮联更晚，1984 年才有；奥运会要等到 1988 年。",
+    "more": "三分球不是 NBA 的主意。1961 年，一个叫 ABL 的小联盟最先用上；1967 年，NBA 的对手联盟 ABA 也开始用。NBA 是后来才跟进的。\n\n现在 NBA 的三分线离篮筐中心最远 7.24 米，国际篮联的是 6.75 米。",
+    "hint": "他要是早就知道，就让他讲给你听，再问一句：没有三分线的年代，射手怎么办？你只听，不评。",
+    "refs": [{"t": "Three-point field goal · Wikipedia", "u": "https://en.wikipedia.org/wiki/Three-point_field_goal", "lv": "常识"}],
+    "art": "target", "tags": ["篮球", "NBA", "三分球"]
+  },
+  {
+    "id": "show-004", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上"], "mins": 2,
+    "title": "篮筐为什么是 3.05 米？",
+    "body": "全世界正规比赛的篮筐都一样高：3.05 米。这个有零有整的数，是怎么来的？",
+    "options": ["按当时成年人的摸高算出来的", "体育馆的看台栏杆正好这么高", "试了很多高度，这个命中率最合适"], "answer": 1,
+    "explain": "1891 年，发明篮球的奈史密斯把两个桃篮钉在体育馆二层看台的栏杆上。那根栏杆离地正好 10 英尺，换算过来就是 3.05 米。没人专门算过。后来篮子换成了铁圈和网，高度却一直没动。",
+    "hint": "揭晓后只问一句：要是当年那根栏杆再矮半米，今天的篮球会变成什么样？然后让他说，别接“所以”。",
+    "refs": [
+      {"t": "Springfield College：Where Basketball was Invented", "u": "https://springfield.edu/where-basketball-was-invented-the-birthplace-of-basketball", "lv": "官方"},
+      {"t": "NBA.com：篮球诞生 125 周年纪念文章", "u": "https://www.nba.com/news/celebrating-125th-anniversary-basketball", "lv": "官方"}
+    ],
+    "art": "hoop", "tags": ["篮球", "篮筐", "奈史密斯"]
+  },
+  {
+    "id": "show-005", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "饭桌"], "mins": 2,
+    "title": "篮球最早是什么颜色？",
+    "body": "现在的篮球大多是橙色的。可在最初的几十年里，它根本不是这个颜色。",
+    "options": ["深棕色", "白色", "黑色"], "answer": 0,
+    "explain": "最早打篮球用的其实是足球。后来专门做的篮球是深棕色的，在球馆里不太显眼。1950 年代末，美国一位大学教练托尼·欣克尔想让球员和观众都看得更清楚，才推出了橙色的球，一直用到今天。",
+    "hint": "让他先猜。然后问：让你来定，你选什么颜色？他说荧光绿、全黑都行，别评价，顺着聊就好。",
+    "refs": [{"t": "Basketball（History 一节）· Wikipedia", "u": "https://en.wikipedia.org/wiki/Basketball", "lv": "常识"}],
+    "art": "ball", "tags": ["篮球", "器材"]
+  },
+  {
+    "id": "show-006", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上"], "mins": 2,
+    "title": "篮板最早是干什么用的？",
+    "body": "篮筐后面那块板，一开始是没有的。后来为什么要加上它？",
+    "options": ["让球打板以后更容易进", "挡住看台上伸手的观众", "防止球飞出去砸到人"], "answer": 1,
+    "explain": "早期的篮筐直接钉在二层看台的栏杆上，楼上的观众一伸手，就能把球拨进去或者挡出来。加一块板把人和筐隔开，这就是篮板。至于打板进球，是装上以后球员才发现的“赠品”。",
+    "hint": "他要是选“打板更容易进”，别说“错”：那是篮板现在的本事，只是不是它最初的差事。翻开答案一起看，看完就停。",
+    "refs": [
+      {"t": "Basketball（History 一节）· Wikipedia", "u": "https://en.wikipedia.org/wiki/Basketball", "lv": "常识"},
+      {"t": "NBA.com：篮球诞生 125 周年纪念文章", "u": "https://www.nba.com/news/celebrating-125th-anniversary-basketball", "lv": "官方"}
+    ],
+    "art": "hoop", "tags": ["篮球", "篮板", "器材"]
+  },
+  {
+    "id": "show-007", "type": "show", "sub": "篮球", "format": "reveal", "audience": "all", "for": "kid",
+    "scenes": ["球场", "救场", "周末"], "mins": 3,
+    "title": "好射手的球为什么倒着转？",
+    "body": "仔细看好射手出手：球是向后转着飞出去的，这叫后旋。除了好看，这个旋转到底帮了什么忙？",
+    "reveal": {
+      "label": "看答案",
+      "text": "后旋让球变“软”：碰到篮筐或篮板以后弹得更慢、离筐更近，更容易掉进去。",
+      "explain": "球向后转着碰到筐沿，摩擦力会把它往回拽；碰到篮板，摩擦力会把它往下拽。两种情况都在帮它减速、往筐里送。美国北卡州立大学的两位工程师用电脑模拟了几十万次罚球，结论是每秒转 3 圈左右的后旋最合适。"
+    },
+    "more": "这是电脑模拟出来的结果，用的是男子比赛用球的数据，不是真人实测。换个人、换个球，具体数字会有出入。",
+    "hint": "别讲力学。手边有球（没有就用橘子）向后搓着抛一下，让他看清转的方向就够了。剩下的留给球场。",
+    "refs": [
+      {"t": "北卡州立大学工程学院：Nothing But Net", "u": "https://engr.ncsu.edu/news/2009/11/06/nothing-but-net-the-physics-of-free-throw-shooting/", "lv": "实证"},
+      {"t": "Tran & Silverberg (2008)，Journal of Sports Sciences", "lv": "实证"}
+    ],
+    "art": "ball", "tags": ["篮球", "物理", "后旋", "投篮"]
+  },
+  {
+    "id": "show-008", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上", "饭桌"], "mins": 2,
+    "title": "第一场篮球赛，比分多少？",
+    "body": "1891 年 12 月，人类历史上第一场篮球赛。两队打完，最后的比分是多少？",
+    "options": ["0 比 0", "12 比 10", "21 比 18", "1 比 0"], "answer": 3,
+    "explain": "全场只进了一个球。那天 18 个学生分成两队，一队 9 个人，用的还是足球，篮筐是钉在栏杆上的桃篮。唯一的进球来自一个叫威廉·蔡斯的学生，出手的地方离筐七八米远——放到今天是个三分球。",
+    "more": "那时候的桃篮是有底的。每进一个球，都得有人把球从篮子里取出来——好在那天全场只进了一个。",
+    "hint": "你先故意猜个大比分垫底。揭晓后问：九打九、不许运球，换你上场站哪儿？听他排兵布阵。",
+    "refs": [
+      {"t": "NBA.com：篮球诞生 125 周年纪念文章", "u": "https://www.nba.com/news/celebrating-125th-anniversary-basketball", "lv": "官方"},
+      {"t": "History of basketball · Wikipedia", "u": "https://en.wikipedia.org/wiki/History_of_basketball", "lv": "常识"}
+    ],
+    "art": "scoreboard", "tags": ["篮球", "历史", "奈史密斯"]
+  },
+  {
+    "id": "show-009", "type": "show", "sub": "天上地下", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "车上"], "mins": 2,
+    "title": "哪颗行星一天比一年长？",
+    "body": "太阳系里有一颗行星：自己转一圈花的时间，比绕太阳转一圈还要长。是哪一颗？",
+    "options": ["火星", "金星", "木星", "土星"], "answer": 1,
+    "explain": "金星自转一圈要 243 个地球日，绕太阳一圈却只要 225 个地球日。它还是倒着转的：站在金星上，太阳从西边升起、东边落下。",
+    "more": "这里说的“一天”是自转一整圈。如果按“这次日出到下次日出”来算，因为金星倒着转，一昼夜大约是 117 个地球日，反而比它的一年短。两种说法都没错，只是量法不同。\n\n水星正好反过来：自转一圈（59 个地球日）比一年（88 个地球日）短，可从日出等到下一次日出要 176 个地球日，等于它的 2 年。\n\n金星还是太阳系最热的行星，表面 460 多摄氏度，比离太阳更近的水星还热：厚厚的大气把热量全捂在了里面。",
+    "hint": "他要是脱口而出“金星”，就追问：那金星上太阳从哪边出来？这个他多半不知道——你也是刚知道的，照实说。",
+    "refs": [
+      {"t": "NASA Science：Venus Facts", "u": "https://science.nasa.gov/venus/venus-facts/", "lv": "官方"},
+      {"t": "NASA Science：Mercury Facts", "u": "https://science.nasa.gov/mercury/facts/", "lv": "官方"}
+    ],
+    "art": "planet", "tags": ["宇宙", "行星", "金星"]
+  },
+  {
+    "id": "show-010", "type": "show", "sub": "天上地下", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "车上"], "mins": 2,
+    "title": "空间站上一天看几次日出？",
+    "body": "在地面上，一天只有一次日出。住在空间站里的宇航员，24 小时能看到几次？",
+    "options": ["还是 1 次", "4 次左右", "16 次左右", "24 次，每小时 1 次"], "answer": 2,
+    "explain": "国际空间站大约每 90 分钟绕地球一圈，一天 16 圈，所以 24 小时里要经过 16 次日出和 16 次日落。它每秒飞将近 8 公里——从北京到上海，2 分多钟。",
+    "more": "中国空间站也差不多：轨道高度在 400 公里上下，90 分钟左右绕一圈，航天员每天同样要过十几次“早晨”。\n\n所以在空间站里没法看太阳过日子，作息统一按钟表来。",
+    "hint": "先用手挡住选项，只说“90 分钟绕地球一圈”，各自心算一天几圈，同时报数。你算错了就认，他算对了别补课。",
+    "refs": [
+      {"t": "NASA：Space Station Facts and Figures", "u": "https://www.nasa.gov/international-space-station/space-station-facts-and-figures/", "lv": "官方"},
+      {"t": "Tiangong space station · Wikipedia", "u": "https://en.wikipedia.org/wiki/Tiangong_space_station", "lv": "常识"}
+    ],
+    "art": "rocket", "tags": ["宇宙", "空间站", "宇航员"]
+  },
+  {
+    "id": "show-011", "type": "show", "sub": "天上地下", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "饭桌"], "mins": 2,
+    "title": "冬天地球离太阳更远吗？",
+    "body": "北半球的冬天这么冷。这个时候的地球，离太阳是更近还是更远？",
+    "options": ["更远，所以才冷", "更近", "一年到头一样远"], "answer": 1,
+    "explain": "每年 1 月初，地球离太阳最近（约 1.47 亿公里）；7 月初最远（约 1.52 亿公里）。冷热和这点远近关系不大，是因为地球歪着身子转：冬天，北半球这一头正好歪向背着太阳的一边，阳光斜着照，白天又短。这时候南半球正在过夏天。",
+    "hint": "你先大大方方选“更远”，答错给他看。等他来纠正你，再问：那这会儿澳大利亚是什么季节？",
+    "refs": [{"t": "NASA Space Place：What Causes the Seasons?", "u": "https://spaceplace.nasa.gov/seasons/en/", "lv": "官方"}],
+    "art": "snow", "tags": ["地球", "四季", "太阳"]
+  },
+  {
+    "id": "show-012", "type": "show", "sub": "天上地下", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "车上"], "mins": 2,
+    "title": "闪电和太阳表面，谁更热？",
+    "body": "一边是天上一闪而过的闪电，一边是烧了几十亿年的太阳表面。哪个温度更高？",
+    "options": ["太阳表面，高得多", "两个差不多", "闪电，高好几倍"], "answer": 2,
+    "explain": "闪电经过的那一小条空气，瞬间能被加热到两万七八千摄氏度，大约是太阳表面的 5 倍。空气被烫得猛地膨胀开，那一声炸响就是雷。",
+    "more": "注意比的是太阳的“表面”（约 5500 摄氏度）。太阳中心有 1000 多万摄氏度，闪电就差远了。\n\n顺便辟个谣：“闪电不会两次打中同一个地方”是假的。又高又尖的东西会被反复击中，纽约的帝国大厦平均每年要挨 20 多下。",
+    "hint": "打雷的晚上拿出来最好。各押一个，输的人负责解释雷声是怎么来的——答案卡片上有，一起看。",
+    "refs": [
+      {"t": "美国国家气象局：How Hot Is Lightning?", "u": "https://www.weather.gov/safety/lightning-temperature", "lv": "官方"},
+      {"t": "美国国家气象局：Lightning Myths", "u": "https://www.weather.gov/safety/lightning-myths", "lv": "官方"}
+    ],
+    "art": "sun", "tags": ["地球", "闪电", "天气", "辟谣"]
+  },
+  {
+    "id": "show-013", "type": "show", "sub": "天上地下", "format": "reveal", "audience": "all", "for": "kid",
+    "scenes": ["救场", "出游", "车上"], "mins": 3,
+    "title": "最高的山，有三个答案",
+    "body": "先别急着喊珠穆朗玛峰。换一种量法，冠军就换人。另外两种量法、两座山，猜得到吗？",
+    "reveal": {
+      "label": "看答案",
+      "text": "从海平面量：珠穆朗玛峰，约 8849 米。从海底的山脚量到山顶：夏威夷的冒纳凯阿，约 1 万米，大半截泡在海里。离地心最远：厄瓜多尔的钦博拉索山。",
+      "explain": "地球不是正圆的球，赤道那一圈往外鼓。钦博拉索山几乎就在赤道上，海拔只有 6200 多米，山顶却比珠峰顶离地心还远 2000 多米。站在那儿，你就是全地球离地心最远的人。"
+    },
+    "hint": "他喊“珠峰”时别说“错”，说“对了三分之一”。另外两座让他乱猜，猜不到再翻。想查地图，留到最后。",
+    "refs": [{"t": "NOAA：What is the highest point on Earth?", "u": "https://oceanservice.noaa.gov/facts/highestpoint.html", "lv": "官方"}],
+    "art": "mountain", "tags": ["地球", "地理", "珠峰"]
+  },
+  {
+    "id": "show-014", "type": "show", "sub": "天上地下", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "出游", "饭桌"], "mins": 2,
+    "title": "太空里看得见长城吗？",
+    "body": "“长城是太空中唯一能用肉眼看到的人造建筑。”这句话很多人都听过。是真的吗？",
+    "options": ["真的，而且是唯一的", "半真：要到月球上才看得见", "假的，肉眼基本认不出来"], "answer": 2,
+    "explain": "长城很长，可是只有几米宽，颜色又和周围的山差不多。2003 年杨利伟从太空回来，说他没有看到长城。NASA 的说法也一样：在几百公里高的轨道上，肉眼一般认不出它；从月球上更是绝对看不到。",
+    "more": "用长焦镜头倒是拍得到。华裔宇航员焦立中在国际空间站拍到过一小段长城——他自己当时都不确定拍没拍到，是后来专家在照片上认出来的。\n\n在轨道上，肉眼更容易看到的人类痕迹，是夜里城市的灯光。",
+    "hint": "这是张辟谣卡。他要是早知道，就让他讲给你听；你只问：那在太空里到底能看见什么？别补“课本也会错”。",
+    "refs": [
+      {"t": "NASA：Great Wall（图片说明）", "u": "https://www.nasa.gov/image-article/great-wall", "lv": "官方"},
+      {"t": "Great Wall of China（Visibility from space）· Wikipedia", "u": "https://en.wikipedia.org/wiki/Great_Wall_of_China", "lv": "常识"}
+    ],
+    "art": "telescope", "tags": ["宇宙", "长城", "辟谣"]
+  },
+  {
+    "id": "show-015", "type": "show", "sub": "人体", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "车上"], "mins": 2,
+    "title": "为什么自己挠自己不痒？",
+    "body": "别人一挠你就笑得不行，自己挠同一个地方却一点感觉都没有。问题出在哪儿？",
+    "options": ["大脑提前知道了要碰哪儿", "自己下手总是太轻", "皮肤认得出自己的手"], "answer": 0,
+    "explain": "你的手一动，小脑就已经算好“下一秒哪儿会被碰到”，大脑顺手把这份感觉调小了。没有意外，就不痒。科学家让人操纵机器手来挠自己：只要机器晚零点几秒才动，或者偷偷换个方向，人就又觉得痒了。",
+    "hint": "先让他挠挠自己的手心，再把你的手心伸过去让他挠。你躲得越狼狈越好。答案一句话说完，不展开。",
+    "refs": [
+      {"t": "Tickling · Wikipedia", "u": "https://en.wikipedia.org/wiki/Tickling", "lv": "常识"},
+      {"t": "Blakemore, Frith & Wolpert (1999)，J. Cognitive Neuroscience", "lv": "实证"}
+    ],
+    "art": "brain", "tags": ["人体", "大脑", "挠痒"]
+  },
+  {
+    "id": "show-016", "type": "show", "sub": "人体", "format": "plain", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "饭桌"], "mins": 3,
+    "title": "谁先打哈欠谁输",
+    "body": "打哈欠会传染：看见别人打、听见声音，甚至只是读到“哈欠”这两个字，都可能跟着来一个。现在面对面，各自假装打几个，看谁先中招。",
+    "more": "这叫“传染性哈欠”，实验里反复出现过。为什么会这样，科学家到现在也没有统一的答案：有人认为和体会别人的感受有关，但证据并不一致。\n\n不只是人。黑猩猩之间会互相传染；在一项实验里，29 只狗当中有 21 只，在陌生人冲它打哈欠之后也跟着打了。\n\n“打哈欠是因为缺氧”这个老说法也没站住脚：实验里让人多吸氧气，哈欠并没有变少。",
+    "hint": "别解释，先冲他夸张地打一个哈欠。等他中招了，再把卡片亮给他。睡前用最灵，打完正好关灯。",
+    "refs": [{"t": "Yawn · Wikipedia", "u": "https://en.wikipedia.org/wiki/Yawn", "lv": "常识"}],
+    "art": "bed", "tags": ["人体", "哈欠", "小游戏"]
+  },
+  {
+    "id": "show-017", "type": "show", "sub": "人体", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["球场", "救场", "车上"], "mins": 2,
+    "title": "为什么第二天才开始酸？",
+    "body": "打完球当天没事，第二天一起床，腿酸得下不了楼。这份酸痛是哪儿来的？",
+    "options": ["乳酸堆在肌肉里没散掉", "肌肉纤维有了细小的损伤", "出汗太多，肌肉缺水"], "answer": 1,
+    "explain": "乳酸是被冤枉的：运动完 1 小时左右，它就回到正常水平了。真正的原因是肌肉干了不习惯的活，纤维上出现了极细小的损伤，修补的过程让你觉得酸。这种酸一般在运动后 1 到 3 天最厉害。",
+    "more": "它有个正式的名字：延迟性肌肉酸痛。最容易惹上它的，是“一边用力一边被拉长”的动作，比如下山、下楼梯、跳起来落地。\n\n肌肉适应得很快：同样的运动过几天再做一次，就不怎么酸了。",
+    "hint": "等他自己喊腿酸的时候再拿出来。你先说“是乳酸吧”，让卡片来纠正你。别顺势提热身和拉伸。",
+    "refs": [{"t": "Delayed onset muscle soreness · Wikipedia", "u": "https://en.wikipedia.org/wiki/Delayed_onset_muscle_soreness", "lv": "常识"}],
+    "art": "sneaker", "tags": ["人体", "运动", "肌肉", "辟谣"]
+  },
+  {
+    "id": "show-018", "type": "show", "sub": "人体", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上", "饭桌"], "mins": 2,
+    "title": "枪响之后起跑，也算抢跑？",
+    "body": "百米比赛，发令枪明明已经响了，你才蹬出去——居然还是可能被判抢跑。枪响后多快起动，算“太快”？",
+    "options": ["0.01 秒以内", "0.1 秒以内", "0.5 秒以内"], "answer": 1,
+    "explain": "大赛的起跑器里装着传感器。规则认定：人从听见枪声到蹬出去，至少要 0.1 秒；比这还快，只能说明你是在猜枪。世界顶尖选手的起跑反应，通常也要 0.1 秒多一点。",
+    "more": "这条线划得对不对，一直有人争：有研究认为，极少数顶尖选手也许真能快过 0.1 秒。可规则就是规则，世界大赛上有选手因为 0.099 秒——只快了千分之一秒——被罚下场。\n\n一般年轻人看到信号再按键，大约要 0.2 秒；听到声音会快一点，0.16 秒左右。",
+    "hint": "看完别总结。直接去「工具箱」找「反应对决」比一局，看你俩离 0.1 秒差多远。输了就认。",
+    "refs": [
+      {"t": "False start · Wikipedia", "u": "https://en.wikipedia.org/wiki/False_start", "lv": "常识"},
+      {"t": "World Athletics《竞赛与技术规则》起跑部分", "lv": "官方"}
+    ],
+    "art": "flag", "tags": ["人体", "反应时间", "田径"]
+  },
+  {
+    "id": "show-019", "type": "show", "sub": "人体", "format": "plain", "audience": "all", "for": "kid",
+    "scenes": ["饭桌", "救场"], "mins": 2,
+    "title": "“舌头地图”是假的",
+    "body": "舌尖尝甜、两边尝酸、舌根尝苦——这张图很多人都见过。其实舌尖、两边、舌根，哪儿都能尝出各种味道。下回吃糖，把它推到舌头侧面试试。",
+    "more": "这张图的来历是一连串误会。1901 年，一位德国科学家测出舌头不同部位的敏感程度有一点点差别；1942 年，哈佛的一位心理学家把他的数据重新画成了图；再后来，别人把“略有差别”读成了“各管一种”。\n\n1974 年就有人用实验证实：舌头上有味蕾的地方，酸甜苦咸都尝得出来。\n\n可这张图太好记了，到现在还到处能见到。",
+    "hint": "先问他见没见过这张图。然后承认：这个我信了几十年。饭桌上有糖有盐，就让他拿舌头两边当场验一验。",
+    "refs": [{"t": "Tongue map · Wikipedia", "u": "https://en.wikipedia.org/wiki/Tongue_map", "lv": "常识"}],
+    "art": "map", "tags": ["人体", "味觉", "辟谣"]
+  },
+  {
+    "id": "show-020", "type": "show", "sub": "动物", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "出游"], "mins": 2,
+    "title": "鲨鱼和树，谁先来到地球？",
+    "body": "一个是海里的鲨鱼，一个是陆地上的树。谁在地球上出现得更早？",
+    "options": ["鲨鱼，早了几千万年", "树，早了上亿年", "差不多同时"], "answer": 0,
+    "explain": "鲨鱼这一家最早的化石（几片鳞）有大约 4.5 亿年了，而已知最早的树大约 3.85 亿年前才出现。鲨鱼比树早了几千万年，比恐龙早了 2 亿多年，还熬过了 5 次生物大灭绝。",
+    "hint": "各押一个，你押“树”。输了以后再问：那恐龙和鲨鱼呢？答案就在解释里，让他自己念出来。",
+    "refs": [
+      {"t": "英国自然历史博物馆：Shark evolution timeline", "u": "https://www.nhm.ac.uk/discover/shark-evolution-a-450-million-year-timeline.html", "lv": "官方"},
+      {"t": "Wattieza · Wikipedia", "u": "https://en.wikipedia.org/wiki/Wattieza", "lv": "常识"}
+    ],
+    "art": "tree", "tags": ["动物", "鲨鱼", "化石"]
+  },
+  {
+    "id": "show-021", "type": "show", "sub": "动物", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "出游"], "mins": 2,
+    "title": "章鱼为什么不爱游泳？",
+    "body": "章鱼会游泳，可大多数时候，它宁愿在海底慢慢爬。为什么？",
+    "options": ["一游泳，它的主心脏就停工", "8 条腕太重，游不快", "游起来就看不清东西"], "answer": 0,
+    "explain": "章鱼有 3 颗心脏：2 颗专门把血泵过两边的鳃，第 3 颗负责送往全身。偏偏一游起来，管全身的那颗就停工，体力掉得飞快。顺便说，它的血是蓝色的：运氧气用的是含铜的蛋白，不是我们这种含铁的。",
+    "hint": "他要是知道“3 颗心脏”，这题就是送他的，让他讲。再追问一句：那它的血是什么颜色？问不倒就服气。",
+    "refs": [{"t": "Octopus · Wikipedia", "u": "https://en.wikipedia.org/wiki/Octopus", "lv": "常识"}],
+    "art": "heart", "tags": ["动物", "章鱼", "海洋"]
+  },
+  {
+    "id": "show-022", "type": "show", "sub": "动物", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "车上"], "mins": 2,
+    "title": "金鱼的记忆只有 7 秒？",
+    "body": "“金鱼只有 7 秒记忆，游一圈就全忘了。”这句话流传很广。是真的吗？",
+    "options": ["真的，转个身就忘", "半真，大概能记 1 分钟", "假的，能记好几个月"], "answer": 2,
+    "explain": "金鱼能把事情记上好几个月，还分得清不同的形状、颜色和声音。英国普利茅斯大学的人教金鱼推杠杆换吃的，后来把杠杆改成每天只在固定的一个小时里管用——金鱼很快学会了到点才去推。",
+    "hint": "各押一个再翻，你押“真的”，押错了就认。养过鱼的话问他一句：一到喂食的点，鱼是不是自己凑过来？",
+    "refs": [{"t": "Goldfish · Wikipedia", "u": "https://en.wikipedia.org/wiki/Goldfish", "lv": "常识"}],
+    "art": "hourglass", "tags": ["动物", "金鱼", "记忆", "辟谣"]
+  },
+  {
+    "id": "show-023", "type": "show", "sub": "动物", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "车上"], "mins": 2,
+    "title": "猫尝不出哪种味道？",
+    "body": "酸、甜、苦、咸，有一种味道猫完全尝不出来。是哪一种？",
+    "options": ["酸", "甜", "苦", "咸"], "answer": 1,
+    "explain": "尝出甜味要靠两个基因合作，其中一个在猫身上早就“坏”了，成了不工作的假基因。所以蛋糕再甜，猫也吃不出甜。老虎和猎豹的这个基因同样是坏的。",
+    "more": "这是 2005 年发表的一项基因研究。研究者认为，这和猫科动物专门吃肉的习性有关。",
+    "hint": "认识的人里有养猫的最好。说完就停，别接“所以不能喂猫吃甜食”。让他拿去考养猫的同学。",
+    "refs": [{"t": "Li 等 (2005)，PLoS Genetics：猫的甜味受体基因", "u": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.0010003", "lv": "实证"}],
+    "art": "question", "tags": ["动物", "猫", "味觉"]
+  },
+  {
+    "id": "show-024", "type": "show", "sub": "数学", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "饭桌"], "mins": 3,
+    "title": "一张纸对折几次能到月球？",
+    "body": "一张纸厚约 0.1 毫米。假设它足够大，能一直对折下去：折多少次，厚度就超过地球到月球的距离（约 38 万公里）？",
+    "options": ["大约 100 万次", "大约 1 万次", "大约 1000 次", "42 次"], "answer": 3,
+    "explain": "每折一次，厚度翻一倍。折 10 次约 10 厘米，20 次约 105 米，30 次约 107 公里，42 次约 44 万公里——过月球了。翻倍这件事，前面慢得像没动，后面快得吓人。",
+    "more": "照这个算法，折到 103 次，厚度就超过了整个可观测宇宙的直径（约 930 亿光年）。\n\n现实里当然折不了这么多次：纸越折越小、越折越厚。常听人说“一张纸最多对折 8 次”，2002 年，美国高中生布兰妮·加利文用一条约 1200 米长的卫生纸，朝同一个方向折了 12 次，还推出了“多长的纸能折几次”的公式。",
+    "hint": "手边有纸就先让他折，折到折不动（一般六七次）。再猜到月球要几次，你报个离谱的大数垫底。",
+    "refs": [
+      {"t": "Mathematics of paper folding · Wikipedia", "u": "https://en.wikipedia.org/wiki/Mathematics_of_paper_folding", "lv": "常识"},
+      {"t": "NASA Science：Moon Facts（地月平均距离）", "u": "https://science.nasa.gov/moon/facts/", "lv": "官方"}
+    ],
+    "art": "moon", "tags": ["数学", "翻倍", "指数"]
+  },
+  {
+    "id": "show-025", "type": "show", "sub": "数学", "format": "reveal", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "饭桌", "出差"], "mins": 3,
+    "title": "0.999… 和 1，谁大？",
+    "body": "0.999…，小数点后面的 9 无穷无尽，永远写不完。它是比 1 小一点点，还是和 1 一样大？各押一个再翻。",
+    "reveal": {
+      "label": "翻答案",
+      "text": "一样大。0.999… 就是 1，一丁点儿都不差。",
+      "explain": "1/3=0.333…，两边都乘以 3：左边是 1，右边是 0.999…。还不服？两个不相等的数之间，一定还能再塞进一个数。你试试在 0.999… 和 1 中间塞一个——塞不进去。"
+    },
+    "more": "还有一种算法：设 x=0.999…，那么 10x=9.999…。两式相减，9x=9，所以 x=1。\n\n觉得别扭很正常，很多学数学的人第一次见到也不肯信。关键在那个“…”：它不是“很多个 9”，而是“9 永远不停”。只要停下来，哪怕停在第一亿位，它就比 1 小；不停，就等于 1。",
+    "hint": "他多半站“小一点点”。你陪他站同一边，一起被答案打脸。他不服气跟你吵，这张卡就成了，别急着赢。",
+    "refs": [{"t": "0.999... · Wikipedia", "u": "https://en.wikipedia.org/wiki/0.999...", "lv": "常识"}],
+    "art": "magnifier", "tags": ["数学", "无穷", "小数"]
+  },
+  {
+    "id": "show-026", "type": "show", "sub": "数学", "format": "plain", "audience": "all", "for": "kid",
+    "scenes": ["周末", "饭桌"], "mins": 5,
+    "title": "只有一个面的纸环",
+    "body": "裁一条纸带，把一头拧半圈，再把两头粘成环。拿笔沿着中间一直画，别抬笔——你会一口气画遍“里外两面”，回到起点。这个环只有一个面。",
+    "more": "它叫莫比乌斯带，1858 年由两位德国数学家各自发现。\n\n再来一个：用剪刀沿着刚才画的那条线，把环从中间剪开。动手之前先猜会变成什么。\n- 多数人猜：两个环\n- 结果：一个 2 倍长的大环，没断开\n\n还没完。再做一个新的，这次贴着离边三分之一的地方一直剪下去，会得到一大一小、套在一起的两个环。",
+    "hint": "别先说名字，也别剧透。纸带你来粘，笔交给他画。动剪刀之前两人各押一个结果，你押“两个环”。",
+    "refs": [{"t": "Möbius strip · Wikipedia", "u": "https://en.wikipedia.org/wiki/M%C3%B6bius_strip", "lv": "常识"}],
+    "art": "paper-plane", "tags": ["数学", "莫比乌斯带", "动手", "纸"]
+  },
+  {
+    "id": "show-027", "type": "show", "sub": "数学", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "出游"], "mins": 3,
+    "title": "一副牌有多少种排法？",
+    "body": "一副扑克去掉大小王，52 张。把它们随便排成一摞，一共能有多少种不同的顺序？",
+    "options": ["大约 1 万种", "大约 1 亿种", "大约 1 亿亿种", "8 后面跟着 67 个 0"], "answer": 3,
+    "explain": "第一张有 52 种可能，第二张 51 种……全乘起来，大约是 8 后面 67 个 0。就算全世界 80 亿人从宇宙诞生那天起每秒洗一次牌，到今天也连它的零头都没洗完。所以你认真洗出来的每一副牌，几乎可以肯定是有史以来头一回出现的顺序。",
+    "more": "这个数写出来是 52×51×50×…×2×1，数学里记作 52!，念“52 的阶乘”。它比地球上所有原子的个数（大约 1 后面 50 个 0）还多得多。\n\n前提是洗得够乱。数学家算过，像样的交错洗牌大约要洗 7 次，牌才算真正乱了；只洗两三下，离“随机”还差得远。",
+    "hint": "手边有牌，就让他洗一把，然后郑重宣布：这个顺序，人类历史上头一回。他问凭什么，再一起看解释。",
+    "refs": [{"t": "Shuffling · Wikipedia", "u": "https://en.wikipedia.org/wiki/Shuffling", "lv": "常识"}],
+    "art": "cards", "tags": ["数学", "扑克", "阶乘", "概率"]
+  },
+  {
+    "id": "show-028", "type": "show", "sub": "英语", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "出差"], "mins": 2,
+    "title": "这句英语藏着什么秘密？",
+    "body": "**The quick brown fox jumps over the lazy dog.**\n试键盘、看字体的时候常能见到这句话。它到底特别在哪儿？",
+    "options": ["26 个字母全都用上了", "正着念倒着念都一样", "每个单词的字母数都不同"], "answer": 0,
+    "explain": "这种句子叫 pangram（全字母句）。这一句至少从 1885 年就有了，一共 35 个字母，修打字机和电传机的人都拿它来测试每个键是不是好的。还有更短的：Sphinx of black quartz, judge my vow. 只用了 29 个字母。",
+    "more": "它最早被印出来的时候，开头是 A 不是 The：A quick brown fox jumps over the lazy dog. 这样只有 33 个字母。\n\n再给一句当靶子：The five boxing wizards jump quickly. 31 个字母。",
+    "hint": "让他自己从 a 到 z 核一遍，别帮忙。核完向他下战书：编一句更短的。他编得再怪也算数。",
+    "refs": [{"t": "The quick brown fox jumps over the lazy dog · Wikipedia", "u": "https://en.wikipedia.org/wiki/The_quick_brown_fox_jumps_over_the_lazy_dog", "lv": "常识"}],
+    "art": "abc", "tags": ["英语", "字母", "pangram"]
+  },
+  {
+    "id": "show-029", "type": "show", "sub": "英语", "format": "reveal", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "出差"], "mins": 3,
+    "title": "把这句英语倒着念",
+    "body": "**Was it a car or a cat I saw?**\n别管空格和标点，从最后一个字母开始，一个一个往回拼。拼完告诉我发生了什么。",
+    "reveal": {
+      "label": "看答案",
+      "text": "倒过来还是同一句。这种正着倒着都一样的词和句子，叫回文（palindrome）。",
+      "explain": "单词里也有：level、noon、kayak、racecar。句子还有 Never odd or even 和 Madam, I'm Adam。中文一样能玩：上海自来水来自海上。"
+    },
+    "more": "palindrome 这个词来自希腊语，大意是“又跑回来”。\n\n日期也能回文：2021 年 12 月 2 日写成 20211202。下一个这样的日子是 2030 年 3 月 2 日——20300302。",
+    "hint": "让他自己倒着拼，别替他念。拼完接着比中文：从“上海自来水来自海上”开始，一人一句，谁先卡住谁输。",
+    "refs": [{"t": "Palindrome · Wikipedia", "u": "https://en.wikipedia.org/wiki/Palindrome", "lv": "常识"}],
+    "art": "book", "tags": ["英语", "回文", "palindrome"]
+  },
+  {
+    "id": "show-030", "type": "show", "sub": "英语", "format": "plain", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "出游", "出差"], "mins": 3,
+    "title": "英语绕口令：谁先打结",
+    "body": "下面 3 句，谁能又快又清楚地连说 5 遍，谁赢：\n**Toy boat**\n**Red lorry, yellow lorry**\n**She sells seashells by the seashore**",
+    "more": "3 句都是流传很久的传统绕口令，难法各不相同：\n- Toy boat：说快了会变成 toy boyt\n- Red lorry, yellow lorry：r 和 l 挨得太近，舌头来不及换位置\n- She sells seashells：s 和 sh 轮流上\n\n最后一句至少 1850 年就被印出来，当作练发音的材料。\n\n还想加码：Peter Piper picked a peck of pickled peppers.",
+    "hint": "你先来，而且要真的说砸。让他当裁判兼教练。不纠正他的发音，一个音都别纠——这局他是懂行的那个。",
+    "refs": [{"t": "Tongue twister · Wikipedia", "u": "https://en.wikipedia.org/wiki/Tongue_twister", "lv": "常识"}],
+    "art": "chat", "tags": ["英语", "绕口令", "小游戏"]
+  },
+  {
+    "id": "show-031", "type": "show", "sub": "英语", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["饭桌", "救场", "车上"], "mins": 2,
+    "title": "tea 是哪里的方言？",
+    "body": "英语的 tea，听着既不像普通话的 chá，也不像粤语的 cha。它其实是照着中国某个地方的方言念的。是哪儿？",
+    "options": ["四川话", "上海话", "福建闽南话"], "answer": 2,
+    "explain": "闽南话里“茶”念 tê。17 世纪，荷兰商人从讲闽南话的人那里买茶，把这个读音一起带回了欧洲：英语 tea、法语 thé、德语 Tee 都是它。走陆路传出去的茶，叫法都像 chá：俄语、土耳其语、印地语里都是 chai。",
+    "more": "所以全世界对茶的叫法，绝大多数不是像 tea，就是像 cha，源头都是中文。葡萄牙语有点特别：他们是坐船来的，却是在澳门跟讲粤语的人学的，所以叫 chá。\n\n英语借走的中文词还有 kowtow（叩头）、tofu（豆腐，日语先借走，英语再从日语借）、kung fu（功夫）。《牛津英语词典》里现在还查得到 add oil——就是“加油”，标的是香港英语。\n\n反过来，沙发、巧克力、吉他、坦克，都是中文从英语借的。",
+    "hint": "家里有人会闽南话或潮汕话，就请他念一声“茶”。然后让他用 tea 和 chai 考你别国怎么说，猜错就认。",
+    "refs": [
+      {"t": "Etymology of tea · Wikipedia", "u": "https://en.wikipedia.org/wiki/Etymology_of_tea", "lv": "常识"},
+      {"t": "Add oil · Wikipedia", "u": "https://en.wikipedia.org/wiki/Add_oil", "lv": "常识"}
+    ],
+    "art": "cup", "tags": ["英语", "外来词", "茶"]
+  },
+  {
+    "id": "show-032", "type": "show", "sub": "发明", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "饭桌"], "mins": 2,
+    "title": "“蓝牙”这名字哪来的？",
+    "body": "耳机、音箱、手柄都靠蓝牙连。可它跟“蓝色”和“牙”到底有什么关系？",
+    "options": ["1000 年前一位国王的外号", "两位发明人的姓：Blue 和 Tooth", "最早的芯片是蓝色锯齿形"], "answer": 0,
+    "explain": "10 世纪的丹麦国王哈拉尔，外号就叫“蓝牙”——据说他有一颗坏死的牙，颜色发蓝。他把丹麦和挪威统一到了一起。1996 年，几家公司想统一短距离无线的标准，一位工程师就借这个名字当临时代号，结果再也没换掉。",
+    "more": "蓝牙的图标也是他：把他名字的两个首字母 H 和 B 写成古代北欧的卢恩字母，再叠到一起，就是耳机盒上那个符号。\n\n本来打算正式发布时改叫 PAN 或 RadioWire。结果 PAN 在网上一搜，重名太多；RadioWire 来不及查完商标——只剩“蓝牙”能用。",
+    "hint": "趁他戴着蓝牙耳机时问。让他先猜，再让他把手机上的蓝牙图标找出来，一起看 H 和 B 藏在哪儿。",
+    "refs": [{"t": "Bluetooth SIG：Origin of the Bluetooth name", "u": "https://www.bluetooth.com/about-us/bluetooth-origin/", "lv": "官方"}],
+    "art": "music", "tags": ["发明", "科技", "蓝牙", "名字"]
+  },
+  {
+    "id": "show-033", "type": "show", "sub": "发明", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "车上"], "mins": 2,
+    "title": "橡皮发明前，用什么擦字？",
+    "body": "铅笔比橡皮出现得早。在橡皮被发明出来以前，铅笔字写错了，人们拿什么擦？",
+    "options": ["一小块湿布", "一块软木塞", "去了皮的软面包"], "answer": 2,
+    "explain": "把软面包捏成小团，就是当年的“橡皮”。1770 年，英国人爱德华·奈恩说，他本想伸手拿面包屑，却错抓了一小块橡胶，一擦，比面包好用多了。橡皮就是这么来的。",
+    "more": "英语里橡胶叫 rubber，本意就是“用来擦（rub）的东西”。这种材料是先当上了橡皮，才得了这个名字。\n\n把橡皮装到铅笔屁股上，要等到 1858 年。",
+    "hint": "手边有软面包和铅笔时最好：先别说话，捏一小团在铅笔印上擦擦看，再问他猜到了什么。擦不干净也照实说。",
+    "refs": [{"t": "Eraser · Wikipedia", "u": "https://en.wikipedia.org/wiki/Eraser", "lv": "常识"}],
+    "art": "pencil", "tags": ["发明", "橡皮", "文具"]
+  },
+  {
+    "id": "show-034", "type": "show", "sub": "发明", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "周末"], "mins": 2,
+    "title": "泡泡纸本来想做成什么？",
+    "body": "就是那种一捏就“啪”一声、让人停不下来的泡泡纸。它被发明出来的时候，原本是想拿来干什么的？",
+    "options": ["贴在墙上的立体墙纸", "浴室里的防滑垫", "救生衣的夹层"], "answer": 0,
+    "explain": "1957 年，两位发明家想做一种带立体花纹的塑料墙纸，结果根本卖不出去。后来他们发现，这东西拿来包东西特别好；1960 年前后，它被用来包装一款新出厂的计算机，从此改了行。",
+    "hint": "手边有泡泡纸最好：一人半张，边捏边猜。他猜什么都先说“有可能”，最后再翻答案。",
+    "refs": [{"t": "Bubble wrap · Wikipedia", "u": "https://en.wikipedia.org/wiki/Bubble_wrap", "lv": "常识"}],
+    "art": "bulb", "tags": ["发明", "泡泡纸", "意外"]
+  },
+  {
+    "id": "show-035", "type": "show", "sub": "发明", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "车上"], "mins": 2,
+    "title": "没有开罐器，怎么开罐头？",
+    "body": "罐头发明以后的头 40 多年里，世界上还没有开罐器。那时候的人是怎么把它打开的？",
+    "options": ["找块大石头把它砸开", "用凿子和锤子凿开", "拧开顶上的小盖子"], "answer": 1,
+    "explain": "铁皮罐头 1810 年就拿到了专利，专门的开罐器却要到 1855 年才出现。这 40 多年里，罐头上的说明是：用凿子和锤子，沿着顶上的边凿一圈。那时候的罐头皮厚得很，有的比里面装的东西还重。",
+    "more": "最早的开罐器差不多就是一把改了形状的刀。带轮子、能沿着罐边转一圈的那种，1870 年才出现；现在常见的双轮款，是 1925 年的事。",
+    "hint": "先用手挡住选项，让他自己想招。“用牙咬”“往地上摔”都记一分，再看选项。揭晓后说完就停。",
+    "refs": [{"t": "Can opener · Wikipedia", "u": "https://en.wikipedia.org/wiki/Can_opener", "lv": "常识"}],
+    "art": "pan", "tags": ["发明", "罐头", "厨房"]
+  }
+]

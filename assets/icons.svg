@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
+<!--
+  锦囊 · 图标雪碧图（视觉设计师 V1 维护）
+  i-*    线性图标，24 格，2px 描边、圆头圆角。symbol 内部不写 stroke / fill，由 .jn-ic 统一给；
+         只有 *-fill 实心版在 path 上显式写 fill="currentColor" stroke="none"。
+  g-*    品牌图形（标志、引导插图、安装示意），自带颜色。
+  pat-*  七种类型的平铺花纹，200 格，currentColor + 低不透明度。
+  画法规则见 docs/DESIGN.md。
+-->
+
+<!-- ================= 界面 ================= -->
+<symbol id="i-feed" viewBox="0 0 24 24"><rect x="4.5" y="6.5" width="15" height="11" rx="3"/><path d="M8.5 3h7M8.5 21h7"/></symbol>
+<symbol id="i-discover" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-1.9 5.3-5.3 1.9 1.9-5.3z"/></symbol>
+<symbol id="i-saved" viewBox="0 0 24 24"><path d="M7.5 3.5h9A1.5 1.5 0 0 1 18 5v15.5l-6-4-6 4V5a1.5 1.5 0 0 1 1.5-1.5z"/></symbol>
+<symbol id="i-me" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c0-3.6 3.2-6 7.5-6s7.5 2.4 7.5 6"/></symbol>
+<symbol id="i-rescue" viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.5h6.5l-1 8 8.5-11h-6.5z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-8.5-4.8-8.5-11A4.9 4.9 0 0 1 12 6.4a4.9 4.9 0 0 1 8.5 3.1c0 6.2-8.5 11-8.5 11z"/></symbol>
+<symbol id="i-heart-fill" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 21.6c-.2 0-.4 0-.5-.1C11.1 21.2 2.5 16.2 2.5 9.5A5.9 5.9 0 0 1 12 4.9a5.9 5.9 0 0 1 9.5 4.6c0 6.7-8.6 11.7-9 12-.1.1-.3.1-.5.1z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.6 12.4l3.2 3.2 5.8-6.4"/></symbol>
+<symbol id="i-check-fill" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM6.89 13.11l3.2 3.2a1 1 0 0 0 1.45-.04l5.8-6.4a1 1 0 0 0-1.48-1.34l-5.1 5.62-2.45-2.46a1 1 0 0 0-1.42 1.42z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M12 14.5v-11M7.5 8L12 3.5 16.5 8"/><path d="M8 11H6.5a2 2 0 0 0-2 2v5.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V13a2 2 0 0 0-2-2H16"/></symbol>
+<symbol id="i-dice" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M8.5 8.5h.01M15.5 8.5h.01M12 12h.01M8.5 15.5h.01M15.5 15.5h.01"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M20 12H4.5M10.5 5.5L4 12l6.5 6.5"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11.2v5.3M12 7.6h.01"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2.2"/></symbol>
+<symbol id="i-people2" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 20c0-3.3 2.8-5.5 6.5-5.5s6.5 2.2 6.5 5.5"/><path d="M15.5 5.2a3.5 3.5 0 0 1 0 6.6M18 14.9c2.1.8 3.5 2.6 3.5 5.1"/></symbol>
+<symbol id="i-people3" viewBox="0 0 24 24"><circle cx="12" cy="8.3" r="2.8"/><path d="M6.8 20c0-2.9 2.3-4.7 5.2-4.7s5.2 1.8 5.2 4.7"/><path d="M6.5 7.9a2.2 2.2 0 1 0 0 3.4M2 18.5c0-1.9 1-3.2 2.7-3.7M17.5 7.9a2.2 2.2 0 1 1 0 3.4M22 18.5c0-1.9-1-3.2-2.7-3.7"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 9.5c2.1 3.1 5.2 4.8 9 4.8s6.9-1.7 9-4.8"/><path d="M12 14.3V18M7.3 13.3l-1.7 3M16.7 13.3l1.7 3M3.9 10.6l-1.9 2M20.1 10.6l1.9 2"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M10.65 2.5h2.7l.44 2.53 1.88.77 2.09-1.48 1.92 1.92-1.48 2.09.77 1.88 2.53.44v2.7l-2.53.44-.77 1.88 1.48 2.09-1.92 1.92-2.09-1.48-1.88.77-.44 2.53h-2.7l-.44-2.53-1.88-.77-2.09 1.48-1.92-1.92 1.48-2.09-.77-1.88-2.53-.44v-2.7l2.53-.44.77-1.88-1.48-2.09 1.92-1.92 2.09 1.48 1.88-.77z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="M3.5 9.5h3.3l4.7-4v13l-4.7-4H3.5z"/><path d="M15.2 9a4.2 4.2 0 0 1 0 6M17.8 6.2a8.2 8.2 0 0 1 0 11.6"/></symbol>
+<symbol id="i-sound-off" viewBox="0 0 24 24"><path d="M3.5 9.5h3.3l4.7-4v13l-4.7-4H3.5z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></symbol>
+<symbol id="i-vibrate" viewBox="0 0 24 24"><rect x="8" y="3.5" width="8" height="17" rx="2"/><path d="M4.8 8.5v7M19.2 8.5v7M2 10.5v3M22 10.5v3"/></symbol>
+<symbol id="i-install" viewBox="0 0 24 24"><path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5"/><path d="M4.5 16v2.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V16"/></symbol>
+<symbol id="i-offline" viewBox="0 0 24 24"><path d="M3.8 3.8l16.4 16.4"/><path d="M8.58 15.42a4.6 4.6 0 0 1 4.53-1.38M5.09 11.83a9.6 9.6 0 0 1 2.09-1.63M11.55 8.91a9.6 9.6 0 0 1 7.36 2.92M2 8.14a14.4 14.4 0 0 1 1.63-1.36M7.73 4.75A14.4 14.4 0 0 1 22 8.14M12 18.8h.01"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M4.4 9.4a8 8 0 0 1 15.2 0M19.6 4.4v5h-5M19.6 14.6a8 8 0 0 1-15.2 0M4.4 19.6v-5h5"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13.5a4.5 4.5 0 0 0 6.6.4l3-3a4.5 4.5 0 0 0-6.4-6.4L11.6 6"/><path d="M14 10.5a4.5 4.5 0 0 0-6.6-.4l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.6-1.5"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5.5v13M15 5.5v13"/></symbol>
+<symbol id="i-replay" viewBox="0 0 24 24"><path d="M4.3 15.6a8.3 8.3 0 1 0 0-6.8M3.8 4v5h5"/><path d="M11 10.1v4.2l3.6-2.1z"/></symbol>
+<symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14.5l-5-5 5-5"/><path d="M4 9.5h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V5A1.5 1.5 0 0 1 11 3.5h2A1.5 1.5 0 0 1 14.5 5v2"/><path d="M6 7l.9 11.7a2 2 0 0 0 2 1.8h6.2a2 2 0 0 0 2-1.8L18 7M10 11v5.5M14 11v5.5"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M8.7 14.6a6.3 6.3 0 1 1 6.6 0c-.5.4-.8 1-.8 1.6v1.3h-5v-1.3c0-.6-.3-1.2-.8-1.6z"/><path d="M10 21h4"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.8C10.3 5.3 8 4.5 5 4.5A1.5 1.5 0 0 0 3.5 6v11A1.5 1.5 0 0 0 5 18.5c3 0 5.3.8 7 2.3 1.7-1.5 4-2.3 7-2.3a1.5 1.5 0 0 0 1.5-1.5V6A1.5 1.5 0 0 0 19 4.5c-3 0-5.3.8-7 2.3z"/><path d="M12 6.8v14"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.53 5.92 6.41.58-4.85 4.23 1.44 6.27L12 16.7 6.47 20l1.44-6.27L3.06 9.5l6.41-.58z"/></symbol>
+<symbol id="i-hand" viewBox="0 0 24 24"><path d="M7 14.5V6.25a1.75 1.75 0 0 1 3.5 0V11M10.5 11V4.75a1.75 1.75 0 0 1 3.5 0V11M14 11V6.25a1.75 1.75 0 0 1 3.5 0v5.25"/><path d="M17.5 11.5V8.75a1.75 1.75 0 0 1 3.5 0V15a6.5 6.5 0 0 1-6.5 6.5h-2.2c-2 0-3.6-.8-4.9-2.2l-4-4a1.7 1.7 0 0 1 2.4-2.4L7 14.2"/></symbol>
+<symbol id="i-rotate" viewBox="0 0 24 24"><rect x="3.5" y="11" width="9.5" height="9.5" rx="2.5"/><path d="M9.5 5.5a9 9 0 0 1 9 9M15.5 11.5l3 3 3-3"/></symbol>
+
+<!-- ================= 七种类型 ================= -->
+<!-- 话匣子：一前一后两个对话气泡 -->
+<symbol id="i-t-talk" viewBox="0 0 24 24"><path d="M5.5 3.5h8A2.5 2.5 0 0 1 16 6v4.5a2.5 2.5 0 0 1-2.5 2.5H8.7l-4 3.6c-.6.6-1.7.1-1.7-.7V6a2.5 2.5 0 0 1 2.5-2.5z"/><path d="M19.5 8.8A2.5 2.5 0 0 1 21 11.1v9.1c0 .8-1 1.3-1.7.7l-3-2.9h-4.2a2.5 2.5 0 0 1-2.3-1.5"/></symbol>
+<!-- 一起玩：手柄 -->
+<symbol id="i-t-play" viewBox="0 0 24 24"><path d="M7.5 7h9a4.5 4.5 0 0 1 4.4 3.7l.6 4.3a2.8 2.8 0 0 1-4.9 2.4L15.2 15.8H8.8l-1.4 1.6A2.8 2.8 0 0 1 2.5 15l.6-4.3A4.5 4.5 0 0 1 7.5 7z"/><path d="M8.2 9.7v3.6M6.4 11.5H10"/><path d="M15 13h.01M17.5 10.5h.01"/></symbol>
+<!-- 烧脑：拼图块 -->
+<symbol id="i-t-puzzle" viewBox="0 0 24 24"><path d="M4.5 8.5h3.9a2.3 2.3 0 1 1 3.2 0h3.9v3.9a2.3 2.3 0 1 1 0 3.2v3.9h-11v-3.9a2.3 2.3 0 1 0 0-3.2z"/></symbol>
+<!-- 给他看：一大一小两颗闪光 -->
+<symbol id="i-t-show" viewBox="0 0 24 24"><path d="M10 6c.7 4.3 3.2 6.8 7.5 7.5-4.3.7-6.8 3.2-7.5 7.5-.7-4.3-3.2-6.8-7.5-7.5C6.8 12.8 9.3 10.3 10 6z"/><path d="M18.5 2.5c.3 1.8 1.2 2.7 3 3-1.8.3-2.7 1.2-3 3-.3-1.8-1.2-2.7-3-3 1.8-.3 2.7-1.2 3-3z"/></symbol>
+<!-- 一起做：一前一后两只鞋印 -->
+<symbol id="i-t-do" viewBox="0 0 24 24"><g transform="translate(7.4 13.6) rotate(-10)"><path d="M-2.6-1c0-2.6 1-4.6 2.6-4.6s2.6 2 2.6 4.6c0 1.3-.3 2.4-.7 3.4h-3.8c-.4-1-.7-2.1-.7-3.4z"/><path d="M-1.9 5h3.8v.4a1.9 1.9 0 0 1-3.8 0z"/></g><g transform="translate(16.6 10.4) rotate(10)"><path d="M-2.6-1c0-2.6 1-4.6 2.6-4.6s2.6 2 2.6 4.6c0 1.3-.3 2.4-.7 3.4h-3.8c-.4-1-.7-2.1-.7-3.4z"/><path d="M-1.9 5h3.8v.4a1.9 1.9 0 0 1-3.8 0z"/></g></symbol>
+<!-- 三人局：三个点连成三角 -->
+<symbol id="i-t-trio" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.5"/><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M10.8 7.7l-4.1 7.6M13.2 7.7l4.1 7.6M8 17.5h8"/></symbol>
+<!-- 锦囊：束口的小布袋 -->
+<symbol id="i-t-insight" viewBox="0 0 24 24"><path d="M9 10c-3 1.8-5 4.3-5 6.9 0 2.8 3 4.1 8 4.1s8-1.3 8-4.1c0-2.6-2-5.1-5-6.9"/><path d="M8.6 9.8c2.3.7 4.5.7 6.8 0M9.3 9.7C8.3 8 6 6.9 6 5.2c0-1.7 2.3-2.3 3.7-1.1.7-.8 1.5-1.1 2.3-1.1s1.6.3 2.3 1.1c1.4-1.2 3.7-.6 3.7 1.1 0 1.7-2.3 2.8-3.3 4.5"/></symbol>
+
+<!-- ================= 八个场景 ================= -->
+<!-- 救场：救生圈 -->
+<symbol id="i-s-rescue" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M14.5 14.5l3.9 3.9M9.5 14.5l-3.9 3.9M14.5 9.5l3.9-3.9M9.5 9.5L5.6 5.6"/></symbol>
+<!-- 车上：小车（正面） -->
+<symbol id="i-s-car" viewBox="0 0 24 24"><path d="M5.5 11l1.5-4.2A2 2 0 0 1 8.9 5.5h6.2a2 2 0 0 1 1.9 1.3l1.5 4.2"/><rect x="3" y="11" width="18" height="6.5" rx="2"/><path d="M6.5 17.5v2M17.5 17.5v2M7.5 14.3h.01M16.5 14.3h.01"/></symbol>
+<!-- 饭桌：碗和筷子 -->
+<symbol id="i-s-table" viewBox="0 0 24 24"><path d="M3.5 12h17c0 4.3-3.4 7.3-8.5 7.3S3.5 16.3 3.5 12z"/><path d="M9.5 21.5h5M11 12l6-8.5M14.5 12l6.3-6.7"/></symbol>
+<!-- 球场：半场、三分线和篮筐 -->
+<symbol id="i-s-court" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M6.5 20v-3a5.5 5.5 0 0 1 11 0v3M10 20v-2.5a2 2 0 0 1 4 0V20M9.5 4a2.5 2.5 0 0 0 5 0"/></symbol>
+<!-- 睡前：月亮和床 -->
+<symbol id="i-s-bed" viewBox="0 0 24 24"><path d="M3 9v11.5M3 17.5h18M21 20.5V15a2.5 2.5 0 0 0-2.5-2.5H11v5"/><circle cx="7" cy="14" r="1.5"/><path d="M17.3 2.5a3.3 3.3 0 1 0 3.7 4.4 3 3 0 0 1-3.7-4.4z"/></symbol>
+<!-- 周末：太阳 -->
+<symbol id="i-s-weekend" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.3M12 19.2v2.3M2.5 12h2.3M19.2 12h2.3M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></symbol>
+<!-- 出游：路标 -->
+<symbol id="i-s-trip" viewBox="0 0 24 24"><path d="M6 4.5h9.5l3 2.75-3 2.75H6zM18 12.5H8.5l-3 2.75 3 2.75H18z"/><path d="M12 2.5v2M12 10v2.5M12 18v3.5M9 21.5h6"/></symbol>
+<!-- 出差：拉杆箱 -->
+<symbol id="i-s-away" viewBox="0 0 24 24"><rect x="5" y="7.5" width="14" height="12.5" rx="2.5"/><path d="M9.5 7.5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3.5M9.5 11.5V16M14.5 11.5V16M8.5 20v1.5M15.5 20v1.5"/></symbol>
+
+<!-- ================= 品牌图形 ================= -->
+<!-- 应用标志：束口的锦囊。身上那颗四角星是镂空的，会透出底色 -->
+<symbol id="g-logo" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="g-logo-gold" x1="26" y1="12" x2="92" y2="110" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe7a6"/><stop offset=".45" stop-color="#ffd166"/><stop offset="1" stop-color="#eaa838"/></linearGradient>
+    <linearGradient id="g-logo-fold" x1="48" y1="10" x2="68" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff3cf"/><stop offset="1" stop-color="#ffdc85"/></linearGradient>
+  </defs>
+  <path fill="url(#g-logo-gold)" d="M47.5 40.5C43 32 30 27 30 20.5c0-7 10.5-9 16.5-3.5 4-5 9-6.5 13.5-6.5s9.5 1.5 13.5 6.5c6-5.5 16.5-3.5 16.5 3.5 0 6.5-13 11.5-17.5 20-8 2.3-17 2.3-25 0z"/>
+  <path fill="url(#g-logo-fold)" d="M46.5 17c4-5 9-6.5 13.5-6.5s9.5 1.5 13.5 6.5c-1.3 8.5-4.2 17-7.5 25-4 .8-8 .8-12 0-3.3-8-6.2-16.5-7.5-25z"/>
+  <path fill="url(#g-logo-gold)" fill-rule="evenodd" d="M46.5 48.5C33 54.5 18.5 68.5 18.5 85c0 15.5 16.5 24 41.5 24s41.5-8.5 41.5-24c0-16.5-14.5-30.5-28-36.5-9 2.5-18 2.5-27 0zM60 63.5c1.7 10.5 6.3 15.1 16.8 16.8-10.5 1.7-15.1 6.3-16.8 16.8-1.7-10.5-6.3-15.1-16.8-16.8 10.5-1.7 15.1-6.3 16.8-16.8z"/>
+</symbol>
+
+<!-- 引导 1：打开的锦囊里飞出六种卡片 -->
+<symbol id="g-onboard-1" viewBox="0 0 240 180">
+  <defs>
+    <radialGradient id="g-ob1-glow" cx="120" cy="122" r="96" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd166" stop-opacity=".34"/><stop offset=".55" stop-color="#ffd166" stop-opacity=".08"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/></radialGradient>
+    <linearGradient id="g-ob1-gold" x1="96" y1="118" x2="146" y2="174" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe7a6"/><stop offset=".45" stop-color="#ffd166"/><stop offset="1" stop-color="#eaa838"/></linearGradient>
+    <linearGradient id="g-ob1-beam" x1="120" y1="124" x2="120" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff3cf" stop-opacity=".5"/><stop offset="1" stop-color="#fff3cf" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="240" height="180" fill="url(#g-ob1-glow)"/>
+  <path fill="url(#g-ob1-beam)" d="M102 124L44 44h152l-58 80z"/>
+  <g fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-dasharray=".1 6" opacity=".6">
+    <path d="M108 118C92 108 76 102 66 96M112 114C100 96 88 78 80 66M118 112c-3-18-6-34-9-48M123 112c5-18 9-36 13-54M128 114c12-16 22-30 30-42M132 118c16-9 32-16 44-22"/>
+  </g>
+  <g transform="translate(54.7 83.3) rotate(-28)"><rect x="-13" y="-17" width="26" height="34" rx="6.5" fill="#d43b10"/><use href="#i-t-talk" x="-8" y="-8" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g transform="translate(70.6 50) rotate(-16) scale(1.08)"><rect x="-13" y="-17" width="26" height="34" rx="6.5" fill="#2b66f0"/><use href="#i-t-play" x="-8" y="-8" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g transform="translate(105.1 41.4) rotate(-5) scale(1.15)"><rect x="-13" y="-17" width="26" height="34" rx="6.5" fill="#8a3fe0"/><use href="#i-t-puzzle" x="-8" y="-8" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g transform="translate(141.3 34) rotate(7) scale(1.15)"><rect x="-13" y="-17" width="26" height="34" rx="6.5" fill="#04808c"/><use href="#i-t-show" x="-8" y="-8" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g transform="translate(168 56.5) rotate(18) scale(1.08)"><rect x="-13" y="-17" width="26" height="34" rx="6.5" fill="#14863a"/><use href="#i-t-do" x="-8" y="-8" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g transform="translate(187.7 83.5) rotate(30)"><rect x="-13" y="-17" width="26" height="34" rx="6.5" fill="#d8267f"/><use href="#i-t-trio" x="-8" y="-8" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g fill="#ffd166"><path d="M120 76c.8 4.8 2.8 6.8 7.6 7.6-4.8.8-6.8 2.8-7.6 7.6-.8-4.8-2.8-6.8-7.6-7.6 4.8-.8 6.8-2.8 7.6-7.6z"/><path d="M28 56c.5 3 1.8 4.3 4.8 4.8-3 .5-4.3 1.8-4.8 4.8-.5-3-1.8-4.3-4.8-4.8 3-.5 4.3-1.8 4.8-4.8zM214 44c.5 3 1.8 4.3 4.8 4.8-3 .5-4.3 1.8-4.8 4.8-.5-3-1.8-4.3-4.8-4.8 3-.5 4.3-1.8 4.8-4.8z" opacity=".7"/><circle cx="36" cy="118" r="2.5" opacity=".55"/><circle cx="206" cy="122" r="2.5" opacity=".55"/><circle cx="96" cy="16" r="2" opacity=".5"/><circle cx="176" cy="18" r="2" opacity=".5"/></g>
+  <ellipse cx="120" cy="173" rx="34" ry="4.5" fill="#000" opacity=".3"/>
+  <path fill="#c98f24" d="M97 121c0-4.5 10.3-8 23-8s23 3.5 23 8c0 3-3 7-7 11H104c-4-4-7-8-7-11z"/>
+  <ellipse cx="120" cy="121.5" rx="19" ry="5.5" fill="#fff6dc"/>
+  <path fill="url(#g-ob1-gold)" d="M97 121c2 4.5 11 7.5 23 7.5s21-3 23-7.5c0 4-3.5 8-7.5 11.5 9 4 19 13.5 19 24.5 0 11-12 16.5-34.5 16.5S85.5 168 85.5 157c0-11 10-20.5 19-24.5-4-3.5-7.5-7.5-7.5-11.5z"/>
+  <path fill="none" stroke="#b46a12" stroke-width="2.6" stroke-linecap="round" d="M104.5 133.5c10 2.6 21 2.6 31 0"/>
+  <path fill="none" stroke="#b46a12" stroke-width="2.6" stroke-linecap="round" d="M135 134c5 1.5 8.5 5 9.5 10"/><circle cx="145" cy="147" r="3.4" fill="#fff3cf"/>
+</symbol>
+
+<!-- 引导 2：左边一个人看（我看），右边三个人围着一部手机（一起看） -->
+<symbol id="g-onboard-2" viewBox="0 0 240 180">
+  <path stroke="#fff" stroke-opacity=".22" stroke-width="2" stroke-linecap="round" stroke-dasharray=".1 7" fill="none" d="M108 34v126"/>
+  <ellipse cx="56" cy="161" rx="36" ry="4.5" fill="#000" opacity=".28"/>
+  <circle cx="56" cy="66" r="15.5" fill="#ffd166"/>
+  <path fill="#ffd166" d="M28 160C28 107.4 42 87 56 87s28 20.4 28 73z"/>
+  <g transform="rotate(-7 58 128)"><rect x="43" y="104" width="30" height="48" rx="6" fill="#0d162b" stroke="#fff" stroke-width="2.5"/><path fill="#ffd166" d="M58 116c1 6 3.6 8.6 9.6 9.6-6 1-8.6 3.6-9.6 9.6-1-6-3.6-8.6-9.6-9.6 6-1 8.6-3.6 9.6-9.6z"/><path stroke="#ffd166" stroke-opacity=".5" stroke-width="2" stroke-linecap="round" d="M51 142h14"/></g>
+  <circle cx="90" cy="92" r="12" fill="#1b2a4a" stroke="#ffd166" stroke-width="2"/><use href="#i-lock" x="82" y="84" width="16" height="16" fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="174" cy="162" rx="62" ry="5" fill="#000" opacity=".28"/>
+  <circle cx="138" cy="72" r="14.5" fill="#ffd166"/><path fill="#ffd166" d="M113 160C113 111 125.5 92 138 92s25 19 25 68z"/>
+  <circle cx="210" cy="75" r="14" fill="#6f9bff"/><path fill="#6f9bff" d="M186 160C186 112.5 198 94 210 94s24 18.5 24 66z"/>
+  <circle cx="174" cy="98" r="12" fill="#ff8a4c"/><path fill="#ff8a4c" d="M153 162C153 128.2 163.5 115 174 115s21 13.2 21 47z"/>
+  <g transform="rotate(5 174 142)"><rect x="160" y="122" width="28" height="42" rx="6" fill="#d43b10" stroke="#fff" stroke-width="2.5"/><use href="#i-t-talk" x="165.5" y="134.5" width="17" height="17" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g fill="none" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round"><path d="M157 86l-5-5M174 78v-7M191 86l5-5"/></g>
+  <path fill="#ffd166" d="M174 34c.8 5 3 7.2 8 8-5 .8-7.2 3-8 8-.8-5-3-7.2-8-8 5-.8 7.2-3 8-8z"/>
+</symbol>
+
+<!-- 引导 3：装到主屏幕，断网也能用 -->
+<symbol id="g-onboard-3" viewBox="0 0 240 180">
+  <defs><radialGradient id="g-ob3-glow" cx="86" cy="80" r="46" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd166" stop-opacity=".42"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/></radialGradient></defs>
+  <rect x="38" y="10" width="96" height="164" rx="18" fill="#141a2a" stroke="#fff" stroke-opacity=".3" stroke-width="2.5"/>
+  <rect x="72" y="17" width="28" height="6" rx="3" fill="#fff" opacity=".2"/>
+  <g fill="#fff" opacity=".12"><rect x="50" y="36" width="20" height="20" rx="6"/><rect x="76" y="36" width="20" height="20" rx="6"/><rect x="102" y="36" width="20" height="20" rx="6"/><rect x="50" y="70" width="20" height="20" rx="6"/><rect x="102" y="70" width="20" height="20" rx="6"/><rect x="50" y="104" width="20" height="20" rx="6"/><rect x="76" y="104" width="20" height="20" rx="6"/><rect x="102" y="104" width="20" height="20" rx="6"/></g>
+  <rect x="46" y="138" width="80" height="28" rx="11" fill="#fff" opacity=".08"/>
+  <g fill="#fff" opacity=".16"><rect x="54" y="143" width="18" height="18" rx="5.5"/><rect x="77" y="143" width="18" height="18" rx="5.5"/><rect x="100" y="143" width="18" height="18" rx="5.5"/></g>
+  <circle cx="86" cy="80" r="46" fill="url(#g-ob3-glow)"/>
+  <rect x="70" y="64" width="32" height="32" rx="9" fill="#17254a" stroke="#ffd166" stroke-width="2"/>
+  <use href="#g-logo" x="74" y="68" width="24" height="24"/>
+  <path fill="#ffd166" d="M112 52c.6 3.6 2.2 5.2 5.8 5.8-3.6.6-5.2 2.2-5.8 5.8-.6-3.6-2.2-5.2-5.8-5.8 3.6-.6 5.2-2.2 5.8-5.8z"/>
+  <path stroke="#fff" stroke-opacity=".25" stroke-width="2" stroke-linecap="round" stroke-dasharray=".1 7" fill="none" d="M146 82h14"/>
+  <circle cx="192" cy="82" r="30" fill="#1e2433" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
+  <use href="#i-offline" x="174" y="64" width="36" height="36" fill="none" stroke="#f4f6fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="214" cy="104" r="12" fill="#3ddc97" stroke="#0b0d12" stroke-width="3"/><path fill="none" stroke="#06281b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M208.5 104.3l3.8 3.8 6.4-7"/>
+</symbol>
+
+<!-- 安装示意（iOS）：① 点底栏中间的分享按钮 ② 在列表里选「添加到主屏幕」 -->
+<symbol id="g-install-ios" viewBox="0 0 240 180">
+  <rect x="10" y="12" width="96" height="156" rx="16" fill="#141a2a" stroke="#fff" stroke-opacity=".3" stroke-width="2.5"/>
+  <rect x="22" y="24" width="72" height="12" rx="6" fill="#fff" opacity=".12"/>
+  <g fill="#fff" opacity=".1"><rect x="22" y="46" width="72" height="40" rx="8"/><rect x="22" y="94" width="52" height="7" rx="3.5"/><rect x="22" y="107" width="64" height="7" rx="3.5"/><rect x="22" y="120" width="40" height="7" rx="3.5"/></g>
+  <path stroke="#fff" stroke-opacity=".16" stroke-width="1.5" d="M11.5 138h93"/>
+  <g fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M26 148l-4 4.5 4 4.5M38 148l4 4.5-4 4.5"/><rect x="74" y="147" width="9" height="11" rx="2"/><path d="M90 147.5h6.5v6.5M87 150.5h6.5v6.5H87z"/></g>
+  <circle cx="58" cy="152.5" r="13" fill="#ffd166" opacity=".2"/><circle cx="58" cy="152.5" r="13" fill="none" stroke="#ffd166" stroke-width="2"/>
+  <g fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M58 154.5v-9.5M54.5 148.2l3.5-3.5 3.5 3.5M54.5 150.7h-1.5a1.5 1.5 0 0 0-1.5 1.5v6a1.5 1.5 0 0 0 1.5 1.5h10a1.5 1.5 0 0 0 1.5-1.5v-6a1.5 1.5 0 0 0-1.5-1.5h-1.5"/></g>
+  <circle cx="74" cy="134" r="8.5" fill="#ffd166"/><text x="74" y="137.8" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#2a1c00">1</text>
+  <path fill="none" stroke="#ffd166" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M114 84l8 6-8 6"/>
+  <rect x="134" y="12" width="96" height="156" rx="16" fill="#141a2a" stroke="#fff" stroke-opacity=".3" stroke-width="2.5"/>
+  <g fill="#fff" opacity=".07"><rect x="146" y="24" width="72" height="12" rx="6"/><rect x="146" y="44" width="72" height="14" rx="6"/></g>
+  <path fill="#232a3c" d="M135.3 78a10 10 0 0 1 10-10h73.4a10 10 0 0 1 10 10v74a14.7 14.7 0 0 1-14.7 14.7h-64a14.7 14.7 0 0 1-14.7-14.7z"/>
+  <rect x="173" y="73" width="18" height="4" rx="2" fill="#fff" opacity=".25"/>
+  <g fill="#fff" opacity=".14"><rect x="146" y="86" width="13" height="13" rx="4"/><rect x="166" y="89.5" width="44" height="6" rx="3"/><rect x="146" y="146" width="13" height="13" rx="4"/><rect x="166" y="149.5" width="34" height="6" rx="3"/></g>
+  <g fill="#fff" opacity=".14"><rect x="146" y="106" width="13" height="13" rx="4"/><rect x="166" y="109.5" width="50" height="6" rx="3"/></g>
+  <rect x="140" y="122" width="84" height="21" rx="8" fill="#ffd166" opacity=".2"/><rect x="140" y="122" width="84" height="21" rx="8" fill="none" stroke="#ffd166" stroke-width="2"/>
+  <g fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="146" y="126" width="13" height="13" rx="4"/><path d="M152.5 129.5v6M149.5 132.5h6"/></g>
+  <rect x="166" y="129.5" width="38" height="6" rx="3" fill="#ffd166"/>
+  <circle cx="222" cy="121" r="8.5" fill="#ffd166"/><text x="222" y="124.8" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#2a1c00">2</text>
+</symbol>
+
+<!-- 安装示意（安卓）：① 点右上角的菜单 ② 选「安装应用 / 添加到主屏幕」 -->
+<symbol id="g-install-android" viewBox="0 0 240 180">
+  <rect x="10" y="12" width="96" height="156" rx="16" fill="#141a2a" stroke="#fff" stroke-opacity=".3" stroke-width="2.5"/>
+  <rect x="20" y="23" width="56" height="14" rx="7" fill="#fff" opacity=".12"/>
+  <g fill="#fff" opacity=".1"><rect x="22" y="50" width="72" height="44" rx="8"/><rect x="22" y="104" width="52" height="7" rx="3.5"/><rect x="22" y="117" width="64" height="7" rx="3.5"/><rect x="22" y="130" width="40" height="7" rx="3.5"/><rect x="22" y="143" width="58" height="7" rx="3.5"/></g>
+  <circle cx="90" cy="30" r="12" fill="#ffd166" opacity=".2"/><circle cx="90" cy="30" r="12" fill="none" stroke="#ffd166" stroke-width="2"/>
+  <g fill="#ffd166"><circle cx="90" cy="24.5" r="1.9"/><circle cx="90" cy="30" r="1.9"/><circle cx="90" cy="35.5" r="1.9"/></g>
+  <circle cx="74" cy="46" r="8.5" fill="#ffd166"/><text x="74" y="49.8" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#2a1c00">1</text>
+  <path fill="none" stroke="#ffd166" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M114 84l8 6-8 6"/>
+  <rect x="134" y="12" width="96" height="156" rx="16" fill="#141a2a" stroke="#fff" stroke-opacity=".3" stroke-width="2.5"/>
+  <g fill="#fff" opacity=".07"><rect x="144" y="23" width="56" height="14" rx="7"/><rect x="146" y="50" width="72" height="44" rx="8"/><rect x="146" y="104" width="52" height="7" rx="3.5"/><rect x="146" y="117" width="64" height="7" rx="3.5"/><rect x="146" y="130" width="40" height="7" rx="3.5"/></g>
+  <rect x="150" y="20" width="74" height="124" rx="10" fill="#232a3c" stroke="#fff" stroke-opacity=".1" stroke-width="1.5"/>
+  <g fill="#fff" opacity=".14"><rect x="158" y="30" width="11" height="11" rx="3.5"/><rect x="175" y="32.5" width="36" height="6" rx="3"/><rect x="158" y="50" width="11" height="11" rx="3.5"/><rect x="175" y="52.5" width="28" height="6" rx="3"/><rect x="158" y="70" width="11" height="11" rx="3.5"/><rect x="175" y="72.5" width="40" height="6" rx="3"/><rect x="158" y="122" width="11" height="11" rx="3.5"/><rect x="175" y="124.5" width="30" height="6" rx="3"/></g>
+  <rect x="154" y="90" width="66" height="23" rx="8" fill="#ffd166" opacity=".2"/><rect x="154" y="90" width="66" height="23" rx="8" fill="none" stroke="#ffd166" stroke-width="2"/>
+  <g fill="none" stroke="#ffd166" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M164 95v8M160.8 100.2l3.2 3.2 3.2-3.2M159 107.5h10"/></g>
+  <rect x="175" y="98.5" width="34" height="6" rx="3" fill="#ffd166"/>
+  <circle cx="220" cy="88" r="8.5" fill="#ffd166"/><text x="220" y="91.8" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#2a1c00">2</text>
+</symbol>
+
+<!-- ================= 类型花纹（可平铺） ================= -->
+<symbol id="pat-talk" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".16">
+  <path transform="rotate(-8 44 42)" d="M24 16h40a10 10 0 0 1 10 10v18a10 10 0 0 1-10 10H44L31 66V54h-7a10 10 0 0 1-10-10V26a10 10 0 0 1 10-10z"/>
+  <g transform="translate(118 44)"><circle r="6.5" fill="currentColor" stroke="none"/><path d="M-6.5 0c0-10 4-16 12-19"/><circle cx="21" r="6.5" fill="currentColor" stroke="none"/><path d="M14.5 0c0-10 4-16 12-19"/></g>
+  <path d="M152 92a15 15 0 1 1-9 27l-10 3 3.5-9.5A15 15 0 0 1 152 92z"/>
+  <g fill="currentColor" stroke="none"><circle cx="30" cy="112" r="3.5"/><circle cx="43" cy="112" r="3.5"/><circle cx="56" cy="112" r="3.5"/></g>
+  <g transform="translate(86 152) rotate(180)"><circle r="6.5" fill="currentColor" stroke="none"/><path d="M-6.5 0c0-10 4-16 12-19"/><circle cx="21" r="6.5" fill="currentColor" stroke="none"/><path d="M14.5 0c0-10 4-16 12-19"/></g>
+  <path transform="rotate(7 146 166)" d="M124 150h44a8 8 0 0 1 8 8v12a8 8 0 0 1-8 8h-4v9l-11-9h-29a8 8 0 0 1-8-8v-12a8 8 0 0 1 8-8z"/>
+  <path d="M170 50a7 7 0 1 1 9 6.7c-1.6.6-2.5 1.8-2.5 3.8v1.5M176.5 70h.01"/>
+  <path d="M22 166q7-7 14 0t14 0"/>
+</g></symbol>
+
+<symbol id="pat-play" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".16">
+  <path transform="translate(42 46)" d="M-7-22H7v15h15V7H7v15H-7V7h-15V-7h15z"/>
+  <circle cx="134" cy="36" r="11"/><circle cx="160" cy="60" r="11"/>
+  <circle cx="134" cy="36" r="3" fill="currentColor" stroke="none"/>
+  <path transform="translate(152 142) rotate(45)" d="M-4-15H4v11h11V4H4v11H-4V4h-11V-4h11z"/>
+  <rect transform="rotate(-20 62 118)" x="44" y="111" width="36" height="14" rx="7"/>
+  <circle cx="96" cy="170" r="13"/><circle cx="96" cy="170" r="4.5" fill="currentColor" stroke="none"/>
+  <path d="M92 84l8 8 8-8 8 8 8-8"/>
+  <g fill="currentColor" stroke="none"><circle cx="24" cy="104" r="3"/><circle cx="184" cy="104" r="3"/><circle cx="96" cy="24" r="3"/><circle cx="30" cy="172" r="3"/></g>
+  <path d="M38 150l-8 14h16z"/>
+</g></symbol>
+
+<symbol id="pat-puzzle" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".16">
+  <path d="M-12 50c5 0 7 3 5 8-3 8 1 16 7 16s10-8 7-16c-2-5 0-8 5-8H88c5 0 7-3 5-8-3-8 1-16 7-16s10 8 7 16c-2 5 0 8 5 8h76c5 0 7 3 5 8-3 8 1 16 7 16s10-8 7-16c-2-5 0-8 5-8"/>
+  <path d="M-12 150c5 0 7-3 5-8-3-8 1-16 7-16s10 8 7 16c-2 5 0 8 5 8H88c5 0 7 3 5 8-3 8 1 16 7 16s10-8 7-16c-2-5 0-8 5-8h76c5 0 7-3 5-8-3-8 1-16 7-16s10 8 7 16c-2 5 0 8 5 8"/>
+  <path d="M50-12c0 5-3 7-8 5-8-3-16 1-16 7s8 10 16 7c5-2 8 0 8 5V88c0 5 3 7 8 5 8-3 16 1 16 7s-8 10-16 7c-5-2-8 0-8 5v76c0 5-3 7-8 5-8-3-16 1-16 7s8 10 16 7c5-2 8 0 8 5"/>
+  <path d="M150-12c0 5 3 7 8 5 8-3 16 1 16 7s-8 10-16 7c-5-2-8 0-8 5V88c0 5-3 7-8 5-8-3-16 1-16 7s8 10 16 7c5-2 8 0 8 5v76c0 5 3 7 8 5 8-3 16 1 16 7s-8 10-16 7c-5-2-8 0-8 5"/>
+</g></symbol>
+
+<symbol id="pat-show" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".16">
+  <path d="M48 22c2.8 17.2 12.8 27.2 30 30-17.2 2.8-27.2 12.8-30 30-2.8-17.2-12.8-27.2-30-30 17.2-2.8 27.2-12.8 30-30z"/>
+  <g transform="rotate(-24 134 130)"><ellipse cx="134" cy="130" rx="48" ry="17"/><circle cx="134" cy="130" r="10"/><circle cx="182" cy="130" r="4" fill="currentColor" stroke="none"/></g>
+  <path d="M150 22c1.3 7.7 5.3 11.7 13 13-7.7 1.3-11.7 5.3-13 13-1.3-7.7-5.3-11.7-13-13 7.7-1.3 11.7-5.3 13-13z"/>
+  <path d="M56 152c1 6 4 9 10 10-6 1-9 4-10 10-1-6-4-9-10-10 6-1 9-4 10-10z" fill="currentColor"/>
+  <path d="M100 90v14M93 97h14"/>
+  <circle cx="104" cy="24" r="5"/>
+  <g fill="currentColor" stroke="none"><circle cx="24" cy="118" r="3"/><circle cx="182" cy="76" r="3"/><circle cx="92" cy="182" r="2.5"/><circle cx="110" cy="58" r="2.5"/></g>
+</g></symbol>
+
+<symbol id="pat-do" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".16">
+  <path stroke-width="4.5" stroke-dasharray=".1 11" d="M0 72c30 0 36-40 68-36s34 62 68 58 40-22 64-22"/>
+  <path d="M150 112a13 13 0 0 1 13 13c0 10-13 23-13 23s-13-13-13-23a13 13 0 0 1 13-13z"/><circle cx="150" cy="125" r="4.5"/>
+  <g fill="currentColor" stroke="none"><g transform="translate(40 140) rotate(24)"><path d="M-6-3c0-7 2.5-12 6-12s6 5 6 12c0 3.5-.8 6.5-1.8 9h-8.4C-5.2 3.5-6 .5-6-3z"/><path d="M-4.3 10h8.6v1.2a4.3 4.3 0 0 1-8.6 0z"/></g><g transform="translate(66 164) rotate(24)"><path d="M-6-3c0-7 2.5-12 6-12s6 5 6 12c0 3.5-.8 6.5-1.8 9h-8.4C-5.2 3.5-6 .5-6-3z"/><path d="M-4.3 10h8.6v1.2a4.3 4.3 0 0 1-8.6 0z"/></g></g>
+  <path d="M104 152l14 14M118 152l-14 14"/>
+  <path d="M166 22v30M166 24l18 6.5-18 6.5"/>
+  <path d="M22 26l9 9 9-9M22 40l9 9 9-9"/>
+  <circle cx="68" cy="36" r="6"/><circle cx="136" cy="94" r="6"/>
+</g></symbol>
+
+<symbol id="pat-trio" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".16">
+  <path transform="rotate(12 50 58)" d="M50 24l30 52H20z"/>
+  <circle cx="140" cy="34" r="9"/><circle cx="127" cy="57" r="9"/><circle cx="153" cy="57" r="9"/>
+  <path transform="rotate(-18 162 132)" d="M162 118l13 22h-26z" fill="currentColor"/>
+  <g fill="currentColor" stroke="none"><circle cx="40" cy="138" r="4"/><circle cx="31" cy="154" r="4"/><circle cx="49" cy="154" r="4"/></g>
+  <path d="M100 176l-22-38h44z"/>
+  <circle cx="100" cy="86" r="5"/><circle cx="86" cy="110" r="5"/><circle cx="114" cy="110" r="5"/><path d="M97.5 90.3l-9 15.4M102.5 90.3l9 15.4M91 110h18"/>
+  <g fill="currentColor" stroke="none"><circle cx="184" cy="90" r="3"/><circle cx="16" cy="104" r="3"/><circle cx="96" cy="20" r="3"/></g>
+</g></symbol>
+
+<symbol id="pat-insight" viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" opacity=".16">
+  <path d="M24 24h52v52H24V37h39v26H37V50h13"/>
+  <path d="M176 24h-52v52h52V37h-39v26h26V50h-13"/>
+  <path d="M24 176h52v-52H24v39h39v-26H37v13h13"/>
+  <path d="M176 176h-52v-52h52v39h-39v-26h26v13h-13"/>
+  <path d="M100 92l8 8-8 8-8-8zM0-8l8 8-8 8-8-8zM200-8l8 8-8 8-8-8zM0 192l8 8-8 8-8-8zM200 192l8 8-8 8-8-8z"/>
+  <path d="M100-3v6M100 197v6M-3 100h6M197 100h6"/>
+</g></symbol>
+</svg>

@@ -1,0 +1,965 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<!-- 锦囊 · 贴纸插画（70 张，名字清单见 docs/SPEC.md 5.3）
+     用法：<svg class="jn-art"><use href="#art-ball"/></svg>，或 JN.util.art('ball')
+     画法：粗壮的几何剪纸，不描边。每个 symbol 的画布是 120x120，主体约占 80%。
+     只有三种色调，全部跟着文字颜色走：
+       主体    fill="currentColor"
+       次要面  fill="currentColor" opacity=".55"
+       暗部    fill="#000" opacity=".22"
+     需要线条时用圆头粗线，粗细只用 6 / 7 / 8。不用其他颜色、渐变、滤镜、裁剪、蒙版和文字。 -->
+
+<!-- 篮球 -->
+<symbol id="art-ball" viewBox="0 0 120 120">
+  <g transform="rotate(-18 60 60)">
+    <path fill="currentColor" d="M20.8 32.8A47.8 47.8 0 0 0 12.4 57.4L30.3 57.4A43.1 43.1 0 0 0 20.8 32.8ZM99.2 32.8A47.8 47.8 0 0 1 107.6 57.4L89.7 57.4A43.1 43.1 0 0 1 99.2 32.8ZM20.8 87.2A47.8 47.8 0 0 1 12.4 62.6L30.3 62.6A43.1 43.1 0 0 1 20.8 87.2ZM99.2 87.2A47.8 47.8 0 0 0 107.6 62.6L89.7 62.6A43.1 43.1 0 0 0 99.2 87.2ZM57.4 57.4L35.5 57.4A48.3 48.3 0 0 0 24 28.6A47.8 47.8 0 0 1 57.4 12.4ZM62.6 57.4L84.5 57.4A48.3 48.3 0 0 1 96 28.6A47.8 47.8 0 0 0 62.6 12.4ZM57.4 62.6L35.5 62.6A48.3 48.3 0 0 1 24 91.4A47.8 47.8 0 0 0 57.4 107.6ZM62.6 62.6L84.5 62.6A48.3 48.3 0 0 0 96 91.4A47.8 47.8 0 0 1 62.6 107.6Z"/>
+  </g>
+</symbol>
+<symbol id="art-hoop" viewBox="0 0 120 120">
+  <g transform="rotate(5 58.2 63.6)">
+    <path fill="currentColor" d="M15.1 26.3A8.6 8.6 0 0 1 23.7 17.7L92.6 17.7A8.6 8.6 0 0 1 101.3 26.3L101.3 53.1A8.6 8.6 0 0 1 92.6 61.7L23.7 61.7A8.6 8.6 0 0 1 15.1 53.1Z"/>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M44.8 34.9H71.6V54H44.8Z"/>
+    <path fill="currentColor" opacity=".55" fill-rule="evenodd" d="M34.3 74.1L82.1 74.1L73.3 107.6A3.8 3.8 0 0 1 69.6 110.5L46.8 110.5A3.8 3.8 0 0 1 43.1 107.6ZM45 81.9A1 1 0 0 1 46.5 81.9L49.6 86A1 1 0 0 1 49.6 87.1L46.5 91.3A1 1 0 0 1 45 91.3L41.9 87.1A1 1 0 0 1 41.9 86ZM57.4 81.9A1 1 0 0 1 59 81.9L62 86A1 1 0 0 1 62 87.1L59 91.3A1 1 0 0 1 57.4 91.3L54.4 87.1A1 1 0 0 1 54.4 86ZM69.9 81.9A1 1 0 0 1 71.4 81.9L74.5 86A1 1 0 0 1 74.5 87.1L71.4 91.3A1 1 0 0 1 69.9 91.3L66.8 87.1A1 1 0 0 1 66.8 86ZM51.3 95.3A1 1 0 0 1 52.8 95.3L55.5 98.9A1 1 0 0 1 55.5 100.1L52.8 103.7A1 1 0 0 1 51.3 103.7L48.6 100.1A1 1 0 0 1 48.6 98.9ZM63.5 95.3A1 1 0 0 1 65.1 95.3L67.8 98.9A1 1 0 0 1 67.8 100.1L65.1 103.7A1 1 0 0 1 63.5 103.7L60.9 100.1A1 1 0 0 1 60.9 98.9Z"/>
+    <rect fill="currentColor" x="31.4" y="66.5" width="53.6" height="8.6" rx="4.3"/>
+  </g>
+</symbol>
+<symbol id="art-sneaker" viewBox="0 0 120 120">
+  <g transform="rotate(-10 61.1 57.6)">
+    <rect fill="currentColor" opacity=".55" x="16.9" y="27.9" width="7.4" height="12.1" rx="3.7" transform="rotate(-14 20.7 33.9)"/>
+    <path fill="currentColor" opacity=".55" d="M15.5 75.3H79.7C81.6 65.1 92.7 59.5 99.3 62.8C105.8 65.1 107.6 72.5 107.6 80Q107.6 91.1 98.3 91.1H23.9Q15.5 91.1 15.5 81.8Z"/>
+    <path fill="#000" opacity=".22" d="M15.5 85.1H107.1Q105.3 91.1 98.3 91.1H23.9Q16.9 91.1 15.5 85.1Z"/>
+    <path fill="currentColor" d="M21.1 76.2C20.2 65.1 24.8 57.6 23.9 48.3L23 35.3Q22.5 26.9 30.4 26.5L43.4 26.9L45.8 21.4Q47.2 18.1 50.9 19.5L56.5 21.4Q59.7 22.8 59.3 26L58.3 32.5L59.7 41.8C63 51.1 74.1 53.9 83.4 57.6Q91.8 60 98.3 63.2C94.6 61.4 87.2 66.9 87.2 76.2Z"/>
+    <path fill="#000" opacity=".22" d="M21.1 76.2C20.2 66.9 23.9 59.5 24.4 52.1L33.2 53.9C32.3 61.4 32.7 68.8 34.1 76.2Z"/>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M56.5 40L49 44.6"/>
+      <path d="M60.2 47.4L52.7 53"/>
+      <path d="M65.8 53L59.3 59.5"/>
+      <path d="M30.4 33.9H44.4"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-whistle" viewBox="0 0 120 120">
+  <g transform="rotate(-8 62.8 57.8)">
+    <path fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M13.8 92.8A8 8 0 1 0 29.8 92.8A8 8 0 1 0 13.8 92.8Z"/>
+    <path fill="currentColor" d="M48.8 35.8H62.8V46.8H79.8V35.8H100.8Q106.8 35.8 106.8 41.8V53.8Q106.8 59.8 100.8 59.8H78.2A30 30 0 1 1 48.8 35.8Z"/>
+    <circle fill="#000" opacity=".22" cx="48.8" cy="67.8" r="9"/>
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M71.8 25.8V13.8"/>
+      <path d="M60.8 27.8L53.8 17.8"/>
+      <path d="M82.8 27.8L89.8 17.8"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-scoreboard" viewBox="0 0 120 120">
+  <g transform="rotate(4 59.8 61.7)">
+    <rect fill="currentColor" opacity=".55" x="43.4" y="18" width="32.8" height="10.9" rx="4.6"/>
+    <g fill="currentColor" opacity=".55">
+      <rect x="27" y="85.4" width="7.3" height="16.4" rx="3.6"/>
+      <rect x="85.4" y="85.4" width="7.3" height="16.4" rx="3.6"/>
+    </g>
+    <path fill="currentColor" fill-rule="evenodd" d="M12.4 39.9A9.1 9.1 0 0 1 21.5 30.7L98.1 30.7A9.1 9.1 0 0 1 107.2 39.9L107.2 78.2A9.1 9.1 0 0 1 98.1 87.3L21.5 87.3A9.1 9.1 0 0 1 12.4 78.2ZM19.7 44.4A4.6 4.6 0 0 1 24.3 39.9L49.8 39.9A4.6 4.6 0 0 1 54.4 44.4L54.4 73.6A4.6 4.6 0 0 1 49.8 78.2L24.3 78.2A4.6 4.6 0 0 1 19.7 73.6ZM65.3 44.4A4.6 4.6 0 0 1 69.9 39.9L95.4 39.9A4.6 4.6 0 0 1 100 44.4L100 73.6A4.6 4.6 0 0 1 95.4 78.2L69.9 78.2A4.6 4.6 0 0 1 65.3 73.6Z"/>
+    <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M29.8 47.2H44.3V59H29.8V70.9H44.3"/>
+      <path d="M75.3 47.2H89.9V70.9H75.3M77.2 59H89.9"/>
+    </g>
+    <g fill="#000" opacity=".22">
+      <circle cx="59.8" cy="52.6" r="3.2"/>
+      <circle cx="59.8" cy="65.4" r="3.2"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-trophy" viewBox="0 0 120 120">
+  <g transform="rotate(6 57.8 62.7)">
+    <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M29.8 29H20.4Q12.9 29 12.9 36.5C12.9 47.7 22.3 53.3 31.6 53.3"/>
+      <path d="M85.9 29H95.3Q102.8 29 102.8 36.5C102.8 47.7 93.4 53.3 84 53.3"/>
+    </g>
+    <path fill="currentColor" d="M31.6 19.6H84Q87.8 19.6 87.8 23.4V34.6C87.8 53.3 74.7 64.6 57.8 64.6C41 64.6 27.9 53.3 27.9 34.6V23.4Q27.9 19.6 31.6 19.6Z"/>
+    <rect fill="currentColor" x="52.2" y="62.7" width="11.2" height="20.6"/>
+    <rect fill="currentColor" x="39.1" y="79.5" width="37.4" height="8.4" rx="2.8"/>
+    <rect fill="currentColor" opacity=".55" x="27.9" y="90.8" width="59.9" height="15" rx="4.7"/>
+    <path fill="#000" opacity=".22" d="M56.5 29.6A1.4 1.4 0 0 1 59.2 29.6L60.6 33.3A1.4 1.4 0 0 0 61.9 34.1L65.8 34.4A1.4 1.4 0 0 1 66.6 36.9L63.5 39.4A1.4 1.4 0 0 0 63.1 40.9L64.1 44.7A1.4 1.4 0 0 1 62 46.2L58.6 44.1A1.4 1.4 0 0 0 57.1 44.1L53.7 46.2A1.4 1.4 0 0 1 51.6 44.7L52.6 40.9A1.4 1.4 0 0 0 52.1 39.4L49 36.9A1.4 1.4 0 0 1 49.9 34.4L53.8 34.1A1.4 1.4 0 0 0 55.1 33.3Z"/>
+  </g>
+</symbol>
+<symbol id="art-jersey" viewBox="0 0 120 120">
+  <g transform="rotate(-6 59 59.5)">
+    <path fill="currentColor" d="M34.2 13.8H43.7Q45.6 13.8 45.6 15.7C46.6 29 71.4 29 72.3 15.7Q72.3 13.8 74.2 13.8H83.7C83.7 29 87.6 40.4 97.1 46.2V97.6Q97.1 103.3 91.4 103.3H26.6Q20.9 103.3 20.9 97.6V46.2C30.4 40.4 34.2 29 34.2 13.8Z"/>
+    <path fill="#000" opacity=".22" d="M20.9 51.9H28.5V103.3H26.6Q20.9 103.3 20.9 97.6ZM97.1 51.9H89.5V103.3H91.4Q97.1 103.3 97.1 97.6Z"/>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M48.5 55.7H69.5L57.1 88.1"/>
+  </g>
+</symbol>
+
+<!-- 家里 -->
+<symbol id="art-car" viewBox="0 0 120 120">
+  <g transform="rotate(-5 59.1 56.8)">
+    <path fill="currentColor" fill-rule="evenodd" d="M9.7 66.2Q9.7 54.9 19.2 53L26.8 52L38.2 31.1Q41 25.4 47.7 25.4L72.4 25.4Q79 25.4 82.8 30.2L97 52L100.8 53Q108.4 54.9 108.4 64.3L108.4 73.8Q108.4 79.5 102.7 79.5L100.8 79.5A15.1 15.1 0 0 0 70.5 79.5L47.7 79.5A15.2 15.2 0 0 0 17.3 79.5L15.4 79.5Q9.7 79.5 9.7 73.8ZM43.1 34.5A2.8 2.8 0 0 1 45.6 33L54.3 33A2.8 2.8 0 0 1 57.2 35.9L57.2 46.3A2.8 2.8 0 0 1 54.3 49.2L40.1 49.2A2.8 2.8 0 0 1 37.5 45ZM62.9 35.9A2.8 2.8 0 0 1 65.7 33L75.6 33A2.8 2.8 0 0 1 78 34.3L84.7 44.8A2.8 2.8 0 0 1 82.3 49.2L65.7 49.2A2.8 2.8 0 0 1 62.9 46.3Z"/>
+    <rect fill="#000" opacity=".22" x="96.1" y="58.6" width="8.5" height="6.6" rx="2.8"/>
+    <g fill="currentColor">
+      <circle cx="32.5" cy="81.4" r="11.4"/>
+      <circle cx="85.7" cy="81.4" r="11.4"/>
+    </g>
+    <g fill="#000" opacity=".22">
+      <circle cx="32.5" cy="81.4" r="4.3"/>
+      <circle cx="85.7" cy="81.4" r="4.3"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-table" viewBox="0 0 120 120">
+  <g transform="rotate(4 60.3 61.1)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50.8 29.8C47 24.1 54.6 20.3 50.8 13.6"/>
+      <path d="M68.8 29.8C65 24.1 72.6 20.3 68.8 13.6"/>
+    </g>
+    <path fill="currentColor" d="M35.6 35.5H85C85 48.8 75.5 55.4 60.3 55.4C45.1 55.4 35.6 48.8 35.6 35.5Z"/>
+    <rect fill="currentColor" x="52.7" y="52.6" width="15.2" height="7.6"/>
+    <rect fill="currentColor" x="10.9" y="59.2" width="98.8" height="12.3" rx="6.2"/>
+    <path fill="currentColor" d="M22.3 68.7L34.7 68.7L29.5 102.1A4.3 4.3 0 0 1 25.3 105.7L24.1 105.7A4.3 4.3 0 0 1 19.8 101.2ZM85.9 68.7L98.3 68.7L100.8 101.2A4.3 4.3 0 0 1 96.5 105.7L95.3 105.7A4.3 4.3 0 0 1 91.1 102.1Z"/>
+  </g>
+</symbol>
+<symbol id="art-bed" viewBox="0 0 120 120">
+  <g transform="rotate(-5 59.9 61.6)">
+    <rect fill="currentColor" opacity=".55" x="24.8" y="67.2" width="74" height="14.8"/>
+    <rect fill="currentColor" x="11.8" y="37.6" width="13.9" height="62.9" rx="5.5"/>
+    <rect fill="currentColor" x="95.1" y="61.6" width="12.9" height="38.8" rx="4.6"/>
+    <rect fill="currentColor" x="13.7" y="80.1" width="92.5" height="11.1"/>
+    <rect fill="currentColor" x="30.3" y="54.2" width="25.9" height="14.8" rx="6.5"/>
+    <path fill="currentColor" d="M59 67.2Q59 57.9 67.3 57.9H96V81H59Z"/>
+    <rect fill="#000" opacity=".22" x="66.4" y="57.9" width="7.4" height="23.1"/>
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M43.3 33.9H54.4L43.3 45H54.4"/>
+      <path d="M61.8 14.5H78.4L61.8 31.1H78.4"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-sofa" viewBox="0 0 120 120">
+  <g transform="rotate(4 60.3 60.3)">
+    <path fill="currentColor" d="M25 37.1A13 13 0 0 1 38 24.1L82.6 24.1A13 13 0 0 1 95.6 37.1L95.6 61.2L25 61.2Z"/>
+    <g fill="currentColor" opacity=".55">
+      <rect x="34.3" y="63" width="25.1" height="16.7" rx="3.7"/>
+      <rect x="61.2" y="63" width="25.1" height="16.7" rx="3.7"/>
+    </g>
+    <path fill="currentColor" d="M12 53.8A9.3 9.3 0 0 1 21.3 44.5L23.2 44.5A9.3 9.3 0 0 1 32.4 53.8L32.4 77.9A9.3 9.3 0 0 1 23.2 87.2L21.3 87.2A9.3 9.3 0 0 1 12 77.9ZM88.1 53.8A9.3 9.3 0 0 1 97.4 44.5L99.3 44.5A9.3 9.3 0 0 1 108.6 53.8L108.6 77.9A9.3 9.3 0 0 1 99.3 87.2L97.4 87.2A9.3 9.3 0 0 1 88.1 77.9Z"/>
+    <rect fill="currentColor" x="30.6" y="81.6" width="59.4" height="7.4"/>
+    <g fill="currentColor">
+      <rect x="19.4" y="87.2" width="7.4" height="9.3" rx="2.8"/>
+      <rect x="93.7" y="87.2" width="7.4" height="9.3" rx="2.8"/>
+    </g>
+    <rect fill="#000" opacity=".22" x="39.9" y="37.1" width="19.5" height="19.5" rx="4.6" transform="rotate(-12 49.6 46.8)"/>
+  </g>
+</symbol>
+<symbol id="art-door" viewBox="0 0 120 120">
+  <g transform="rotate(4 61.4 58.3)">
+    <path fill="currentColor" opacity=".55" d="M22.8 19.8A6.1 6.1 0 0 1 28.9 13.7L93.8 13.7A6.1 6.1 0 0 1 99.9 19.8L99.9 101A2 2 0 0 1 97.9 103L91.8 103A2 2 0 0 1 89.8 101L89.8 23.8L33 23.8L33 101A2 2 0 0 1 30.9 103L24.8 103A2 2 0 0 1 22.8 101Z"/>
+    <path fill="currentColor" d="M33 23.8L69.1 13.5A5.1 5.1 0 0 1 75.6 18.4L75.6 103.2A5.1 5.1 0 0 1 69.8 108.3L33 103Z"/>
+    <circle fill="#000" opacity=".22" cx="66.4" cy="61.4" r="5.1"/>
+  </g>
+</symbol>
+<symbol id="art-window" viewBox="0 0 120 120">
+  <g transform="rotate(-5 57.5 59.1)">
+    <circle fill="currentColor" opacity=".55" cx="75.4" cy="35.5" r="7.5"/>
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M33.9 43.1L45.3 28.9"/>
+      <path d="M34.9 76.1L44.3 64.8"/>
+    </g>
+    <path fill="currentColor" fill-rule="evenodd" d="M17.9 22.3A8.5 8.5 0 0 1 26.4 13.8L88.7 13.8A8.5 8.5 0 0 1 97.1 22.3L97.1 82.7A8.5 8.5 0 0 1 88.7 91.2L26.4 91.2A8.5 8.5 0 0 1 17.9 82.7ZM26.4 25.2A2.8 2.8 0 0 1 29.2 22.3L50.9 22.3A2.8 2.8 0 0 1 53.7 25.2L53.7 46.9A2.8 2.8 0 0 1 50.9 49.7L29.2 49.7A2.8 2.8 0 0 1 26.4 46.9ZM61.3 25.2A2.8 2.8 0 0 1 64.1 22.3L85.8 22.3A2.8 2.8 0 0 1 88.7 25.2L88.7 46.9A2.8 2.8 0 0 1 85.8 49.7L64.1 49.7A2.8 2.8 0 0 1 61.3 46.9ZM26.4 60.1A2.8 2.8 0 0 1 29.2 57.2L50.9 57.2A2.8 2.8 0 0 1 53.7 60.1L53.7 79.9A2.8 2.8 0 0 1 50.9 82.7L29.2 82.7A2.8 2.8 0 0 1 26.4 79.9ZM61.3 60.1A2.8 2.8 0 0 1 64.1 57.2L85.8 57.2A2.8 2.8 0 0 1 88.7 60.1L88.7 79.9A2.8 2.8 0 0 1 85.8 82.7L64.1 82.7A2.8 2.8 0 0 1 61.3 79.9Z"/>
+    <rect fill="currentColor" x="10.3" y="93.1" width="94.3" height="10.4" rx="4.7"/>
+  </g>
+</symbol>
+
+<!-- 话与想法 -->
+<symbol id="art-chat" viewBox="0 0 120 120">
+  <g transform="rotate(-5 62.5 58.6)">
+    <path fill="currentColor" opacity=".55" d="M63.5 15.2H93.6Q107.8 15.2 107.8 29.3V44.4Q107.8 58.6 93.6 58.6H92.7L96.5 73.7L79.5 58.6H63.5Q49.3 58.6 49.3 44.4V29.3Q49.3 15.2 63.5 15.2Z"/>
+    <path fill="currentColor" d="M31.4 39.7H71Q87 39.7 87 55.8V72.7Q87 88.8 71 88.8H47.4L26.7 105.7L32.3 88.8H31.4Q15.3 88.8 15.3 72.7V55.8Q15.3 39.7 31.4 39.7Z"/>
+    <g fill="#000" opacity=".22">
+      <circle cx="34.2" cy="64.2" r="5.2"/>
+      <circle cx="51.2" cy="64.2" r="5.2"/>
+      <circle cx="68.2" cy="64.2" r="5.2"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-question" viewBox="0 0 120 120">
+  <g transform="rotate(8 57.9 66)">
+    <path fill="currentColor" d="M19.1 47.8A29.7 29.7 0 1 1 61 75A4.2 4.2 0 0 0 58.4 78.9L58.4 80.6A9.5 9.5 0 0 1 39.3 80.6L39.3 78.9A23.4 23.4 0 0 1 53.2 57.5A10.6 10.6 0 1 0 38.3 47.8A9.6 9.6 0 0 1 19.1 47.8Z"/>
+    <circle fill="currentColor" cx="48.9" cy="104.8" r="10.3"/>
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M74.2 17.7L80 10.8"/>
+      <path d="M85.4 33.1L93.7 29.7"/>
+      <path d="M88 52L96.9 52.9"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-bulb" viewBox="0 0 120 120">
+  <g transform="rotate(-8 60.7 61.8)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24.6 56.1L17 56.1"/>
+      <path d="M35.2 30.5L29.8 25.2"/>
+      <path d="M60.7 19.9L60.7 12.3"/>
+      <path d="M86.3 30.5L91.6 25.2"/>
+      <path d="M96.9 56.1L104.5 56.1"/>
+    </g>
+    <path fill="currentColor" d="M42.4 77.9A28.5 28.5 0 1 1 79.1 77.9C75 81.3 73.1 84.1 73.1 88.4H48.4C48.4 84.1 46.5 81.3 42.4 77.9Z"/>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M52.2 86.5V65.6L60.7 74.1L69.3 65.6V86.5"/>
+    <g fill="currentColor" opacity=".55">
+      <rect x="49.3" y="91.3" width="22.8" height="6.2" rx="3"/>
+      <rect x="49.3" y="99.3" width="22.8" height="6.2" rx="3"/>
+    </g>
+    <rect fill="currentColor" x="55" y="107.4" width="11.4" height="4.8" rx="2.4"/>
+  </g>
+</symbol>
+<symbol id="art-brain" viewBox="0 0 120 120">
+  <g transform="rotate(6 59.3 63.2)">
+    <path fill="currentColor" d="M57 26.4A9 9 0 0 0 42.8 21.8A10.6 10.6 0 0 0 27.2 30.1A10.7 10.7 0 0 0 17 44.8A11.1 11.1 0 0 0 14.3 63.2A11.1 11.1 0 0 0 20.7 80.6A11.3 11.3 0 0 0 34.5 93.5A8.9 8.9 0 0 0 48.3 99A5.7 5.7 0 0 0 57 95.4ZM61.6 26.4A9 9 0 0 1 75.9 21.8A10.6 10.6 0 0 1 91.5 30.1A10.7 10.7 0 0 1 101.6 44.8A11.1 11.1 0 0 1 104.4 63.2A11.1 11.1 0 0 1 98 80.6A11.3 11.3 0 0 1 84.2 93.5A8.9 8.9 0 0 1 70.4 99A5.7 5.7 0 0 1 61.6 95.4Z"/>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M44.6 35.6Q35.4 39.3 39.1 48.5T31.8 59.5"/>
+      <path d="M26.2 66.8Q31.8 76 42.8 71.4"/>
+      <path d="M47.4 57.7Q52.9 66.8 45.5 76Q41 83.4 47.4 88"/>
+    </g>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="matrix(-1 0 0 1 118.7 0)">
+      <path d="M44.6 35.6Q35.4 39.3 39.1 48.5T31.8 59.5"/>
+      <path d="M26.2 66.8Q31.8 76 42.8 71.4"/>
+      <path d="M47.4 57.7Q52.9 66.8 45.5 76Q41 83.4 47.4 88"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-magnifier" viewBox="0 0 120 120">
+  <circle fill="currentColor" opacity=".55" cx="49.5" cy="49.5" r="27"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M13.5 49.5A36 36 0 1 0 85.5 49.5A36 36 0 1 0 13.5 49.5ZM23.5 49.5A26 26 0 1 0 75.5 49.5A26 26 0 1 0 23.5 49.5Z"/>
+  <path fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M34.5 46.5A16 16 0 0 1 46.5 34.5"/>
+  <path fill="currentColor" d="M73.2 83.8L96.2 106.8A7.4 7.4 0 0 0 106.8 96.2L83.8 73.2A7.4 7.4 0 0 0 73.2 83.8Z"/>
+  <path fill="#000" opacity=".22" d="M85.7 75.1L89.9 79.3L79.3 89.9L75.1 85.7Z"/>
+</symbol>
+<symbol id="art-key" viewBox="0 0 120 120">
+  <g transform="rotate(-40 59.8 56.8)">
+    <path fill="none" stroke="currentColor" opacity=".55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M4.2 56.8A11.1 11.1 0 1 0 26.4 56.8A11.1 11.1 0 1 0 4.2 56.8Z"/>
+    <path fill="currentColor" d="M53.2 47.8L105.5 47.8A5.6 5.6 0 0 1 111.1 53.4L111.1 64.8A0.8 0.8 0 0 1 110.2 65.7L109.4 65.7L109.4 75.7A3.3 3.3 0 0 1 106.1 79L102.7 79A3.3 3.3 0 0 1 99.4 75.7L99.4 65.7L94.9 65.7L94.9 81.3A3.3 3.3 0 0 1 91.6 84.6L87.1 84.6A3.3 3.3 0 0 1 83.8 81.3L83.8 65.7L53.2 65.7Z"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M10.8 56.8A24.5 24.5 0 1 0 59.8 56.8A24.5 24.5 0 1 0 10.8 56.8ZM18.1 56.8A9.4 9.4 0 1 0 37 56.8A9.4 9.4 0 1 0 18.1 56.8Z"/>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M65.4 56.8H103.3"/>
+  </g>
+</symbol>
+<symbol id="art-pouch" viewBox="0 0 120 120">
+  <g transform="rotate(-6 61.6 56.5)">
+    <path fill="currentColor" opacity=".55" d="M21.5 17.3Q23.4 25.2 31.3 27.1Q23.4 29.1 21.5 36.9Q19.5 29.1 11.7 27.1Q19.5 25.2 21.5 17.3Z"/>
+    <path fill="currentColor" opacity=".55" d="M102.8 24.7Q104.1 29.8 109.2 31Q104.1 32.3 102.8 37.4Q101.5 32.3 96.4 31Q101.5 29.8 102.8 24.7Z"/>
+    <g fill="currentColor" opacity=".55">
+      <path d="M59.7 38.9L43.4 31.1A4.4 4.4 0 0 0 37.1 35L37.1 42.7A4.4 4.4 0 0 0 43.4 46.6Z"/>
+      <path d="M63.6 38.9L79.9 46.6A4.4 4.4 0 0 0 86.1 42.7L86.1 35A4.4 4.4 0 0 0 79.9 31.1Z"/>
+      <rect x="47.9" y="34.5" width="27.4" height="8.8"/>
+    </g>
+    <path fill="currentColor" d="M51.8 34.9C49.9 28.1 40.1 27.1 34.2 19.3A10.3 10.3 0 0 1 50.4 14.4L55 25.6L53.8 13.9A11.3 11.3 0 0 1 69.5 13.9L68.3 25.6L72.9 14.4A10.3 10.3 0 0 1 89.1 19.3C83.2 27.1 73.4 28.1 71.4 34.9Z"/>
+    <path fill="currentColor" d="M50.9 42.8C47.9 51.6 24.4 55.5 18 75.1C12.7 92.7 23.4 104.5 42 104.5H81.2C99.8 104.5 110.6 92.7 105.2 75.1C98.9 55.5 75.4 51.6 72.4 42.8Z"/>
+    <path fill="#000" opacity=".22" d="M105.2 75.1C110.6 92.7 99.8 104.5 81.2 104.5H55.8C81.2 103.5 97.9 94.7 105.2 75.1Z"/>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M58.7 45.7L54.3 55.5"/>
+      <path d="M64.6 45.7L69 55.5"/>
+    </g>
+    <circle fill="currentColor" cx="61.6" cy="38.9" r="6.4"/>
+    <rect fill="#000" opacity=".22" x="49.4" y="67.8" width="24.5" height="24.5" rx="3.9" transform="rotate(45 61.6 80)"/>
+    <path fill="currentColor" d="M61.6 69.2Q63.8 77.9 72.4 80Q63.8 82.2 61.6 90.8Q59.5 82.2 50.9 80Q59.5 77.9 61.6 69.2Z"/>
+  </g>
+</symbol>
+<symbol id="art-compass" viewBox="0 0 120 120">
+  <g transform="rotate(8 61 60.8)">
+    <path fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M54.9 18.1A6 6 0 1 0 67 18.1A6 6 0 1 0 54.9 18.1Z"/>
+    <circle fill="currentColor" opacity=".55" cx="61" cy="67.9" r="31"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M21.3 67.9A39.6 39.6 0 1 0 100.6 67.9A39.6 39.6 0 1 0 21.3 67.9ZM30.5 67.9A30.4 30.4 0 1 0 91.4 67.9A30.4 30.4 0 1 0 30.5 67.9Z"/>
+    <g fill="currentColor">
+      <circle cx="61" cy="43.5" r="3"/>
+      <circle cx="85.3" cy="67.9" r="3"/>
+      <circle cx="61" cy="92.2" r="3"/>
+      <circle cx="36.6" cy="67.9" r="3"/>
+    </g>
+    <path fill="currentColor" d="M75 47.9L67.7 72.5L54.2 63.2Z"/>
+    <path fill="#000" opacity=".22" d="M46.9 87.9L54.2 63.2L67.7 72.5Z"/>
+  </g>
+</symbol>
+<symbol id="art-map" viewBox="0 0 120 120">
+  <g transform="rotate(-6 59.9 58.2)">
+    <path fill="currentColor" opacity=".55" d="M41.4 23.3L78.3 33L78.3 96.9L41.4 87.2Z"/>
+    <path fill="currentColor" d="M13.3 35.8A3.9 3.9 0 0 1 15.9 32.1L42.4 23.3L42.4 87.2L18.5 95.2A3.9 3.9 0 0 1 13.3 91.6ZM77.3 33L101.2 25A3.9 3.9 0 0 1 106.4 28.6L106.4 84.4A3.9 3.9 0 0 1 103.8 88.1L77.3 96.9Z"/>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 11" d="M23 83.4C30.8 64 46.3 83.4 57.9 64S77.3 54.3 87 54.3"/>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M87 45.6L97.7 56.2M97.7 45.6L87 56.2"/>
+  </g>
+</symbol>
+<symbol id="art-flag" viewBox="0 0 120 120">
+  <g transform="rotate(6 62 64.8)">
+    <path fill="currentColor" opacity=".55" d="M15 109.1Q16.8 97.4 34.9 97.4Q52.9 97.4 54.7 109.1Z"/>
+    <rect fill="currentColor" x="30.3" y="19.6" width="8.1" height="87.7" rx="4.1"/>
+    <path fill="currentColor" d="M42.1 25.1C54.7 17.8 65.6 34.1 81.9 26.9C89.1 23.7 96.3 23.2 103.5 26V63.9C96.3 61.2 89.1 61.7 81.9 64.8C65.6 72.1 54.7 55.8 42.1 63Z"/>
+    <path fill="#000" opacity=".22" d="M42.1 38.2C54.7 30.9 65.6 47.2 81.9 40C89.1 36.8 96.3 36.4 103.5 39.1V50.8C96.3 48.1 89.1 48.6 81.9 51.7C65.6 58.9 54.7 42.7 42.1 49.9Z"/>
+  </g>
+</symbol>
+
+<!-- 玩 -->
+<symbol id="art-dice" viewBox="0 0 120 120">
+  <path fill="currentColor" opacity=".55" fill-rule="evenodd" transform="translate(86.3 34) rotate(18)" d="M-20.3 -11.2A9.1 9.1 0 0 1 -11.2 -20.3L11.2 -20.3A9.1 9.1 0 0 1 20.3 -11.2L20.3 11.2A9.1 9.1 0 0 1 11.2 20.3L-11.2 20.3A9.1 9.1 0 0 1 -20.3 11.2ZM-14.3 -9.7A4.6 4.6 0 1 0 -5 -9.7A4.6 4.6 0 1 0 -14.3 -9.7ZM-4.7 0A4.7 4.7 0 1 0 4.7 0A4.7 4.7 0 1 0 -4.7 0ZM5 9.7A4.6 4.6 0 1 0 14.3 9.7A4.6 4.6 0 1 0 5 9.7Z"/>
+  <path fill="currentColor" fill-rule="evenodd" transform="translate(48.7 71.6) rotate(-12)" d="M-31.5 -18.3A13.2 13.2 0 0 1 -18.3 -31.5L18.3 -31.5A13.2 13.2 0 0 1 31.5 -18.3L31.5 18.3A13.2 13.2 0 0 1 18.3 31.5L-18.3 31.5A13.2 13.2 0 0 1 -31.5 18.3ZM-22.9 -16.3A6.6 6.6 0 1 0 -9.7 -16.3A6.6 6.6 0 1 0 -22.9 -16.3ZM9.7 -16.3A6.6 6.6 0 1 0 22.9 -16.3A6.6 6.6 0 1 0 9.7 -16.3ZM-6.6 0A6.6 6.6 0 1 0 6.6 0A6.6 6.6 0 1 0 -6.6 0ZM-22.9 16.3A6.6 6.6 0 1 0 -9.7 16.3A6.6 6.6 0 1 0 -22.9 16.3ZM9.7 16.3A6.6 6.6 0 1 0 22.9 16.3A6.6 6.6 0 1 0 9.7 16.3Z"/>
+</symbol>
+<symbol id="art-cards" viewBox="0 0 120 120">
+  <g transform="translate(44.7 57.3) rotate(-14)">
+    <rect fill="currentColor" opacity=".55" x="-27.5" y="-38.5" width="55" height="77" rx="8.8"/>
+    <path fill="currentColor" d="M-17.4 -31.8A1.1 1.1 0 0 1 -15.6 -31.8L-12 -27.1A1.1 1.1 0 0 1 -12 -25.7L-15.6 -21A1.1 1.1 0 0 1 -17.4 -21L-21 -25.7A1.1 1.1 0 0 1 -21 -27.1Z"/>
+  </g>
+  <g transform="translate(73.3 62.8) rotate(10)">
+    <rect fill="currentColor" x="-28.6" y="-39.6" width="57.2" height="79.2" rx="8.8"/>
+    <path fill="#000" opacity=".22" d="M0 -16.5C5.5 -8.8 16.5 -3.3 16.5 6.6C16.5 14.3 7.7 16.5 3.3 11L5.5 18.7H-5.5L-3.3 11C-7.7 16.5 -16.5 14.3 -16.5 6.6C-16.5 -3.3 -5.5 -8.8 0 -16.5ZM-19.6 -32.9A1.1 1.1 0 0 1 -17.8 -32.9L-14.2 -28.2A1.1 1.1 0 0 1 -14.2 -26.8L-17.8 -22.1A1.1 1.1 0 0 1 -19.6 -22.1L-23.2 -26.8A1.1 1.1 0 0 1 -23.2 -28.2ZM17.8 22.1A1.1 1.1 0 0 1 19.6 22.1L23.2 26.8A1.1 1.1 0 0 1 23.2 28.2L19.6 32.9A1.1 1.1 0 0 1 17.8 32.9L14.2 28.2A1.1 1.1 0 0 1 14.2 26.8Z"/>
+  </g>
+</symbol>
+<symbol id="art-chess" viewBox="0 0 120 120">
+  <g transform="rotate(5 64.8 59.7)">
+    <rect fill="currentColor" opacity=".55" x="31.5" y="95.9" width="66.5" height="10.8" rx="4.9"/>
+    <rect fill="currentColor" x="38.4" y="85.2" width="52.8" height="8.8" rx="2.9"/>
+    <path fill="currentColor" d="M42.3 86.2C42.3 74.4 53.1 68.5 52.1 58.8Q45.2 63.2 38.4 64.1Q27.6 66.6 24.7 56.8L25.7 49Q26.6 44.1 30.6 41.1Q37.4 31.4 46.2 25.5L49.2 13.7Q50.6 8.9 54.5 12.3L65.8 21.6C84.4 27.4 94.2 50 89.3 86.2Z"/>
+    <g fill="#000" opacity=".22">
+      <circle cx="45.2" cy="37.2" r="3.5"/>
+      <circle cx="30.1" cy="52.4" r="2.2"/>
+    </g>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M71.7 31.4L65.8 37.2"/>
+      <path d="M80.5 46L73.6 50"/>
+      <path d="M84.4 61.7L77.5 63.7"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-puzzle" viewBox="0 0 120 120">
+  <g transform="rotate(-10 65.4 57.3)">
+    <g fill="currentColor" opacity=".55">
+      <rect x="11.9" y="44" width="13.4" height="45.8" rx="5.7"/>
+      <rect x="23.4" y="62.6" width="9.6" height="8.6"/>
+      <circle cx="38.7" cy="66.9" r="8.6"/>
+    </g>
+    <path fill="currentColor" d="M35.8 38.2H51.5A11.5 11.5 0 1 1 64.1 38.2H79.7Q86.4 38.2 86.4 44.9V60.6A11.5 11.5 0 1 1 86.4 73.2V88.9Q86.4 95.5 79.7 95.5H64.1A11.5 11.5 0 1 0 51.5 95.5H35.8Q29.1 95.5 29.1 88.9V73.2A11.5 11.5 0 1 0 29.1 60.6V44.9Q29.1 38.2 35.8 38.2Z"/>
+  </g>
+</symbol>
+<symbol id="art-gamepad" viewBox="0 0 120 120">
+  <g transform="rotate(-10 57.8 59.7)">
+    <g fill="currentColor" opacity=".55">
+      <rect x="22.3" y="28.2" width="19.7" height="9.8" rx="3.9"/>
+      <rect x="73.5" y="28.2" width="19.7" height="9.8" rx="3.9"/>
+    </g>
+    <path fill="currentColor" d="M33.7 34.1H81.8C94.8 34.1 102.2 43.9 104 57.7L106.8 79.4C108.2 91.2 96.7 96.1 91 86.3L85.5 76.4Q83.7 73.5 80 73.5H35.5Q31.9 73.5 30 76.4L24.5 86.3C18.9 96.1 7.4 91.2 8.7 79.4L11.5 57.7C13.4 43.9 20.7 34.1 33.7 34.1Z"/>
+    <g fill="#000" opacity=".22">
+      <rect x="26.3" y="49.8" width="19.7" height="7.9" rx="2"/>
+      <rect x="32.2" y="43.9" width="7.9" height="19.7" rx="2"/>
+    </g>
+    <g fill="#000" opacity=".22">
+      <circle cx="74.5" cy="59.7" r="5.4"/>
+      <circle cx="86.3" cy="47.9" r="5.4"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-target" viewBox="0 0 120 120">
+  <path fill="currentColor" opacity=".55" fill-rule="evenodd" d="M27.9 65A27.2 27.2 0 1 0 82.3 65A27.2 27.2 0 1 0 27.9 65ZM37.9 65A17.1 17.1 0 1 0 72.2 65A17.1 17.1 0 1 0 37.9 65Z"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M12.7 65A42.3 42.3 0 1 0 97.4 65A42.3 42.3 0 1 0 12.7 65ZM22.8 65A32.2 32.2 0 1 0 87.3 65A32.2 32.2 0 1 0 22.8 65Z"/>
+  <circle fill="currentColor" cx="55.1" cy="65" r="10.1"/>
+  <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M57.1 63L100.5 19.7"/>
+    <path d="M91.4 28.7V15.6"/>
+    <path d="M91.4 28.7H104.5"/>
+  </g>
+</symbol>
+<symbol id="art-hourglass" viewBox="0 0 120 120">
+  <g transform="rotate(10 60.2 59.6)">
+    <path fill="currentColor" opacity=".55" d="M36.6 23.3H83.8C83.8 43.3 66.5 50.5 64.7 59.6C66.5 68.7 83.8 75.9 83.8 95.9H36.6C36.6 75.9 53.8 68.7 55.6 59.6C53.8 50.5 36.6 43.3 36.6 23.3Z"/>
+    <path fill="currentColor" d="M45.2 43.3H75.2C71.1 49.6 65.6 53.2 63.8 58.7H56.6C54.7 53.2 49.3 49.6 45.2 43.3Z"/>
+    <rect fill="currentColor" x="58.4" y="57.8" width="3.6" height="20" rx="1.8"/>
+    <path fill="currentColor" d="M39.8 96.8C43.8 85 53.8 77.8 60.2 75.9C66.5 77.8 76.5 85 80.6 96.8Z"/>
+    <rect fill="currentColor" x="29.3" y="14.2" width="61.8" height="10" rx="5"/>
+    <rect fill="currentColor" x="29.3" y="95" width="61.8" height="10" rx="5"/>
+  </g>
+</symbol>
+<symbol id="art-stopwatch" viewBox="0 0 120 120">
+  <g transform="rotate(8 67.3 59.5)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16.9 57.4H24.1"/>
+      <path d="M13.9 69.7H22.1"/>
+      <path d="M16.9 82.1H24.1"/>
+    </g>
+    <rect fill="currentColor" x="60.1" y="11.2" width="14.4" height="10.3" rx="3.1"/>
+    <rect fill="currentColor" x="63.7" y="19.4" width="7.2" height="10.3"/>
+    <rect fill="currentColor" x="63.2" y="18.4" width="8.2" height="11.3" rx="2.6" transform="rotate(42 67.3 67.7)"/>
+    <path fill="currentColor" opacity=".55" d="M67.3 67.7V42A25.7 25.7 0 0 1 91.4 76.5Z"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M28.2 67.7A39 39 0 1 0 106.3 67.7A39 39 0 1 0 28.2 67.7ZM39.5 67.7A27.7 27.7 0 1 0 95 67.7A27.7 27.7 0 1 0 39.5 67.7Z"/>
+    <path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M67.3 67.7L83.7 73.6"/>
+    <circle fill="currentColor" cx="67.3" cy="67.7" r="5.1"/>
+  </g>
+</symbol>
+
+<!-- 知识 -->
+<symbol id="art-book" viewBox="0 0 120 120">
+  <g transform="rotate(-6 59.8 59.4)">
+    <path fill="currentColor" opacity=".55" d="M13.3 35.7Q13.3 30.2 18.8 30.2H100.9Q106.3 30.2 106.3 35.7V90.4Q106.3 95.9 100.9 95.9H67.1Q62.6 95.9 59.8 100.4Q57.1 95.9 52.5 95.9H18.8Q13.3 95.9 13.3 90.4Z"/>
+    <path fill="currentColor" d="M57.6 33C47.1 23.8 30.7 22 17.9 25.7V82.2C30.7 78.5 47.1 80.4 57.6 89.5ZM62.1 33C72.6 23.8 89 22 101.8 25.7V82.2C89 78.5 72.6 80.4 62.1 89.5Z"/>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M26.1 38.4C34.3 37.1 43.4 38.9 49.8 43"/>
+      <path d="M26.1 51.2C34.3 49.8 43.4 51.7 49.8 55.8"/>
+      <path d="M26.1 64C34.3 62.6 43.4 64.4 49.8 68.5"/>
+    </g>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="matrix(-1 0 0 1 119.7 0)">
+      <path d="M26.1 38.4C34.3 37.1 43.4 38.9 49.8 43"/>
+      <path d="M26.1 51.2C34.3 49.8 43.4 51.7 49.8 55.8"/>
+      <path d="M26.1 64C34.3 62.6 43.4 64.4 49.8 68.5"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-pencil" viewBox="0 0 120 120">
+  <path fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M39.1 104.2Q45.1 96.3 51 104.2T62.9 104.2T74.7 104.2T86.6 104.2"/>
+  <g transform="translate(17.4 96.3) rotate(-45)">
+    <path fill="currentColor" opacity=".55" d="M0 0L26.7 -14.8V14.8Z"/>
+    <rect fill="currentColor" opacity=".55" x="83.5" y="-14.8" width="10.9" height="29.7"/>
+    <path fill="currentColor" d="M0 0L10.9 -6V6Z"/>
+    <rect fill="currentColor" x="25.7" y="-14.8" width="58.3" height="29.7"/>
+    <rect fill="#000" opacity=".22" x="25.7" y="4" width="58.3" height="10.9"/>
+    <path fill="currentColor" d="M93.9 -14.8L101.8 -14.8A7.9 7.9 0 0 1 109.7 -6.9L109.7 6.9A7.9 7.9 0 0 1 101.8 14.8L93.9 14.8Z"/>
+  </g>
+</symbol>
+<symbol id="art-abc" viewBox="0 0 120 120">
+  <g transform="rotate(-6 59.5 55.3)">
+    <rect fill="currentColor" opacity=".55" x="10.7" y="83.5" width="97.8" height="7.5" rx="3.8"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M9.7 60A16.4 16.4 0 1 0 42.6 60A16.4 16.4 0 1 0 9.7 60ZM20.5 60A5.6 5.6 0 1 0 31.8 60A5.6 5.6 0 1 0 20.5 60Z"/>
+    <path fill="currentColor" d="M31.8 43.5L39.3 43.5A3.3 3.3 0 0 1 42.6 46.8L42.6 73.2A3.3 3.3 0 0 1 39.3 76.5L31.8 76.5Z"/>
+    <g fill="currentColor" opacity=".55">
+      <path fill-rule="evenodd" d="M43.1 60A16.4 16.4 0 1 0 76 60A16.4 16.4 0 1 0 43.1 60ZM53.9 60A5.6 5.6 0 1 0 65.2 60A5.6 5.6 0 1 0 53.9 60Z"/>
+      <path d="M43.1 24.7A3.3 3.3 0 0 1 46.4 21.5L50.6 21.5A3.3 3.3 0 0 1 53.9 24.7L53.9 76.5L46.4 76.5A3.3 3.3 0 0 1 43.1 73.2Z"/>
+    </g>
+    <path fill="currentColor" d="M105.1 71A16.5 16.5 0 1 1 105.1 49A5.3 5.3 0 0 1 97.1 56.2A5.6 5.6 0 1 0 97.1 63.8A5.3 5.3 0 0 1 105.1 71Z"/>
+  </g>
+</symbol>
+<symbol id="art-globe" viewBox="0 0 120 120">
+  <g transform="rotate(6 53.5 60.6)">
+    <rect fill="currentColor" opacity=".55" x="27.9" y="99.1" width="51.4" height="8.9" rx="4.4"/>
+    <rect fill="currentColor" x="50.1" y="90.2" width="6.9" height="10.9"/>
+    <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M63.9 14.1A39.9 39.9 0 0 1 43.2 91.3"/>
+      <path d="M61.3 24L63.8 14.6"/>
+      <path d="M45.8 81.4L43.3 90.8"/>
+    </g>
+    <circle fill="currentColor" cx="53.5" cy="52.7" r="31.6"/>
+    <g fill="#000" opacity=".22">
+      <path d="M37.7 36.9C43.7 31 53.5 32.9 55.5 40.8C56.5 46.8 49.6 48.7 47.6 54.7C45.6 60.6 37.7 58.6 35.8 52.7C33.8 46.8 33.8 40.8 37.7 36.9Z"/>
+      <path d="M63.4 50.7C69.4 46.8 77.3 50.7 77.3 58.6C77.3 66.5 71.3 72.5 65.4 70.5C59.5 68.5 59.5 54.7 63.4 50.7Z"/>
+      <path d="M43.7 68.5C47.6 66.5 51.6 68.5 51.6 72.5C51.6 76.4 45.6 78.4 41.7 76.4C39.7 74.4 40.7 70.5 43.7 68.5Z"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-rocket" viewBox="0 0 120 120">
+  <path fill="currentColor" opacity=".55" d="M26.3 16.2Q28 22.9 34.7 24.6Q28 26.2 26.3 32.9Q24.7 26.2 18 24.6Q24.7 22.9 26.3 16.2Z"/>
+  <circle fill="currentColor" opacity=".55" cx="106.5" cy="89.1" r="3.6"/>
+  <circle fill="currentColor" opacity=".55" cx="12.8" cy="72.4" r="3.1"/>
+  <g transform="rotate(40 63.8 60)">
+    <path fill="currentColor" opacity=".55" d="M49.2 84.9C47.1 99.5 54.4 108.9 61.7 118.2C69 108.9 76.3 99.5 74.2 84.9Z"/>
+    <path fill="currentColor" d="M55.5 84.9C54.4 94.3 58.6 100.5 61.7 105.7C64.8 100.5 69 94.3 68 84.9Z"/>
+    <path fill="currentColor" opacity=".55" d="M41.9 55.8L22.2 78.7Q19 88 27.4 88L41.9 82.8ZM81.5 55.8L101.3 78.7Q104.4 88 96 88L81.5 82.8Z"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M61.7 5.8C78.4 20.4 85.6 43.3 83.6 84.9H39.9C37.8 43.3 45.1 20.4 61.7 5.8ZM51.3 43.3A10.4 10.4 0 1 0 72.1 43.3A10.4 10.4 0 1 0 51.3 43.3Z"/>
+    <path fill="#000" opacity=".22" d="M40.1 76.6H83.4L83.6 84.9H39.9Z"/>
+  </g>
+</symbol>
+<symbol id="art-planet" viewBox="0 0 120 120">
+  <path fill="currentColor" opacity=".55" d="M98.5 20.9Q99.9 26.3 105.2 27.6Q99.9 29 98.5 34.3Q97.2 29 91.8 27.6Q97.2 26.3 98.5 20.9Z"/>
+  <circle fill="currentColor" opacity=".55" cx="19.8" cy="94.8" r="3.1"/>
+  <circle fill="currentColor" opacity=".55" cx="27.5" cy="23.8" r="2.5"/>
+  <g transform="rotate(-20 60.1 62.2)">
+    <path fill="currentColor" opacity=".55" fill-rule="evenodd" d="M6.8 62.2A53.3 19.7 0 1 0 113.4 62.2A53.3 19.7 0 1 0 6.8 62.2ZM17.4 62.2A42.7 10.6 0 1 0 102.8 62.2A42.7 10.6 0 1 0 17.4 62.2Z"/>
+    <path fill="currentColor" d="M31.5 70.4A29.8 29.8 0 1 1 88.7 70.4A43.2 11 0 0 1 31.5 70.4ZM35.7 79.2A52.8 19.2 0 0 0 84.5 79.2A29.8 29.8 0 0 1 35.7 79.2Z"/>
+    <g fill="#000" opacity=".22">
+      <circle cx="49.5" cy="45.9" r="4.8"/>
+      <circle cx="65.9" cy="41.1" r="3.1"/>
+      <circle cx="69.7" cy="52.6" r="2.5"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-star" viewBox="0 0 120 120">
+  <g transform="rotate(10 59 60.9)">
+    <path fill="currentColor" d="M55.8 19.6A3.5 3.5 0 0 1 62.2 19.6L72.1 43.8A3.5 3.5 0 0 0 75.1 45.9L101.2 47.8A3.5 3.5 0 0 1 103.2 54.1L83.2 70.9A3.5 3.5 0 0 0 82.1 74.4L88.4 99.8A3.5 3.5 0 0 1 83 103.6L60.8 89.8A3.5 3.5 0 0 0 57.2 89.8L35 103.6A3.5 3.5 0 0 1 29.7 99.8L35.9 74.4A3.5 3.5 0 0 0 34.8 70.9L14.8 54.1A3.5 3.5 0 0 1 16.9 47.8L42.9 45.9A3.5 3.5 0 0 0 45.9 43.8Z"/>
+    <path fill="#000" opacity=".22" d="M59 65L59 20.1L72.9 45.8ZM59 65L101.7 51L81.5 72.3ZM59 65L85.4 101.3L59 88.7ZM59 65L32.6 101.3L36.5 72.3ZM59 65L16.4 51L45.1 45.8Z"/>
+    <path fill="currentColor" opacity=".55" d="M20.7 15Q22.2 21.1 28.3 22.6Q22.2 24.1 20.7 30.2Q19.2 24.1 13.1 22.6Q19.2 21.1 20.7 15Z"/>
+    <path fill="currentColor" opacity=".55" d="M101.4 89.2Q102.6 94 107.4 95.2Q102.6 96.4 101.4 101.3Q100.2 96.4 95.3 95.2Q100.2 94 101.4 89.2Z"/>
+  </g>
+</symbol>
+<symbol id="art-moon" viewBox="0 0 120 120">
+  <path fill="currentColor" d="M61.7 14.7A43.6 43.6 0 1 0 99 73.2A34.6 34.6 0 0 1 61.7 14.7Z"/>
+  <g fill="#000" opacity=".22">
+    <circle cx="29.3" cy="56.2" r="5.9"/>
+    <circle cx="40.2" cy="81.9" r="4.5"/>
+    <circle cx="34.3" cy="32.4" r="3.5"/>
+  </g>
+  <path fill="currentColor" opacity=".55" d="M85.8 29.4Q88 38.1 96.7 40.3Q88 42.5 85.8 51.2Q83.6 42.5 74.9 40.3Q83.6 38.1 85.8 29.4Z"/>
+  <path fill="currentColor" opacity=".55" d="M105.6 56.2Q106.8 60.9 111.6 62.1Q106.8 63.3 105.6 68.1Q104.4 63.3 99.7 62.1Q104.4 60.9 105.6 56.2Z"/>
+  <circle fill="currentColor" opacity=".55" cx="73.9" cy="70" r="3"/>
+</symbol>
+<symbol id="art-sun" viewBox="0 0 120 120">
+  <g transform="rotate(10 60.2 60.1)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M85.1 85.1L90.4 90.4"/>
+      <path d="M35.2 85.1L29.9 90.4"/>
+      <path d="M35.2 35.2L29.9 29.9"/>
+      <path d="M85.1 35.2L90.4 29.9"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M95.4 60.1L105.8 60.1"/>
+      <path d="M60.2 95.3L60.2 105.8"/>
+      <path d="M25 60.1L14.5 60.1"/>
+      <path d="M60.2 24.9L60.2 14.5"/>
+    </g>
+    <circle fill="currentColor" cx="60.2" cy="60.1" r="26.6"/>
+    <g fill="#000" opacity=".22">
+      <rect x="36.4" y="50.6" width="47.6" height="5.2" rx="2.6"/>
+      <path d="M43 52.5A1.9 1.9 0 0 1 44.9 50.6L56.4 50.6A1.9 1.9 0 0 1 58.3 52.5L58.3 57.3A6.7 6.7 0 0 1 51.6 63.9L49.7 63.9A6.7 6.7 0 0 1 43 57.3Z"/>
+      <path d="M62.1 52.5A1.9 1.9 0 0 1 64 50.6L75.4 50.6A1.9 1.9 0 0 1 77.3 52.5L77.3 57.3A6.7 6.7 0 0 1 70.6 63.9L68.7 63.9A6.7 6.7 0 0 1 62.1 57.3Z"/>
+    </g>
+    <path fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M56.4 73.5Q63 78.2 69.7 71.5"/>
+  </g>
+</symbol>
+<symbol id="art-atom" viewBox="0 0 120 120">
+  <g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="60.2" cy="58.7" rx="43.7" ry="16.4" transform="rotate(30 60.2 58.7)"/>
+    <ellipse cx="60.2" cy="58.7" rx="43.7" ry="16.4" transform="rotate(90 60.2 58.7)"/>
+    <ellipse cx="60.2" cy="58.7" rx="43.7" ry="16.4" transform="rotate(150 60.2 58.7)"/>
+  </g>
+  <circle fill="currentColor" cx="60.2" cy="58.7" r="10.9"/>
+  <circle fill="#000" opacity=".22" cx="60.2" cy="58.7" r="5"/>
+  <g fill="currentColor">
+    <circle cx="22.3" cy="36.9" r="6.5"/>
+    <circle cx="98" cy="36.9" r="6.5"/>
+    <circle cx="60.2" cy="102.5" r="6.5"/>
+  </g>
+</symbol>
+<symbol id="art-magnet" viewBox="0 0 120 120">
+  <g transform="rotate(22 58.1 64.6)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32.6 23.1C32.6 5 83.6 5 83.6 23.1"/>
+      <path d="M47.5 25.2C49.6 15.7 66.6 15.7 68.8 25.2"/>
+    </g>
+    <path fill="currentColor" opacity=".55" d="M20.9 35.9A5.3 5.3 0 0 1 26.3 30.6L39 30.6A5.3 5.3 0 0 1 44.3 35.9L44.3 49.7L20.9 49.7ZM72 35.9A5.3 5.3 0 0 1 77.3 30.6L90 30.6A5.3 5.3 0 0 1 95.3 35.9L95.3 49.7L72 49.7Z"/>
+    <path fill="currentColor" d="M20.9 52.9V70.9A37.2 37.2 0 0 0 95.3 70.9V52.9H72V70.9A13.8 13.8 0 0 1 44.3 70.9V52.9Z"/>
+  </g>
+</symbol>
+<symbol id="art-flask" viewBox="0 0 120 120">
+  <g transform="rotate(-8 55 56.6)">
+    <g fill="currentColor" opacity=".55">
+      <circle cx="61.8" cy="15.3" r="4.8"/>
+      <circle cx="50.2" cy="8.5" r="3.1"/>
+    </g>
+    <path fill="currentColor" opacity=".55" d="M46.4 27.8V48.9L17.5 91.3Q10.8 103.8 24.3 103.8H85.8Q99.3 103.8 92.6 91.3L63.7 48.9V27.8Z"/>
+    <rect fill="currentColor" x="39.6" y="22" width="30.8" height="7.7" rx="3.8"/>
+    <path fill="currentColor" d="M30.6 72Q42.5 66.3 55 72T79.5 72L92.6 91.3Q99.3 103.8 85.8 103.8H24.3Q10.8 103.8 17.5 91.3Z"/>
+    <g fill="currentColor">
+      <circle cx="52.2" cy="58.6" r="3.4"/>
+      <circle cx="57.9" cy="43.2" r="2.9"/>
+    </g>
+    <g fill="#000" opacity=".22">
+      <circle cx="45.4" cy="87.4" r="4.3"/>
+      <circle cx="62.7" cy="82.6" r="3.4"/>
+      <circle cx="70.4" cy="94.2" r="2.9"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-telescope" viewBox="0 0 120 120">
+  <path fill="currentColor" opacity=".55" d="M27.9 16.1Q29.6 23 36.4 24.7Q29.6 26.4 27.9 33.2Q26.2 26.4 19.4 24.7Q26.2 23 27.9 16.1Z"/>
+  <circle fill="currentColor" opacity=".55" cx="46.8" cy="13.3" r="2.8"/>
+  <circle fill="currentColor" opacity=".55" cx="103.5" cy="45.5" r="2.6"/>
+  <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M54.4 62.5L32.6 104.1"/>
+    <path d="M54.4 62.5L57.2 106"/>
+    <path d="M54.4 62.5L80.8 102.2"/>
+  </g>
+  <g transform="translate(55.3 47.3) rotate(-28)">
+    <rect fill="currentColor" opacity=".55" x="-44.4" y="-6.1" width="16.1" height="12.3" rx="3.8"/>
+    <rect fill="currentColor" x="-30.3" y="-10.4" width="54.8" height="20.8" rx="3.8"/>
+    <rect fill="currentColor" x="21.7" y="-14.2" width="21.7" height="28.4" rx="4.7"/>
+    <rect fill="#000" opacity=".22" x="16.1" y="-10.4" width="5.7" height="20.8"/>
+  </g>
+  <circle fill="currentColor" cx="54.4" cy="61.5" r="6.6"/>
+</symbol>
+
+<!-- 生活 -->
+<symbol id="art-pan" viewBox="0 0 120 120">
+  <g transform="matrix(-1 0 0 1 119.6 0)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M90.4 33.6L97.1 26.9"/>
+      <path d="M98 46.9H106.6"/>
+      <path d="M82.7 22.1V14.5"/>
+    </g>
+    <circle fill="currentColor" opacity=".55" cx="47.4" cy="51.7" r="29.1"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M12 51.7A35.3 35.3 0 1 0 82.7 51.7A35.3 35.3 0 1 0 12 51.7ZM18.7 51.7A28.6 28.6 0 1 0 76 51.7A28.6 28.6 0 1 0 18.7 51.7Z"/>
+    <path fill="currentColor" d="M69.6 84.9L92.6 107.8A7.7 7.7 0 0 0 103.5 96.9L80.5 74A7.7 7.7 0 0 0 69.6 84.9Z"/>
+    <circle fill="#000" opacity=".22" cx="97.1" cy="101.4" r="3.2"/>
+    <path fill="currentColor" d="M46.4 31.7C56.9 29.7 67.4 39.3 65.5 49.8C64.6 56.5 69.3 63.2 61.7 68.9C54.1 74.7 46.4 68.9 38.8 70.8C29.2 72.7 25.4 62.2 29.2 53.6C32.1 46.9 34.9 33.6 46.4 31.7Z"/>
+    <circle fill="#000" opacity=".22" cx="49.3" cy="50.8" r="7.6"/>
+  </g>
+</symbol>
+<symbol id="art-pizza" viewBox="0 0 120 120">
+  <g transform="rotate(10 56.3 60.3)">
+    <path fill="currentColor" opacity=".55" d="M9.7 36.5Q7.7 28.2 14.9 24.1Q56.3 4.4 97.7 24.1Q104.9 28.2 102.9 36.5Q101.8 41.7 95.6 39.6Q56.3 23 17 39.6Q10.8 41.7 9.7 36.5Z"/>
+    <path fill="currentColor" d="M17 38.6Q56.3 22 95.6 38.6L90.2 49.6A6.2 6.2 0 0 0 85.3 59.9A6.2 6.2 0 0 0 80.3 70.1L63.5 104.8Q56.3 116.2 49.1 104.8Z"/>
+    <g fill="#000" opacity=".22">
+      <circle cx="41.8" cy="52" r="8.3"/>
+      <circle cx="65.6" cy="51" r="7.2"/>
+      <circle cx="55.3" cy="78.9" r="6.7"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="95.6" cy="61.3" r="2.7"/>
+      <circle cx="90.4" cy="73.8" r="2.3"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-cup" viewBox="0 0 120 120">
+  <g transform="rotate(-6 62.3 59.3)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M41.5 32.3C35.3 25.1 47.8 19.9 41.5 10.6"/>
+      <path d="M62.3 32.3C56 25.1 68.5 19.9 62.3 10.6"/>
+    </g>
+    <path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M80.9 59.3H89.2Q101.6 59.3 101.6 70.7Q101.6 82.1 89.2 82.1H80.9"/>
+    <path fill="currentColor" d="M20.8 48.9H83V84.1Q83 104.9 62.3 104.9H41.5Q20.8 104.9 20.8 84.1Z"/>
+    <rect fill="currentColor" x="16.7" y="40.6" width="70.4" height="9.3" rx="4.7"/>
+    <rect fill="#000" opacity=".22" x="20.8" y="61.4" width="62.2" height="10.4"/>
+  </g>
+</symbol>
+<symbol id="art-film" viewBox="0 0 120 120">
+  <g transform="rotate(-5 60.7 60.3)">
+    <g transform="translate(17.5 46.2) rotate(-13)">
+      <rect fill="currentColor" x="0" y="-14.1" width="86.6" height="14.1" rx="3.8"/>
+      <path fill="#000" opacity=".22" d="M7.5 0L16.9 0L22.6 -14.1L13.2 -14.1ZM28.2 0L37.6 0L43.3 -14.1L33.9 -14.1ZM48.9 0L58.3 0L64 -14.1L54.6 -14.1ZM69.6 0L79 0L84.7 -14.1L75.3 -14.1Z"/>
+    </g>
+    <path fill="currentColor" d="M17.5 51.8A1.9 1.9 0 0 1 19.3 49.9L102.1 49.9A1.9 1.9 0 0 1 104 51.8L104 93.2A8.5 8.5 0 0 1 95.6 101.7L25.9 101.7A8.5 8.5 0 0 1 17.5 93.2Z"/>
+    <path fill="#000" opacity=".22" d="M25 63.1L30.6 49.9H40L34.4 63.1ZM45.7 63.1L51.3 49.9H60.7L55.1 63.1ZM66.4 63.1L72 49.9H81.4L75.8 63.1ZM87.1 63.1L92.7 49.9H102.1L96.5 63.1Z"/>
+    <path fill="#000" opacity=".22" d="M52.3 75.5A2.4 2.4 0 0 1 55.8 73.5L68.3 80.3A2.4 2.4 0 0 1 68.3 84.5L55.8 91.3A2.4 2.4 0 0 1 52.3 89.3Z"/>
+  </g>
+</symbol>
+<symbol id="art-music" viewBox="0 0 120 120">
+  <g transform="rotate(-6 58.6 63.5)">
+    <path fill="currentColor" opacity=".55" d="M19.1 30.4Q20.6 36.3 26.5 37.8Q20.6 39.3 19.1 45.2Q17.7 39.3 11.7 37.8Q17.7 36.3 19.1 30.4Z"/>
+    <circle fill="currentColor" opacity=".55" cx="106" cy="57.5" r="3"/>
+    <path fill="currentColor" opacity=".55" d="M48.8 47.8L87.2 39.7L87.2 49.5L48.8 57.6Z"/>
+    <ellipse fill="currentColor" cx="35.9" cy="93.1" rx="14.8" ry="11.4" transform="rotate(-22 35.9 93.1)"/>
+    <ellipse fill="currentColor" cx="83.3" cy="81.2" rx="14.8" ry="11.4" transform="rotate(-22 83.3 81.2)"/>
+    <path fill="currentColor" d="M39.9 31.1A3.9 3.9 0 0 1 43 27.2L91.4 17.1A3.9 3.9 0 0 1 96.1 20.9L96.1 77.3L87.2 77.3L87.2 34.7L48.8 42.8L48.8 89.1L39.9 89.1Z"/>
+  </g>
+</symbol>
+<symbol id="art-camera" viewBox="0 0 120 120">
+  <g transform="rotate(-8 59 57)">
+    <rect fill="currentColor" opacity=".55" x="83.5" y="27.9" width="13.2" height="8.5" rx="2.8"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M38.3 34.5L42.1 26.9Q44 23.2 48.7 23.2H69.4Q74.1 23.2 75.9 26.9L79.7 34.5H94.8Q106 34.5 106 45.7V81.5Q106 92.8 94.8 92.8H23.3Q12 92.8 12 81.5V45.7Q12 34.5 23.3 34.5ZM37.4 63.6A21.6 21.6 0 1 0 80.6 63.6A21.6 21.6 0 1 0 37.4 63.6Z"/>
+    <circle fill="currentColor" cx="59" cy="63.6" r="16"/>
+    <circle fill="#000" opacity=".22" cx="59" cy="63.6" r="9.4"/>
+    <circle fill="currentColor" cx="55.2" cy="59.9" r="2.8"/>
+    <rect fill="#000" opacity=".22" x="20.4" y="42.9" width="15" height="7.5" rx="2.8"/>
+  </g>
+</symbol>
+<symbol id="art-earbuds-off" viewBox="0 0 120 120">
+  <rect fill="currentColor" opacity=".55" x="12.1" y="93.7" width="99.2" height="6" rx="3"/>
+  <g fill="currentColor" opacity=".55">
+    <rect x="79.5" y="17.4" width="7.4" height="23.8" rx="3.7"/>
+    <rect x="93.4" y="17.4" width="7.4" height="23.8" rx="3.7"/>
+  </g>
+  <g transform="translate(34.9 45.1) rotate(6)">
+    <ellipse fill="currentColor" opacity=".55" cx="-15.9" cy="4" rx="8.4" ry="11.4" transform="rotate(-15 -15.9 4)"/>
+    <circle fill="currentColor" cx="0" cy="0" r="16.9"/>
+    <rect fill="currentColor" x="2" y="0" width="12.9" height="39.7" rx="6.4"/>
+    <ellipse fill="#000" opacity=".22" cx="4" cy="-6" rx="5.5" ry="3" transform="rotate(-35 4 -6)"/>
+    <rect fill="#000" opacity=".22" x="6.2" y="15.9" width="4.5" height="14.9" rx="2.2"/>
+  </g>
+  <g transform="translate(68.6 72.9) rotate(-80) scale(-1 1)">
+    <ellipse fill="currentColor" opacity=".55" cx="-15.9" cy="4" rx="8.4" ry="11.4" transform="rotate(-15 -15.9 4)"/>
+    <circle fill="currentColor" cx="0" cy="0" r="16.9"/>
+    <rect fill="currentColor" x="2" y="0" width="12.9" height="39.7" rx="6.4"/>
+    <ellipse fill="#000" opacity=".22" cx="4" cy="-6" rx="5.5" ry="3" transform="rotate(-35 4 -6)"/>
+    <rect fill="#000" opacity=".22" x="6.2" y="15.9" width="4.5" height="14.9" rx="2.2"/>
+  </g>
+</symbol>
+<symbol id="art-phone-down" viewBox="0 0 120 120">
+  <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16.2 24.2H33.1L16.2 43.3H33.1"/>
+    <path d="M44.3 10.7H56.7L44.3 24.2H56.7"/>
+  </g>
+  <g fill="currentColor" opacity=".55">
+    <path transform="translate(-1.8 3.4)" d="M24.1 87.8A9 9 0 0 1 22.9 72.6L72 37A9 9 0 0 1 81.5 36.3L104.2 48.4A9 9 0 0 1 105.3 63.6L56.2 99.1A9 9 0 0 1 46.8 99.8Z"/>
+    <path transform="translate(-1.8 7.3)" d="M24.1 87.8A9 9 0 0 1 22.9 72.6L72 37A9 9 0 0 1 81.5 36.3L104.2 48.4A9 9 0 0 1 105.3 63.6L56.2 99.1A9 9 0 0 1 46.8 99.8Z"/>
+  </g>
+  <path fill="currentColor" d="M22.3 87.2A9 9 0 0 1 21.2 72L70.2 36.5A9 9 0 0 1 79.7 35.8L102.4 47.8A9 9 0 0 1 103.5 63L54.5 98.6A9 9 0 0 1 45 99.2Z"/>
+  <path fill="#000" opacity=".22" d="M63 54.8A3.9 3.9 0 0 1 62.6 48.2L72.3 41A3.9 3.9 0 0 1 76.5 40.7L84.9 45.1A3.9 3.9 0 0 1 85.4 51.8L75.6 59A3.9 3.9 0 0 1 71.4 59.2Z"/>
+  <g fill="currentColor">
+    <circle cx="78.2" cy="46.9" r="3.6"/>
+    <circle cx="70.1" cy="52.8" r="3.6"/>
+  </g>
+</symbol>
+
+<!-- 户外 -->
+<symbol id="art-tent" viewBox="0 0 120 120">
+  <g transform="rotate(4 62.5 59.5)">
+    <path fill="currentColor" opacity=".55" d="M93.4 21.8Q94.8 27.2 100.2 28.6Q94.8 30 93.4 35.4Q92 30 86.6 28.6Q92 27.2 93.4 21.8Z"/>
+    <circle fill="currentColor" opacity=".55" cx="28" cy="37.7" r="2.7"/>
+    <g fill="currentColor" opacity=".55">
+      <rect x="13.4" y="93.1" width="98.2" height="7.3" rx="3.6"/>
+      <path d="M62.5 47.7V95H48.5Z"/>
+    </g>
+    <path fill="currentColor" fill-rule="evenodd" d="M58.7 29.1A4.5 4.5 0 0 1 66.3 29.1L102.6 85.7A5.5 5.5 0 0 1 98 94.1L27 94.1A5.5 5.5 0 0 1 22.4 85.7ZM60.8 56.4A1.8 1.8 0 0 1 64.2 56.4L75.2 94.1L49.8 94.1Z"/>
+    <path fill="#000" opacity=".22" d="M62.7 36.3A2.7 2.7 0 0 1 67.8 35L100 87.1A4.5 4.5 0 0 1 96.1 94.1L75.2 94.1L62.7 51Z"/>
+    <g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M62.5 24.1L56.1 14.1"/>
+      <path d="M62.5 24.1L68.9 14.1"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-mountain" viewBox="0 0 120 120">
+  <g transform="rotate(-3 60.1 57.1)">
+    <circle fill="currentColor" opacity=".55" cx="88.9" cy="26.4" r="10.6"/>
+    <path fill="currentColor" opacity=".55" d="M76.9 48.8A4.8 4.8 0 0 1 85.2 48.9L108.1 90.4A4.8 4.8 0 0 1 103.8 97.5L46.6 97.5Z"/>
+    <path fill="currentColor" d="M42.2 24.2A3.8 3.8 0 0 1 49.1 24.2L55.5 38A1 1 0 0 1 55.4 39L51.2 43.8A1 1 0 0 1 49.7 43.8L46.4 39.7A1 1 0 0 0 44.9 39.7L41.6 43.8A1 1 0 0 1 40.1 43.8L36 39A1 1 0 0 1 35.9 38Z"/>
+    <path fill="currentColor" d="M32.7 44.6A1 1 0 0 1 34.2 44.4L40.1 50.6A1 1 0 0 0 41.5 50.5L44.9 46.4A1 1 0 0 1 46.4 46.4L49.8 50.5A1 1 0 0 0 51.2 50.6L57.1 44.4A1 1 0 0 1 58.6 44.6L80 90.7A4.8 4.8 0 0 1 75.7 97.5L15.7 97.5A4.8 4.8 0 0 1 11.3 90.7Z"/>
+    <path fill="#000" opacity=".22" d="M57.1 44.4A1 1 0 0 1 58.6 44.6L80 90.7A4.8 4.8 0 0 1 75.7 97.5L59.1 97.5L47.6 70.6L54.3 64.8L50.7 51.8A1 1 0 0 1 50.9 51Z"/>
+  </g>
+</symbol>
+<symbol id="art-bike" viewBox="0 0 120 120">
+  <g transform="rotate(-4 59.4 57.8)">
+    <g fill="currentColor" opacity=".55">
+      <circle cx="30.7" cy="70.2" r="14.3"/>
+      <circle cx="88.1" cy="70.2" r="14.3"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13.5 70.2A17.2 17.2 0 1 0 47.9 70.2A17.2 17.2 0 1 0 13.5 70.2Z"/>
+      <path d="M70.9 70.2A17.2 17.2 0 1 0 105.3 70.2A17.2 17.2 0 1 0 70.9 70.2Z"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M30.7 70.2L46 41.5L53.7 70.2Z"/>
+      <path d="M46 41.5L76.6 39.6L53.7 70.2"/>
+      <path d="M76.6 39.6L88.1 70.2"/>
+      <path d="M45.1 33.9L46 41.5"/>
+      <path d="M74.7 30.1L76.6 39.6"/>
+      <path d="M74.7 30.1H85.2"/>
+    </g>
+    <path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M37.4 32.9H51.8"/>
+    <g fill="currentColor">
+      <circle cx="30.7" cy="70.2" r="4.3"/>
+      <circle cx="88.1" cy="70.2" r="4.3"/>
+      <circle cx="53.7" cy="70.2" r="5.3"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-skate" viewBox="0 0 120 120">
+  <g transform="rotate(-8 58.6 55.9)">
+    <path fill="currentColor" opacity=".55" d="M90.7 23.8Q92.3 30.3 98.8 31.9Q92.3 33.5 90.7 39.9Q89.1 33.5 82.7 31.9Q89.1 30.3 90.7 23.8Z"/>
+    <circle fill="currentColor" opacity=".55" cx="78.7" cy="17.8" r="3"/>
+    <rect fill="currentColor" opacity=".55" x="18.5" y="9.8" width="40.1" height="13" rx="6.5"/>
+    <path fill="currentColor" d="M28.5 17.8H48.6Q54.6 17.8 54.6 23.8V39.9C54.6 51.9 64.6 54.9 76.7 57.9C90.7 60.9 98.8 69 98.8 82H22.5V23.8Q22.5 17.8 28.5 17.8Z"/>
+    <rect fill="#000" opacity=".22" x="22.5" y="76" width="75.8" height="6"/>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M51.6 28.8H42.6"/>
+      <path d="M51.6 39.9H42.6"/>
+      <path d="M60.6 52.9L53.6 58.9"/>
+    </g>
+    <g fill="currentColor">
+      <rect x="32.6" y="82" width="9" height="12"/>
+      <rect x="74.7" y="82" width="9" height="12"/>
+    </g>
+    <path fill="currentColor" d="M14.5 94H90.7Q98.8 94 100.3 86Q100.8 82.5 104.3 82.5Q107.8 83 107.3 87Q104.8 101.1 90.7 101.1H14.5Q10.5 101.1 10.5 97.6Q10.5 94 14.5 94Z"/>
+  </g>
+</symbol>
+<symbol id="art-snow" viewBox="0 0 120 120">
+  <g transform="rotate(15 60.2 60.1)">
+    <g fill="currentColor" opacity=".55">
+      <circle cx="71.4" cy="40.7" r="4.1"/>
+      <circle cx="82.6" cy="60.1" r="4.1"/>
+      <circle cx="71.4" cy="79.6" r="4.1"/>
+      <circle cx="48.9" cy="79.6" r="4.1"/>
+      <circle cx="37.7" cy="60.1" r="4.1"/>
+      <circle cx="48.9" cy="40.7" r="4.1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M60.2 60.1L60.2 13.2"/>
+      <path d="M47.2 22.5L60.2 33.6L73.1 22.5"/>
+      <path d="M60.2 60.1L100.8 36.7"/>
+      <path d="M86.3 30.1L83.1 46.9L99.3 52.6"/>
+      <path d="M60.2 60.1L100.8 83.6"/>
+      <path d="M99.3 67.7L83.1 73.4L86.3 90.2"/>
+      <path d="M60.2 60.1L60.2 107.1"/>
+      <path d="M73.1 97.8L60.2 86.7L47.2 97.8"/>
+      <path d="M60.2 60.1L19.5 83.6"/>
+      <path d="M34 90.2L37.2 73.4L21.1 67.7"/>
+      <path d="M60.2 60.1L19.5 36.7"/>
+      <path d="M21.1 52.6L37.2 46.9L34 30.1"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-tree" viewBox="0 0 120 120">
+  <g transform="rotate(-5 60.8 62.4)">
+    <path fill="currentColor" opacity=".55" d="M53.9 76.2H67.8L69.8 98.1Q70.8 106 79.7 109H42Q50.9 106 51.9 98.1Z"/>
+    <g fill="currentColor">
+      <circle cx="60.8" cy="40.5" r="26.8"/>
+      <circle cx="37" cy="55.4" r="20.8"/>
+      <circle cx="84.7" cy="55.4" r="20.8"/>
+      <circle cx="60.8" cy="62.4" r="23.8"/>
+    </g>
+    <g fill="#000" opacity=".22">
+      <ellipse cx="44" cy="49.4" rx="6.5" ry="3.6" transform="rotate(-32 44 49.4)"/>
+      <ellipse cx="69.8" cy="31.6" rx="5.5" ry="3.2" transform="rotate(24 69.8 31.6)"/>
+      <ellipse cx="80.7" cy="57.4" rx="6.5" ry="3.6" transform="rotate(-24 80.7 57.4)"/>
+      <ellipse cx="56.9" cy="67.3" rx="5" ry="3" transform="rotate(30 56.9 67.3)"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-paper-plane" viewBox="0 0 120 120">
+  <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32.6 81.8L26.5 89.9"/>
+    <path d="M21.4 98.1L15.3 106.2"/>
+  </g>
+  <path fill="currentColor" d="M107.4 19.4A3.1 3.1 0 0 0 103.6 15.1L14 46.8A3.1 3.1 0 0 0 13.6 52.5L43.8 67.5L57.6 104A3.1 3.1 0 0 0 63.2 104.3Z"/>
+  <path fill="#000" opacity=".22" d="M108.7 14.5L43.8 67.5L57.6 103.9A3.1 3.1 0 0 0 63.2 104.2Z"/>
+</symbol>
+<symbol id="art-kite" viewBox="0 0 120 120">
+  <path fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M52.2 91.3C44.7 94.2 52.2 100.8 42.8 103.6S31.4 101.7 22.9 107.4"/>
+  <path fill="currentColor" opacity=".55" d="M69.9 10.4A2.8 2.8 0 0 1 73.7 11L99 44.7A2.8 2.8 0 0 1 98.6 48.5L56 87.7A2.8 2.8 0 0 1 51.6 86.9L29.6 39.6A2.8 2.8 0 0 1 30.7 36Z"/>
+  <path fill="currentColor" d="M66.3 12.8A2.8 2.8 0 0 1 70.5 15.8L64.5 42.1L36.1 38.4A2.8 2.8 0 0 1 35 33.2ZM94.5 46.1A2.8 2.8 0 0 1 96.1 50.9L60 84.1A2.8 2.8 0 0 1 55.3 81.4L64.5 42.1Z"/>
+  <path fill="currentColor" transform="translate(48.2 98.1) rotate(97.8)" d="M0 0L-3.6 -6.9A2.1 2.1 0 0 1 -1.8 -9.9L1.8 -9.9A2.1 2.1 0 0 1 3.6 -6.9ZM0 0L3.6 6.9A2.1 2.1 0 0 1 1.8 9.9L-1.8 9.9A2.1 2.1 0 0 1 -3.6 6.9Z"/>
+  <path fill="currentColor" transform="translate(32.5 104.5) rotate(-177.5)" d="M0 0L-3.6 -6.9A2.1 2.1 0 0 1 -1.8 -9.9L1.8 -9.9A2.1 2.1 0 0 1 3.6 -6.9ZM0 0L3.6 6.9A2.1 2.1 0 0 1 1.8 9.9L-1.8 9.9A2.1 2.1 0 0 1 -3.6 6.9Z"/>
+</symbol>
+
+<!-- 家人与自己 -->
+<symbol id="art-heart" viewBox="0 0 120 120">
+  <g transform="rotate(-8 60.8 64.5)">
+    <path fill="currentColor" opacity=".55" d="M96.7 88.5C100.6 82.5 108.6 86.5 104.6 93.4Q101.6 98.4 94.7 101.4Q88.7 97.4 86.7 92.4C84.7 85.5 93.7 82.5 96.7 88.5Z"/>
+    <path fill="currentColor" d="M60.8 32.6C65.7 24.6 73.7 19.7 82.7 19.7C95.7 19.7 106.6 29.6 106.6 44.6C106.6 58.5 96.7 80.5 64.2 103.9Q60.8 106.4 57.3 103.9C24.9 80.5 14.9 58.5 14.9 44.6C14.9 29.6 25.9 19.7 38.8 19.7C47.8 19.7 55.8 24.6 60.8 32.6Z"/>
+    <path fill="#000" opacity=".22" d="M60.8 32.6C65.7 24.6 73.7 19.7 82.7 19.7C95.7 19.7 106.6 29.6 106.6 44.6C106.6 58.5 96.7 80.5 64.2 103.9Q62.3 105.4 60.8 105.6Z"/>
+  </g>
+</symbol>
+<symbol id="art-highfive" viewBox="0 0 120 120">
+  <g fill="none" stroke="currentColor" opacity=".55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M65.8 22.5L64.1 12.9"/>
+    <path d="M73.2 23.7L77.8 15.1"/>
+    <path d="M78.5 29.2L87.3 25.3"/>
+  </g>
+  <g transform="translate(38.8 90.1) rotate(14)">
+    <rect fill="currentColor" opacity=".55" x="-13.6" y="1" width="27.1" height="14.5" rx="3.9"/>
+    <g fill="currentColor">
+      <rect x="-16.5" y="-60" width="6.8" height="31" rx="3.4"/>
+      <rect x="-7.7" y="-65.9" width="6.8" height="36.8" rx="3.4"/>
+      <rect x="1" y="-62" width="6.8" height="32.9" rx="3.4"/>
+      <rect x="9.7" y="-53.3" width="6.8" height="24.2" rx="3.4"/>
+      <path d="M-16.5 -27.1A9.7 9.7 0 0 1 -6.8 -36.8L6.8 -36.8A9.7 9.7 0 0 1 16.5 -27.1L16.5 -11.6A9.7 9.7 0 0 1 6.8 -1.9L-6.8 -1.9A9.7 9.7 0 0 1 -16.5 -11.6Z"/>
+      <path d="M-9.9 -15.7L-24.4 -33.1A4.8 4.8 0 0 0 -31.8 -26.9L-17.2 -9.5A4.7 4.7 0 0 0 -9.9 -15.7Z"/>
+    </g>
+  </g>
+  <g transform="translate(87.2 90.1) rotate(-14) scale(-.8 .8)">
+    <rect fill="currentColor" opacity=".55" x="-15.5" y="1.5" width="31" height="9.7" rx="4.8"/>
+    <g fill="currentColor">
+      <rect x="-16.5" y="-60" width="6.8" height="31" rx="3.4"/>
+      <rect x="-7.7" y="-65.9" width="6.8" height="36.8" rx="3.4"/>
+      <rect x="1" y="-62" width="6.8" height="32.9" rx="3.4"/>
+      <rect x="9.7" y="-53.3" width="6.8" height="24.2" rx="3.4"/>
+      <path d="M-16.5 -27.1A9.7 9.7 0 0 1 -6.8 -36.8L6.8 -36.8A9.7 9.7 0 0 1 16.5 -27.1L16.5 -11.6A9.7 9.7 0 0 1 6.8 -1.9L-6.8 -1.9A9.7 9.7 0 0 1 -16.5 -11.6Z"/>
+      <path d="M-9.9 -15.7L-24.4 -33.1A4.8 4.8 0 0 0 -31.8 -26.9L-17.2 -9.5A4.7 4.7 0 0 0 -9.9 -15.7Z"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-family" viewBox="0 0 120 120">
+  <rect fill="currentColor" opacity=".55" x="11.6" y="94.8" width="97.4" height="5.4" rx="2.7"/>
+  <circle fill="currentColor" cx="29.6" cy="26.3" r="10.4"/>
+  <path fill="currentColor" d="M14.3 54.2A13.5 13.5 0 0 1 27.8 40.7L31.4 40.7A13.5 13.5 0 0 1 44.9 54.2L44.9 91.2A5.4 5.4 0 0 1 39.5 96.6L19.7 96.6A5.4 5.4 0 0 1 14.3 91.2Z"/>
+  <path fill="currentColor" d="M78.7 33.5A11.3 11.3 0 0 1 101.3 33.5C101.3 38.9 104.4 42.5 104.4 46.1Q104.4 49.7 100.4 49.7H79.6Q75.6 49.7 75.6 46.1C75.6 42.5 78.7 38.9 78.7 33.5Z"/>
+  <path fill="currentColor" d="M75.6 65.9A12.6 12.6 0 0 1 88.2 53.3L91.8 53.3A12.6 12.6 0 0 1 104.4 65.9L104.4 91.2A5.4 5.4 0 0 1 99 96.6L81 96.6A5.4 5.4 0 0 1 75.6 91.2Z"/>
+  <circle fill="currentColor" cx="60.3" cy="56.9" r="9"/>
+  <path fill="currentColor" d="M48.5 80.4A10.8 10.8 0 0 1 59.4 69.6L61.2 69.6A10.8 10.8 0 0 1 72 80.4L72 91.2A5.4 5.4 0 0 1 66.6 96.6L53.9 96.6A5.4 5.4 0 0 1 48.5 91.2Z"/>
+</symbol>
+<symbol id="art-calendar" viewBox="0 0 120 120">
+  <g transform="rotate(5 60.4 58.9)">
+    <path fill="currentColor" fill-rule="evenodd" d="M16.2 35.8A11.5 11.5 0 0 1 27.7 24.2L93.2 24.2A11.5 11.5 0 0 1 104.7 35.8L104.7 91.6A11.5 11.5 0 0 1 93.2 103.1L27.7 103.1A11.5 11.5 0 0 1 16.2 91.6ZM52.7 79.1A2.9 2.9 0 0 1 55.6 76.2L65.2 76.2A2.9 2.9 0 0 1 68.1 79.1L68.1 85.8A2.9 2.9 0 0 1 65.2 88.7L55.6 88.7A2.9 2.9 0 0 1 52.7 85.8Z"/>
+    <path fill="#000" opacity=".22" d="M16.2 34.8A10.6 10.6 0 0 1 26.7 24.2L94.1 24.2A10.6 10.6 0 0 1 104.7 34.8L104.7 45.4L16.2 45.4Z"/>
+    <g fill="#000" opacity=".22">
+      <rect x="28.7" y="55" width="15.4" height="12.5" rx="2.9"/>
+      <rect x="52.7" y="55" width="15.4" height="12.5" rx="2.9"/>
+      <rect x="76.8" y="55" width="15.4" height="12.5" rx="2.9"/>
+      <rect x="28.7" y="76.2" width="15.4" height="12.5" rx="2.9"/>
+      <rect x="76.8" y="76.2" width="15.4" height="12.5" rx="2.9"/>
+    </g>
+    <g fill="currentColor">
+      <rect x="34.4" y="13.6" width="8.7" height="21.2" rx="4.3"/>
+      <rect x="77.8" y="13.6" width="8.7" height="21.2" rx="4.3"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-clock" viewBox="0 0 120 120">
+  <g transform="rotate(-8 61.6 58.3)">
+    <g fill="currentColor" opacity=".55">
+      <circle cx="35.7" cy="27.6" r="12.5"/>
+      <circle cx="87.6" cy="27.6" r="12.5"/>
+    </g>
+    <rect fill="currentColor" x="57.8" y="13.2" width="7.7" height="11.5" rx="2.9"/>
+    <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40.5 91L32.8 101.6"/>
+      <path d="M82.8 91L90.5 101.6"/>
+    </g>
+    <path fill="currentColor" fill-rule="evenodd" d="M27.1 61.2A34.5 34.5 0 1 0 96.2 61.2A34.5 34.5 0 1 0 27.1 61.2ZM58.3 41.5A3.4 3.4 0 0 1 61.6 38.1L61.6 38.1A3.4 3.4 0 0 1 65 41.5L65 57.8L77.5 57.8A3.4 3.4 0 0 1 80.9 61.2L80.9 61.2A3.4 3.4 0 0 1 77.5 64.6L61.6 64.6A3.4 3.4 0 0 1 58.3 61.2Z"/>
+    <path fill="#000" opacity=".22" fill-rule="evenodd" d="M34.7 61.2A26.9 26.9 0 1 0 88.6 61.2A26.9 26.9 0 1 0 34.7 61.2ZM58.3 41.5A3.4 3.4 0 0 1 61.6 38.1L61.6 38.1A3.4 3.4 0 0 1 65 41.5L65 57.8L77.5 57.8A3.4 3.4 0 0 1 80.9 61.2L80.9 61.2A3.4 3.4 0 0 1 77.5 64.6L61.6 64.6A3.4 3.4 0 0 1 58.3 61.2Z"/>
+  </g>
+</symbol>
+<symbol id="art-suitcase" viewBox="0 0 120 120">
+  <g transform="rotate(6 59.9 59.2)">
+    <rect fill="currentColor" opacity=".55" x="78.5" y="24" width="14.7" height="20.5" rx="3.9" transform="rotate(18 85.8 34.3)"/>
+    <path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M47.2 37.7V18.1Q47.2 14.2 51.1 14.2H68.7Q72.6 14.2 72.6 18.1V37.7"/>
+    <rect fill="currentColor" x="24.7" y="35.7" width="70.4" height="62.5" rx="10.8"/>
+    <g fill="currentColor">
+      <rect x="33.5" y="94.4" width="12.7" height="11.7" rx="3.9"/>
+      <rect x="73.6" y="94.4" width="12.7" height="11.7" rx="3.9"/>
+    </g>
+    <g fill="#000" opacity=".22">
+      <rect x="40.4" y="45.5" width="5.9" height="43" rx="2.9"/>
+      <rect x="57" y="45.5" width="5.9" height="43" rx="2.9"/>
+      <rect x="73.6" y="45.5" width="5.9" height="43" rx="2.9"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-briefcase" viewBox="0 0 120 120">
+  <g transform="rotate(-6 59.3 56.5)">
+    <rect fill="currentColor" opacity=".55" x="22.7" y="27.2" width="23.8" height="14.7" rx="2.7" transform="rotate(-8 34.6 34.6)"/>
+    <path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M44.7 38.2V30Q44.7 24.5 50.2 24.5H68.5Q74 24.5 74 30V38.2"/>
+    <rect fill="currentColor" x="13.5" y="36.4" width="91.6" height="58.6" rx="10.1"/>
+    <g fill="#000" opacity=".22">
+      <rect x="13.5" y="56.5" width="91.6" height="6.4"/>
+      <rect x="52" y="52" width="14.7" height="16.5" rx="3.7"/>
+    </g>
+    <circle fill="currentColor" cx="59.3" cy="60.2" r="2.7"/>
+  </g>
+</symbol>
+<symbol id="art-battery" viewBox="0 0 120 120">
+  <g transform="rotate(10 53.9 58.1)">
+    <g fill="none" stroke="currentColor" opacity=".55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M90.8 24.2L97.8 17.2"/>
+      <path d="M93.8 38.1H102.8"/>
+      <path d="M90.8 52.1L97.8 58.1"/>
+    </g>
+    <rect fill="currentColor" opacity=".55" x="41.9" y="9.2" width="24" height="10" rx="4"/>
+    <path fill="currentColor" opacity=".55" d="M21.9 32.1A11 11 0 0 1 32.9 21.2L74.8 21.2A11 11 0 0 1 85.8 32.1L85.8 43.1L21.9 43.1Z"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M21.9 42.1L85.8 42.1L85.8 94A12 12 0 0 1 73.8 106L33.9 106A12 12 0 0 1 21.9 94ZM58.8 56.7A1.9 1.9 0 0 0 55.2 55.1L41.4 72.9A2 2 0 0 0 43 76.1L48.4 76.1A2 2 0 0 1 50.3 78.5L47.8 89.5A1.9 1.9 0 0 0 51.4 91.2L66.3 72.3A2 2 0 0 0 64.8 69.1L59.2 69.1A2 2 0 0 1 57.2 66.8Z"/>
+  </g>
+</symbol>
+<symbol id="art-seedling" viewBox="0 0 120 120">
+  <g transform="rotate(5 59 61.9)">
+    <path fill="currentColor" opacity=".55" d="M24.7 13.3Q26 18.6 31.3 20Q26 21.3 24.7 26.7Q23.3 21.3 18 20Q23.3 18.6 24.7 13.3Z"/>
+    <path fill="currentColor" opacity=".55" d="M18.9 105.8Q13.2 105.8 16.1 100C22.8 86.7 41.8 81 59 81C76.1 81 95.2 86.7 101.9 100Q104.7 105.8 99 105.8Z"/>
+    <g fill="#000" opacity=".22">
+      <circle cx="39.9" cy="96.2" r="2.9"/>
+      <circle cx="75.2" cy="94.3" r="3.3"/>
+      <circle cx="57.1" cy="100" r="2.4"/>
+    </g>
+    <path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M59 85.7C59 75.3 57.1 65.7 59 55.2"/>
+    <path fill="currentColor" d="M59 55.2C57.1 31.4 76.1 16.2 102.8 16.2C102.8 41 87.6 59.1 59 55.2ZM58 62.9C53.3 46.7 39.9 35.2 18.9 35.2C18.9 52.4 34.2 66.7 58 62.9Z"/>
+    <g fill="none" stroke="#000" opacity=".22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M66.6 47.6L90.4 26.7"/>
+      <path d="M50.4 57.2L31.3 43.8"/>
+    </g>
+  </g>
+</symbol>
+<symbol id="art-lighthouse" viewBox="0 0 120 120">
+  <g transform="rotate(-4 61.6 60.7)">
+    <g fill="currentColor" opacity=".55">
+      <path d="M54.1 30.5L16.4 17.7A2.8 2.8 0 0 0 12.6 20.4L12.6 40.7A2.8 2.8 0 0 0 16.4 43.4Z"/>
+      <path d="M69.1 30.5L106.8 43.4A2.8 2.8 0 0 0 110.6 40.7L110.6 20.4A2.8 2.8 0 0 0 106.8 17.7Z"/>
+      <rect x="52.2" y="23" width="18.8" height="15.1"/>
+    </g>
+    <path fill="currentColor" opacity=".55" d="M22 105.9Q25.8 95.5 42.8 95.5H80.4Q97.4 95.5 101.2 105.9Z"/>
+    <path fill="currentColor" d="M59.7 12.5A2.8 2.8 0 0 1 63.5 12.5L72.2 20.7A1.9 1.9 0 0 1 70.9 23.9L52.3 23.9A1.9 1.9 0 0 1 51 20.7Z"/>
+    <rect fill="currentColor" x="45.6" y="37.1" width="32" height="7.5" rx="2.8"/>
+    <path fill="currentColor" d="M50.3 43.7H72.9L80.4 96.5H42.8Z"/>
+    <path fill="#000" opacity=".22" d="M48.7 55L74.5 55L76.1 66.3L47.1 66.3ZM45.5 77.6L77.7 77.6L79.4 89L43.8 89Z"/>
+  </g>
+</symbol>
+</svg>

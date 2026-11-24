@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>SHELLTEST RUNNING</title>
+<style>
+  html, body { margin: 0; background: #111; color: #cfd6e4; font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace; }
+  #f { display: block; border: 0; background: #000; }
+  pre { margin: 8px; white-space: pre-wrap; word-break: break-all; }
+</style>
+</head>
+<body>
+<!-- 锦囊 · 外壳自测（外壳工程师 A）
+
+  把 ../index.html 放进一个手机尺寸的 iframe，在里面模拟点按、拖动、键盘、滚轮和返回键，把结果写进 <pre id="report">。
+
+  一、跑自测（无头浏览器；iframe 要读得到里面的页面，所以直接开文件时必须带 allow-file-access-from-files）：
+      cd 项目根目录
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-first-run \
+        --user-data-dir="$(mktemp -d)" --allow-file-access-from-files --virtual-time-budget=240000 \
+        --window-size=900,1000 --dump-dom "file://$(pwd)/dev/shelltest.html" | grep -o '<pre id="report">.*</pre>'
+      结果是一段 JSON：{ size, cards, tests, passed, failed, errors[], results[{name, ok, info, err}] }；标题变成 SHELLTEST DONE。
+      也可以起一个本地服务器（python3 -m http.server）后在浏览器里打开 dev/shelltest.html 看着它跑。
+      参数：?size=320x568 换一个屏幕尺寸；?only=feed,mode 只跑名字里含这些词的测试。
+      自测会临时清掉 localStorage 里 jn.* 的数据，跑完原样放回。
+
+  二、截「点过以后」的样子（tools/shot.sh 只能截刚打开的页面；这里先在 iframe 里点几下、填字、滚动，再让它截）：
+      bash tools/shot.sh "dev/shelltest.html?frame=390x844&u=index.html%23c%3Dpuz-001&click=.reveal__btn" dev/shots/a/reveal-open.png 390 844 5000
+      frame 手机尺寸，宽x高
+      u     相对项目根的页面和参数（# 写成 %23，= 写成 %3D，& 写成 %26）
+      click 载入后依次点击的选择器，用 | 分隔（例：click=.either__opt|.either__pass|.either__opt 截两人选完的样子）
+      type  点击之后往某个输入框里填字，写成 选择器:文字（例：type=.search__input:篮球）
+      scroll 再把某个容器滚到指定位置，写成 选择器:像素（例：scroll=%23page-me:900）
+      hold  最后按住某个元素不放（看长按的按下状态用：按下大约在载入后 0.7 秒，shot.sh 的等待毫秒给 1150 左右；
+            无头截图用的是虚拟时间，进度环的过渡不一定走得动，要看环请用真机或桌面浏览器）
+-->
+<iframe id="f" title="被测页面"></iframe>
+<pre id="report">running…</pre>
+<script>
+(function () {
+  'use strict';
+  var q = new URLSearchParams(location.search);
+  var frame = document.getElementById('f');
+  var report = document.getElementById('report');
+  var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  function load(url) {
+    return new Promise(function (resolve) {
+      frame.onload = function () { resolve(); };
+      frame.src = url;
+    });
+  }
+  function setSize(spec) {
+    var m = /^(\d+)x(\d+)$/.exec(spec || '') || [0, 390, 844];
+    frame.style.width = m[1] + 'px';
+    frame.style.height = m[2] + 'px';
+    return { w: +m[1], h: +m[2] };
+  }
+
+  /* ------------------------------------------------------------ 截图外框 */
+  if (q.get('frame')) {
+    setSize(q.get('frame'));
+    report.hidden = true;
+    load('../' + (q.get('u') || 'index.html')).then(async function () {
+      var doc;
+      try { doc = frame.contentDocument; } catch (e) { doc = null; }
+      await wait(+q.get('wait') || 700);
+      var clicks = (q.get('click') || '').split('|').filter(Boolean);
+      for (var i = 0; i < clicks.length && doc; i++) {
+        var n = doc.querySelector(clicks[i]);
+        if (n) n.click();
+        await wait(450);
+      }
+      var ty = (q.get('type') || '').split(':');
+      if (ty[0] && doc && doc.querySelector(ty[0])) { var inp = doc.querySelector(ty[0]); inp.value = ty.slice(1).join(':'); inp.dispatchEvent(new frame.contentWindow.Event('input', { bubbles: true })); await wait(200); }
+      var sc = (q.get('scroll') || '').split(':');
+      if (sc[0] && doc && doc.querySelector(sc[0])) { doc.querySelector(sc[0]).scrollTop = +sc[1] || 0; await wait(200); }
+      if (q.get('hold') && doc) {
+        var h = doc.querySelector(q.get('hold'));
+        var W = frame.contentWindow;
+        if (h) h.dispatchEvent(new W.PointerEvent('pointerdown', { bubbles: true, pointerId: 7, isPrimary: true, pointerType: 'touch', button: 0 }));
+        await wait(+q.get('holdms') || 400);
+      }
+      document.title = 'FRAME READY';
+    });
+    return;
+  }
+
+  /* ------------------------------------------------------------ 自测 */
+  var size = setSize(q.get('size'));
+  var only = (q.get('only') || '').split(',').filter(Boolean);
+  var results = [];
+  var errors = [];
+  var current = '';
+  var W, D, JN, S, F;
+
+  function ok(cond, msg) { if (!cond) throw new Error(msg || '断言失败'); }
+  function eq(a, b, msg) { if (a !== b) throw new Error((msg || '不相等') + '：得到 ' + JSON.stringify(a) + '，应为 ' + JSON.stringify(b)); }
+  function $(sel) { return D.querySelector(sel); }
+  function $$(sel) { return Array.prototype.slice.call(D.querySelectorAll(sel)); }
+  function cur() { return $('.feed .card.is-cur'); }
+  function click(target) {
+    var n = typeof target === 'string' ? $(target) : target;
+    ok(n, '找不到要点的元素 ' + target);
+    n.click();
+    return n;
+  }
+  function visible(n) { return !!n && !n.hidden && n.getClientRects().length > 0; }
+  function ptr(type, target, x, y, extra) {
+    var o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, pointerType: 'touch', button: 0, clientX: x, clientY: y };
+    if (extra) for (var k in extra) o[k] = extra[k];
+    target.dispatchEvent(new W.PointerEvent(type, o));
+  }
+  /** 在 target 上模拟一次拖动：从 (x0,y0) 到 (x1,y1)，分 steps 步，每步间隔 gap 毫秒；最后自动补一个 click（真实浏览器也会给） */
+  async function drag(target, x0, y0, x1, y1, steps, gap, holdEnd) {
+    ptr('pointerdown', target, x0, y0);
+    for (var i = 1; i <= steps; i++) {
+      await wait(gap);
+      ptr('pointermove', target, x0 + (x1 - x0) * i / steps, y0 + (y1 - y0) * i / steps);
+    }
+    if (holdEnd) await wait(holdEnd);
+    ptr('pointerup', target, x1, y1);
+    target.dispatchEvent(new W.MouseEvent('click', { bubbles: true, cancelable: true, clientX: x1, clientY: y1 }));
+  }
+  async function settle(ms) { F.finish(); await wait(ms || 30); F.finish(); }
+  async function back() { W.history.back(); await wait(120); }
+  function key(k, extra) {
+    var o = { key: k, code: k === ' ' ? 'Space' : k, bubbles: true, cancelable: true };
+    if (extra) for (var x in extra) o[x] = extra[x];
+    D.body.dispatchEvent(new W.KeyboardEvent('keydown', o));
+  }
+  function deckIds() { return S.deck().map(function (c) { return c.id; }); }
+  function firstOf(pred) { return S.deck().filter(pred)[0] || null; }
+  async function goto(id) { ok(W.JN.app.gotoCard(id), '跳不到卡片 ' + id); await settle(40); eq(F.current().id, id, '当前卡片'); return cur(); }
+  /** 一起看模式下不该出现的字：所有只给爸爸的卡片的标题，和所有卡片的爸爸提示 */
+  var SHY = ['talk', 'do', 'trio'];          // 这三类卡片的来源在一起看模式下不露出来
+  var _dad = null, _shy = null;
+  function dadStrings() {
+    if (_dad) return _dad;
+    _dad = [];
+    S.all.forEach(function (c) {
+      if (S.isDadOnly(c)) _dad.push(c.title);
+      if (c.hint) _dad.push(c.hint);
+    });
+    return _dad;
+  }
+  /** 一起看模式下不该出现的来源名：只被话匣子、一起做、三人局（或只给爸爸的卡片）引用过的那些。
+   *  同一个来源如果「给他看 / 烧脑 / 一起玩」也在用，或者它恰好是某张卡片正文里的字，就不算。 */
+  function shyRefs() {
+    if (_shy) return _shy;
+    var allowed = {}, legit = '', out = {};
+    S.all.forEach(function (c) {
+      if (S.isDadOnly(c)) return;
+      legit += ' ' + [c.title, c.body, c.sub, c.more, c.explain, (c.options || []).join(' '), (c.steps || []).join(' '), (c.need || []).join(' '),
+        c.reveal ? c.reveal.text + ' ' + (c.reveal.explain || '') : '', c.either ? c.either.a + ' ' + c.either.b + ' ' + (c.either.ask || '') : ''].join(' ');
+      if (SHY.indexOf(c.type) < 0) (c.refs || []).forEach(function (r) { allowed[r.t] = 1; });
+    });
+    S.all.forEach(function (c) {
+      if (!S.isDadOnly(c) && SHY.indexOf(c.type) < 0) return;
+      (c.refs || []).forEach(function (r) { if (r.t && r.t.length >= 6 && !allowed[r.t] && legit.indexOf(r.t) < 0) out[r.t] = 1; });
+    });
+    return (_shy = Object.keys(out));
+  }
+  function shyRefsShown() {
+    var text = D.body.textContent;
+    return shyRefs().filter(function (t) { return text.indexOf(t) >= 0; });
+  }
+  function leak(where) {
+    var text = D.body.textContent + ' ' + D.body.innerHTML;
+    var hits = dadStrings().filter(function (s) { return s.length >= 4 && text.indexOf(s) >= 0; });
+    if (hits.length) throw new Error(where + '：DOM 里出现了只给爸爸的内容「' + hits[0] + '」等 ' + hits.length + ' 处');
+    var refs = shyRefsShown();
+    if (refs.length) throw new Error(where + '：一起看时露出了话匣子 / 一起做 / 三人局（或爸爸卡片）的来源「' + refs[0] + '」等 ' + refs.length + ' 处');
+    eq($$('.card[data-type="talk"] .card__refs, .card[data-type="do"] .card__refs, .card[data-type="trio"] .card__refs').length, 0, where + '：话匣子、一起做、三人局的卡面上不该有来源行');
+    eq($$('.card__hint').length, 0, where + '：不该有爸爸提示按钮');
+    eq($$('[data-type="insight"]').length, 0, where + '：不该有锦囊类型的元素');
+  }
+  /** 全屏浮层本身从第一帧起就该是不透明的（淡入只在里面的内容上） */
+  function solid(el, name) {
+    var cs = W.getComputedStyle(el);
+    ok(cs.opacity === '1' && cs.animationName === 'none', name + '：浮层本身不该带淡入');
+    ok(cs.backgroundColor && !/transparent|rgba\([^)]*,\s*0\)/.test(cs.backgroundColor), name + '：底色应不透明，得到 ' + cs.backgroundColor);
+  }
+  /** 当前卡片是不是一屏放得下（页脚没有被挤出卡片的内容区） */
+  function fits(el) {
+    var foot = el.querySelector('.card__foot');
+    var pad = parseFloat(W.getComputedStyle(el).paddingBottom) || 0;
+    return foot.offsetTop + foot.offsetHeight <= el.clientHeight - pad + 1.5;
+  }
+
+  var tests = [];
+  function test(name, fn) { tests.push({ name: name, fn: fn }); }
+  window.__shelltest = { test: test, ok: ok, eq: eq };
+
+  /* ---------------- 启动与牌序 ---------------- */
+  test('启动：就绪、DOM 里三张卡片、第一张是今日锦囊', async function () {
+    eq($('#app').getAttribute('data-ready'), '1', '应用没有就绪');
+    ok(!$('#app').hasAttribute('data-broken'), '应用报了启动失败');
+    eq($$('.feed__track > .card').length, 3, 'DOM 里的卡片数');
+    eq(F.index(), 0, '起始位置');
+    eq(F.current().id, S.today().id, '第一张应是今日锦囊');
+    eq(cur().getAttribute('data-id'), S.today().id, '当前卡片的 data-id');
+    ok(cur().querySelector('.card__today'), '今日锦囊应有徽标');
+    ok(!$('.onboard'), '带深链接启动时不该弹引导');
+    eq(W.location.hash, '', '读完深链接应该把 # 拿掉');
+    return S.all.length + ' 张卡片，' + Object.keys(JN.widgets).length + ' 个组件';
+  });
+
+  test('牌序：不重复、数量对、相邻同类型很少、一年里每天的今日锦囊不同', async function () {
+    var d = S.deck(), ids = deckIds();
+    eq(new Set(ids).size, ids.length, '牌序里有重复');
+    eq(ids.length, S.pool().length, '牌序长度');
+    var adj = 0;
+    for (var i = 0; i + 1 < d.length; i++) if (d[i].type === d[i + 1].type) adj++;
+    ok(adj <= Math.max(2, d.length * 0.02), '相邻同类型太多：' + adj);
+    eq(deckIds().join(), ids.join(), '同一天的牌序应当稳定');
+    var seen = {};
+    for (var k = 0; k < 365; k++) seen[S.today(new Date(2026, 0, 1 + k)).id] = 1;
+    eq(Object.keys(seen).length, Math.min(365, S.pool().length), '365 天里不同的今日锦囊数');
+    var other = S.deck(new Date(2031, 4, 5)).map(function (c) { return c.id; }).join();
+    ok(other !== ids.join(), '换一天牌序应当不同');
+    S.deck();
+    return '相邻同类型 ' + adj + ' 处 / ' + d.length;
+  });
+
+  test('连续翻 400 页：不报错、不重复不错位、首尾循环、每张都一屏放得下', async function () {
+    var d = S.deck(), n = d.length, start = F.index(), bad = [], maxFit = 0, clamped = 0, nopv = 0;
+    var hasSeg = !!(W.Intl && W.Intl.Segmenter), split = [], wide = [], tall = [], lineStat = {};
+    ok(n >= 3, '卡片太少，测不了');
+    function check(k, i) {
+      var p = F.peek();
+      if (p.cur !== d[i].id || p.prev !== d[(i - 1 + n) % n].id || p.next !== d[(i + 1) % n].id || p.count !== 3 || p.y !== 0) {
+        throw new Error('第 ' + k + ' 次翻页后错位：' + JSON.stringify(p) + '，应为 ' + d[i].id);
+      }
+      eq($$('.feed__track > .card.is-cur').length, 1, '当前卡片个数');
+      eq($$('.feed__track > .card.is-prev').length, 1, '上一张个数');
+      eq($$('.feed__track > .card.is-next').length, 1, '下一张个数');
+      var c = cur();
+      eq(c.getAttribute('data-id'), d[i].id, '当前卡片');
+      eq(c.querySelector('.card__pos').textContent, '第 ' + (i + 1) + ' / ' + n, '序号');
+      var fit = +c.getAttribute('data-fit');
+      if (fit > maxFit) maxFit = fit;
+      if (fit >= 3) clamped++;
+      if (c.classList.contains('no-preview')) nopv++;
+      if (!fits(c)) bad.push(d[i].id + '(fit' + fit + ')');
+      // 标题：字一个不少；按词包好；没有哪个词被拆到两行，也没有哪个词顶出标题的宽度；最多三行
+      var title = c.querySelector('.card__title'), tr = title.getBoundingClientRect();
+      eq(title.textContent, d[i].title, d[i].id + ' 的标题文字');
+      var lines = Math.round(title.offsetHeight / (parseFloat(W.getComputedStyle(title).lineHeight) || 1));
+      lineStat[lines] = (lineStat[lines] || 0) + 1;
+      if (lines > 3) tall.push(d[i].id);
+      if (hasSeg) {
+        var ws = title.querySelectorAll('.word');
+        // 一个词都没包：只有整条标题都是「太长、不包」的一截（比如一串数字）时才说得过去
+        if (!ws.length && JN.ui.wordTokens(d[i].title).some(function (k) { return !k.space && JN.ui.textWidth(k.t) <= 6; })) throw new Error(d[i].id + ' 的标题没有按词包起来');
+        for (var w = 0; w < ws.length; w++) {
+          if (ws[w].getClientRects().length !== 1) split.push(d[i].id + '「' + ws[w].textContent + '」');
+          else if (ws[w].getBoundingClientRect().right > tr.right + 1.5) wide.push(d[i].id + '「' + ws[w].textContent + '」');
+        }
+      }
+    }
+    for (var k = 1; k <= 400; k++) { F.go(1); F.finish(); check(k, (start + k) % n); }
+    for (var b = 1; b <= 60; b++) { F.go(-1); F.finish(); check(400 + b, (((start + 400 - b) % n) + n) % n); }
+    ok(!bad.length, bad.length + ' 张放不下：' + bad.slice(0, 10).join(', '));
+    ok(!split.length, '标题里有词被拆到两行：' + split.slice(0, 6).join(', '));
+    ok(!wide.length, '标题里有词顶出了宽度：' + wide.slice(0, 6).join(', '));
+    ok(!tall.length, '标题超过三行：' + tall.slice(0, 6).join(', '));
+    return '最高收紧到 ' + maxFit + ' 级；需要截断的 ' + clamped + ' 张；收掉预览的 ' + nopv + ' 张；标题行数分布 ' + JSON.stringify(lineStat) + (hasSeg ? '' : '（这个浏览器没有 Intl.Segmenter，标题没有按词包）');
+  });
+
+  /* ---------------- 手势、键盘、滚轮 ---------------- */
+  test('手势：拖过去翻页、拖一点回弹、一甩翻页、横向不管；拖动过不算点击', async function () {
+    var feed = $('#feed'), H = feed.clientHeight, x = 150, n = F.total();
+    var i0 = F.index();
+    await drag(feed, x, H * 0.7, x, H * 0.3, 8, 30, 200);          // 慢拖 40%
+    await settle(40);
+    eq(F.index(), (i0 + 1) % n, '慢拖过去应翻到下一张');
+    await drag(feed, x, H * 0.6, x, H * 0.54, 4, 40, 250);         // 只拖 6%，停住再松手
+    await settle(40);
+    eq(F.index(), (i0 + 1) % n, '拖一点应回弹');
+    eq(F.peek().y, 0, '回弹后轨道应归零');
+    await drag(feed, x, H * 0.6, x, H * 0.6 - 70, 3, 14, 0);       // 70px 的快甩
+    await settle(40);
+    eq(F.index(), (i0 + 2) % n, '快甩应翻到下一张');
+    await drag(feed, x, H * 0.3, x, H * 0.72, 8, 30, 200);         // 向下拖：上一张
+    await settle(40);
+    eq(F.index(), (i0 + 1) % n, '向下拖应回到上一张');
+    await drag(feed, 60, H * 0.5, 260, H * 0.5 + 12, 6, 20, 0);    // 横向
+    await settle(40);
+    eq(F.index(), (i0 + 1) % n, '横向手势不该翻页');
+    eq(F.peek().y, 0, '横向手势不该拖动轨道');
+    // 从按钮上起手拖动：翻页，但按钮不算被点
+    var id = F.current().id, fav = cur().querySelector('.rail__fav'), r = fav.getBoundingClientRect();
+    var was = S.isFav(id);
+    ptr('pointerdown', fav, r.left + 10, r.top + 10);
+    for (var s = 1; s <= 8; s++) { await wait(25); ptr('pointermove', fav, r.left + 10, r.top + 10 - s * H * 0.05); }
+    await wait(150);
+    ptr('pointerup', fav, r.left + 10, r.top + 10 - H * 0.4);
+    fav.click();
+    await settle(40);
+    eq(S.isFav(id), was, '拖动之后的点击应被吃掉');
+    eq(F.index(), (i0 + 2) % n, '从按钮上起手也应能拖动翻页');
+    // 不动的轻点：照常触发
+    var fav2 = cur().querySelector('.rail__fav'), id2 = F.current().id, r2 = fav2.getBoundingClientRect();
+    ptr('pointerdown', fav2, r2.left + 10, r2.top + 10);
+    ptr('pointerup', fav2, r2.left + 10, r2.top + 10);
+    fav2.click();
+    ok(S.isFav(id2), '轻点收藏应生效');
+    ok(fav2.classList.contains('is-on') && fav2.getAttribute('aria-pressed') === 'true', '收藏按钮状态');
+    fav2.click();
+    ok(!S.isFav(id2), '再点一次取消收藏');
+  });
+
+  test('键盘与滚轮：↑ ↓ 空格 PageUp PageDown；滚轮带防抖', async function () {
+    var n = F.total(), i = F.index();
+    var step = async function (fn, d, msg) { fn(); await settle(30); i = (i + d + n) % n; eq(F.index(), i, msg); };
+    await step(function () { key('ArrowDown'); }, 1, '↓');
+    await step(function () { key('ArrowUp'); }, -1, '↑');
+    await step(function () { key(' '); }, 1, '空格');
+    await step(function () { key(' ', { shiftKey: true }); }, -1, 'Shift+空格');
+    await step(function () { key('PageDown'); }, 1, 'PageDown');
+    await step(function () { key('PageUp'); }, -1, 'PageUp');
+    var feed = $('#feed');
+    var wheel = function (dy) { feed.dispatchEvent(new W.WheelEvent('wheel', { deltaY: dy, bubbles: true, cancelable: true })); };
+    await wait(700);
+    wheel(120);
+    for (var k = 0; k < 14; k++) wheel(60 - k * 4);          // 一串惯性
+    await settle(30);
+    i = (i + 1) % n;
+    eq(F.index(), i, '一次滚动（连同惯性）只翻一页');
+    await wait(700);
+    wheel(-120);
+    await settle(30);
+    i = (i - 1 + n) % n;
+    eq(F.index(), i, '向上滚一页');
+    await wait(700);
+  });
+
+  /* ---------------- 六种形态 ---------------- */
+  test('形态 plain：有 more 才有「展开」，抽屉里读得到全文', async function () {
+    var c = firstOf(function (c) { return c.format === 'plain' && c.more; });
+    ok(c, '没有带 more 的 plain 卡片');
+    var el = await goto(c.id);
+    eq(el.getAttribute('data-format'), 'plain');
+    S.setDone(c.id, false);
+    click(el.querySelector('.card__cta'));
+    await wait(60);
+    var sh = $('.sheet');
+    ok(sh && sh.querySelector('.prose--more'), '没有打开展开阅读的抽屉');
+    ok(!S.isDone(c.id), 'plain 展开阅读不该自动记做过');
+    eq(sh.querySelector('.sheet__title').textContent, c.title, '抽屉标题');
+    await back();
+    await wait(300);
+    ok(!$('.sheet'), '返回键没有关掉抽屉');
+    var c2 = firstOf(function (c) { return c.format === 'plain' && !c.more; });
+    if (c2) { var el2 = await goto(c2.id); ok(!el2.querySelector('.card__cta'), '没有 more 的卡片不该有「展开」'); }
+  });
+
+  test('形态 reveal：看答案翻开，再点收起', async function () {
+    var c = firstOf(function (c) { return c.format === 'reveal'; });
+    ok(c, '没有 reveal 卡片');
+    S.setDone(c.id, false);
+    var el = await goto(c.id), btn = el.querySelector('.reveal__btn'), panel = el.querySelector('.reveal__back');
+    ok(panel.hidden, '答案一开始应是藏着的');
+    eq(btn.textContent, (c.reveal.label || '看答案'), '按钮文字');
+    btn.click();
+    ok(!panel.hidden && el.classList.contains('is-revealed'), '点了以后应露出答案');
+    ok(S.isDone(c.id) && el.querySelector('.rail__done').classList.contains('is-on'), '翻开答案应自动记为做过，右侧按钮同步');
+    ok(!S.state.doneHinted, '自动记做过不该弹提示');
+    el.querySelector('.rail__done').click();
+    btn.click(); btn.click();
+    ok(!S.isDone(c.id), '手动取消以后，再翻开不该又替他记回去（这一回只记一次）');
+    ok(panel.classList.contains('is-flip'), '应有翻开的动效');
+    ok(panel.textContent.indexOf(c.reveal.text.replace(/\*\*/g, '').slice(0, 6)) >= 0, '答案文字');
+    eq(btn.textContent, '收起答案');
+    ok(fits(el), '翻开答案后仍要一屏放下');
+    btn.click();
+    ok(panel.hidden && !el.classList.contains('is-revealed'), '再点应收起');
+    S.setDone(c.id, false);
+  });
+
+  test('形态 quiz：选错显示对错和解释；选对放彩带', async function () {
+    var qs = S.deck().filter(function (c) { return c.format === 'quiz'; });
+    ok(qs.length >= 2, 'quiz 卡片不够');
+    S.setDone(qs[0].id, false);
+    var c = qs[0], el = await goto(c.id), opts = el.querySelectorAll('.quiz__opt');
+    eq(opts.length, c.options.length, '选项个数');
+    var wrong = (c.answer + 1) % c.options.length;
+    ok(!S.isDone(c.id), '还没答题不该算做过');
+    opts[wrong].click();
+    ok(el.classList.contains('is-answered') && el.classList.contains('is-incorrect'), '选错的状态');
+    ok(S.isDone(c.id) && !S.state.doneHinted, '选了答案应自动记为做过，不弹提示');
+    ok(opts[wrong].classList.contains('is-wrong') && opts[c.answer].classList.contains('is-right'), '对错标记');
+    ok(!el.querySelector('.quiz__result').hidden, '应显示结果');
+    ok(el.querySelector('.quiz__verdict').textContent.indexOf(c.options[c.answer]) >= 0, '应说出正确答案');
+    if (c.explain) ok(el.querySelector('.quiz__explain').textContent.length > 0, '应有解释');
+    opts[c.answer].click();
+    ok(el.classList.contains('is-incorrect'), '答过以后不能改');
+    ok(fits(el), '答完后仍要一屏放下');
+    var c2 = qs[1], el2 = await goto(c2.id);
+    var before = D.querySelectorAll('canvas.jn-confetti').length;
+    el2.querySelectorAll('.quiz__opt')[c2.answer].click();
+    ok(el2.classList.contains('is-correct'), '选对的状态');
+    ok(JN.reduced || D.querySelectorAll('canvas.jn-confetti').length > before, '答对应放彩带');
+  });
+
+  test('形态 either：选完追问；递给对方再选；揭晓是否一致', async function () {
+    var c = firstOf(function (c) { return c.format === 'either' && c.either.ask; });
+    ok(c, '没有带追问的 either 卡片');
+    S.setDone(c.id, false);
+    var el = await goto(c.id), box = el.querySelector('.either');
+    var a = box.querySelector('[data-k="a"]'), b = box.querySelector('[data-k="b"]');
+    var ask = box.querySelector('.either__ask'), note = box.querySelector('.either__note'), pass = box.querySelector('.either__pass');
+    eq(box.getAttribute('data-state'), 'idle');
+    ok(ask.hidden && box.querySelector('.either__tools').hidden, '没选之前不该有追问和按钮');
+    ok(!S.isDone(c.id), '还没选不该算做过');
+    a.click();
+    eq(box.getAttribute('data-state'), 'picked');
+    ok(a.classList.contains('is-on') && b.classList.contains('is-off'), '选中的高亮');
+    ok(S.isDone(c.id) && !S.state.doneHinted, '做了选择应自动记为做过，不弹提示');
+    eq(a.querySelector('.either__txt').textContent, c.either.a, '选项文字');
+    ok(!ask.hidden && ask.textContent === c.either.ask, '应显示追问');
+    ok(!pass.hidden, '应出现「递给对方也选一次」');
+    pass.click();
+    eq(box.getAttribute('data-state'), 'pass');
+    ok(!/is-on|is-off/.test(box.innerHTML), '递给对方后不能留下第一个人选择的痕迹');
+    ok(a.getAttribute('aria-pressed') === 'false' && b.getAttribute('aria-pressed') === 'false', '按钮状态应清空');
+    ok(!note.hidden && ask.hidden, '应提示换人，并收起追问');
+    b.click();
+    eq(box.getAttribute('data-state'), 'done');
+    ok(note.textContent.indexOf('不一样') >= 0, '两人不同时的揭晓');
+    ok(a.classList.contains('is-on') && b.classList.contains('is-on'), '两个人的选择都亮出来');
+    ok(a.querySelector('.either__who').textContent && b.querySelector('.either__who').textContent, '应标出谁选的');
+    ok(!ask.hidden, '揭晓后再给追问');
+    a.click();
+    eq(box.getAttribute('data-state'), 'done', '揭晓后再点不该改变');
+    ok(fits(el), '揭晓后仍要一屏放下');
+    box.querySelector('.either__again').click();
+    eq(box.getAttribute('data-state'), 'idle', '重来');
+    b.click(); pass.click();
+    var before = D.querySelectorAll('canvas.jn-confetti').length;
+    b.click();
+    ok(note.textContent.indexOf('一样') === 0 && note.classList.contains('is-same'), '两人一致时的揭晓');
+    ok(JN.reduced || D.querySelectorAll('canvas.jn-confetti').length > before, '一致应有小庆祝');
+  });
+
+  test('形态 steps：抽屉里有准备的东西和带序号的步骤；做完记一笔', async function () {
+    var c = firstOf(function (c) { return c.format === 'steps' && c.need && c.need.length; }) || firstOf(function (c) { return c.format === 'steps'; });
+    ok(c, '没有 steps 卡片');
+    var el = await goto(c.id);
+    S.setDone(c.id, false);
+    click(el.querySelector('.card__cta'));
+    await wait(60);
+    var sh = $('.sheet');
+    ok(sh, '没有打开步骤抽屉');
+    ok(!S.isDone(c.id), 'steps 只看步骤不该自动记做过');
+    eq(sh.querySelectorAll('.steps__list li').length, c.steps.length, '步骤数');
+    eq(sh.querySelectorAll('.steps__n')[c.steps.length - 1].textContent, String(c.steps.length), '序号');
+    eq(sh.querySelectorAll('.steps__need .jn-chip').length, (c.need || []).length, '要准备的东西');
+    click(sh.querySelector('.sheet__foot .jn-btn'));
+    await wait(350);
+    ok(S.isDone(c.id), '应记为做过');
+    ok(!$('.sheet'), '记完应关掉抽屉');
+    ok(el.querySelector('.rail__done').classList.contains('is-on'), '右侧「做过」应同步');
+    S.setDone(c.id, false);
+  });
+
+  test('形态 widget：预览只给当前卡片；开始进舞台；玩完记做过；关闭销毁', async function () {
+    var c = firstOf(function (c) { return c.format === 'widget' && JN.widgets[c.widget] && JN.widgets[c.widget].preview; });
+    var info = '';
+    if (c) {
+      var el = await goto(c.id);
+      await wait(500);
+      if (!el.classList.contains('no-preview')) ok(el.querySelector('.card__preview.is-live'), '当前卡片应挂上组件预览');
+      ok(el.querySelector('.card__preview').getAttribute('data-widget') == null, '预览应挂在内层');
+      F.go(1); await settle(40);
+      eq($$('.card__preview.is-live').length, 0, '离开后预览应销毁');
+      eq($$('.card__preview-stage > *').length, 0, '离开后预览区应清空');
+      info = '预览用的是 ' + c.widget;
+    }
+    var p = S.byId('trio-100') && JN.widgets.picker ? S.byId('trio-100') : firstOf(function (c) { return c.format === 'widget' && JN.widgets[c.widget]; });
+    ok(p, '没有可用的 widget 卡片');
+    var el2 = await goto(p.id), def = JN.widgets[p.widget];
+    S.setDone(p.id, false);
+    eq(el2.querySelector('.card__cta').textContent, p.cta || '开始', '按钮文字');
+    click(el2.querySelector('.card__cta'));
+    await wait(80);
+    var st = $('.stage');
+    ok(visible(st), '没有进舞台');
+    solid(st, '舞台');
+    eq($('.stage__name').textContent, def.name, '舞台标题');
+    eq($('.stage__rules').hidden, !def.rules, '规则按钮');
+    ok($('.stage__root').children.length > 0, '舞台里应挂上组件');
+    eq(JN.app.stageInfo().card, p.id);
+    ok(!cur().querySelector('.card__preview.is-live'), '进舞台后卡片上的预览应停掉');
+    if (p.widget === 'picker') {
+      click($('.stage__root button'));
+      await wait(4500);
+      ok(S.isDone(p.id), '组件 onDone 后应把卡片记为做过');
+    }
+    click('.stage__close');
+    await wait(200);
+    ok(!visible(st), '关闭后舞台应隐藏');
+    eq($('.stage__root').children.length, 0, '关闭后组件应销毁');
+    eq(JN.app.stageInfo(), null);
+    S.setDone(p.id, false);
+    return info;
+  });
+
+  test('每一张卡片的每一种展开状态都一屏放得下（看了答案、答完题、两人选完、提示点开）', async function () {
+    var d = S.deck(), bad = [], sheets = 0, n = { reveal: 0, quiz: 0, either: 0, hint: 0 };
+    var chk = function (el, c, what) { if (!fits(el)) bad.push(c.id + ' ' + what + '(fit' + el.getAttribute('data-fit') + ')'); };
+    for (var i = 0; i < d.length; i++) {
+      var c = d[i];
+      if (!(c.format === 'reveal' || c.format === 'quiz' || c.format === 'either' || c.hint)) continue;
+      F.jumpToId(c.id, false);
+      var el = cur();
+      eq(el.getAttribute('data-id'), c.id);
+      if (c.format === 'reveal') { el.querySelector('.reveal__btn').click(); chk(el, c, '看了答案'); n.reveal++; }
+      if (c.format === 'quiz') { el.querySelectorAll('.quiz__opt')[(c.answer + 1) % c.options.length].click(); chk(el, c, '答完题'); n.quiz++; }
+      if (c.format === 'either') {
+        el.querySelector('[data-k="a"]').click(); chk(el, c, '选了一个');
+        el.querySelector('.either__pass').click(); chk(el, c, '递给对方');
+        el.querySelector('[data-k="b"]').click(); chk(el, c, '揭晓');
+        n.either++;
+      }
+      if (c.hint) {
+        var h = el.querySelector('.card__hint');
+        h.click();
+        n.hint++;
+        if ($('.sheet')) {                       // 屏幕太挤：提示改在抽屉里给
+          sheets++;
+          ok($('.sheet').textContent.indexOf(c.hint.slice(0, 8)) >= 0, c.id + ' 的提示抽屉里应有全文');
+          JN.ui.layers.closeAll(); await wait(260);
+        } else {
+          var t = el.querySelector('.card__hint-text');
+          ok(!t.hidden && t.scrollHeight <= t.clientHeight + 1, c.id + ' 的提示应完整显示');
+        }
+        chk(el, c, '提示点开');
+      }
+    }
+    ok(!bad.length, bad.length + ' 处放不下：' + bad.slice(0, 10).join(', '));
+    return 'reveal ' + n.reveal + '，quiz ' + n.quiz + '，either ' + n.either + '，带提示 ' + n.hint + '（其中 ' + sheets + ' 张的提示改用抽屉）';
+  });
+
+  /* ---------------- 右侧操作列 ---------------- */
+  test('操作列：收藏、做过、分享（三级退路）、换一张', async function () {
+    var c = S.deck().slice(9).filter(function (x) { return !S.isDadOnly(x); })[0], el = await goto(c.id);
+    S.setFav(c.id, false); S.setDone(c.id, false);
+    var done = el.querySelector('.rail__done');
+    done.click();
+    ok(S.isDone(c.id) && done.classList.contains('is-on') && S.state.done[c.id] > 1e12, '做过应带时间戳');
+    done.click();
+    ok(!S.isDone(c.id), '再点取消做过');
+    var base = String(W.location.href).split('#')[0];
+    var expect = '【锦囊】' + c.title + '\n' + S.plain(c.body) + '\n\n' + base + '#c=' + c.id + '&mode=together';   // 谁都能看的卡片：链接带 mode=together
+    var got = null;
+    Object.defineProperty(W.navigator, 'share', { configurable: true, writable: true, value: function (d) { got = d; return Promise.resolve(); } });
+    el.querySelector('.rail__share').click();
+    await wait(40);
+    ok(got && got.text === expect, '分享文字格式不对：' + JSON.stringify(got));
+    W.navigator.share = undefined;                         // 没有 Web Share：复制
+    var realCopy = JN.ui.copy, copied = null;
+    JN.ui.copy = async function (t) { copied = t; return true; };
+    el.querySelector('.rail__share').click();
+    await wait(40);
+    eq(copied, expect, '复制的文字');
+    ok($('#toasts').textContent.indexOf('已复制') >= 0, '复制后应有提示');
+    JN.ui.copy = async function () { return false; };      // 复制也失败：摆出来并选中
+    el.querySelector('.rail__share').click();
+    await wait(150);
+    var box = $('.sharebox');
+    ok(box && box.value === expect, '复制失败时应给出可选中的文字');
+    ok($('.sheet .sharebox__copy'), '退路里应有一个亲手点的「复制」按钮');
+    JN.ui.copy = realCopy;
+    await back(); await wait(300);
+    ok(!$('.sharebox'), '关掉分享抽屉');
+    var dc = firstOf(S.isDadOnly);                         // 只给爸爸的卡片：链接不带 mode
+    if (dc) {
+      var del = await goto(dc.id), got2 = null;
+      W.navigator.share = function (d) { got2 = d; return Promise.resolve(); };
+      del.querySelector('.rail__share').click();
+      await wait(40);
+      ok(got2 && got2.text === '【锦囊】' + dc.title + '\n' + S.plain(dc.body) + '\n\n' + base + '#c=' + dc.id, '爸爸卡片的分享链接不该带 mode：' + JSON.stringify(got2));
+      W.navigator.share = undefined;
+      el = await goto(c.id);
+    }
+    var before = F.current().id;
+    el.querySelector('.rail__dice').click();
+    await settle(40);
+    ok(F.current().id !== before, '换一张应跳到别的卡片');
+    eq(cur().getAttribute('data-id'), F.current().id);
+    eq($$('.feed__track > .card').length, 3, '换一张之后仍是三张');
+  });
+
+  /* ---------------- 我看 / 一起看 ---------------- */
+  test('一起看：卡片流、发现、搜索、收藏、救场、我的 —— DOM 里搜不到只给爸爸的内容', async function () {
+    var dads = S.all.filter(S.isDadOnly);
+    ok(dads.length > 0, '没有只给爸爸的卡片，测不了');
+    var withHint = firstOf(function (c) { return !!c.hint && !S.isDadOnly(c); });
+    if (withHint) { var e0 = await goto(withHint.id); ok(e0.querySelector('.card__hint'), '我看模式下应有爸爸提示'); e0.querySelector('.card__hint').click(); ok(!e0.querySelector('.card__hint-text').hidden || $('.sheet'), '点开应能看到提示'); if ($('.sheet')) { await back(); await wait(300); } }
+    // 先在「我看」里把只给爸爸的内容留得到处都是：收藏、做过、各个页面都打开过
+    S.setFav(dads[0].id, true); S.setDone(dads[0].id, true);
+    await goto(dads[0].id);
+    JN.app.show('saved'); JN.app.show('me'); JN.app.show('discover');
+    var inp = $('.search__input'); inp.value = dads[0].title.slice(0, 3); inp.dispatchEvent(new W.Event('input', { bubbles: true }));
+    ok($$('.search__results .crow').some(function (r) { return r.getAttribute('data-id') === dads[0].id; }), '我看模式下应搜得到它');
+    // 「我看」里来源照常：话匣子 / 一起做 / 三人局带来源的卡片有来源行，汇总里也有它们
+    var shyCard = firstOf(function (c) { return SHY.indexOf(c.type) >= 0 && c.refs && c.refs.length && !S.isDadOnly(c); });
+    var openCard = firstOf(function (c) { return SHY.indexOf(c.type) < 0 && c.refs && c.refs.length && !S.isDadOnly(c); });
+    JN.app.show('feed'); await wait(150);
+    if (shyCard) { var se = await goto(shyCard.id); ok(se.querySelector('.card__refs'), '我看模式下 ' + shyCard.id + ' 应照常有来源行'); }
+    JN.app.show('me'); await wait(40);
+    click('#page-me .row--link'); await wait(60);
+    ok(!shyRefs().length || shyRefsShown().length > 0, '检测器自检：我看模式的来源汇总里应查得到这三类卡片的来源');
+    await back(); await wait(300);
+    JN.app.show('feed'); await wait(150);
+    await goto(dads[0].id);
+    var caught = false;
+    try { leak('自检'); } catch (e) { caught = true; }
+    ok(caught, '检测器自检：我看模式下它应该查得出只给爸爸的内容');
+    click('.mode__together');
+    await settle(60);
+    eq($('#app').getAttribute('data-mode'), 'together');
+    ok($('#toasts').textContent.indexOf('一起看') >= 0, '切换时应有一句说明');
+    leak('切换后的卡片流');
+    ok(!S.isDadOnly(F.current()), '当前卡片不该是只给爸爸的');
+    ok(!$$('.typebar__chip').some(function (b) { return b.getAttribute('data-type') === 'insight'; }), '类型条不该有锦囊');
+    eq(F.total(), S.all.length - dads.length, '一起看的牌数');
+    for (var k = 0; k < 120; k++) { F.go(1); F.finish(); if (k % 3 === 0) leak('翻到第 ' + k + ' 页'); }
+    // 来源：话匣子 / 一起做 / 三人局不露，给他看 / 烧脑 / 一起玩照常
+    if (shyCard) {
+      var s2 = await goto(shyCard.id);
+      ok(!s2.querySelector('.card__refs'), shyCard.id + '（' + shyCard.type + '）在一起看里不该有来源行');
+      ok(JN.card.openRefs(shyCard) === null && !$('.sheet'), '也不该打得开来源抽屉');
+      leak('带来源的 ' + shyCard.type + ' 卡片');
+    }
+    if (openCard) {
+      var o2 = await goto(openCard.id);
+      ok(o2.querySelector('.card__refs'), openCard.id + '（' + openCard.type + '）的来源应照常显示');
+      click(o2.querySelector('.card__refs')); await wait(60);
+      ok($$('.sheet .ref').length === openCard.refs.length, '来源抽屉照常');
+      await back(); await wait(300);
+    }
+    ok(S.allRefs().every(function (r) { return r.cards.every(function (id) { return SHY.indexOf(S.byId(id).type) < 0 && !S.isDadOnly(S.byId(id)); }); }), '来源汇总里不该有这三类卡片（和爸爸卡片）的来源');
+    JN.app.show('discover'); await wait(40);
+    leak('发现');
+    eq($$('.tile').length, JN.TYPES.length - 1, '类型入口不该有锦囊');
+    // 工具箱：组件都还在；有爸爸卡片在用的组件（比如默契考验），用的必须是一张谁都能看的卡片的参数
+    eq($$('.tool').length, Object.keys(JN.widgets).length, '一起看时工具箱不少组件');
+    $$('.tool').forEach(function (t) { var f = S.firstCardOfWidget(t.getAttribute('data-widget')); ok(!f || !S.isDadOnly(f), '工具箱 ' + t.getAttribute('data-widget') + ' 用到了爸爸卡片'); });
+    var dadWidgets = S.all.filter(function (c) { return c.format === 'widget' && S.isDadOnly(c) && JN.widgets[c.widget]; });
+    for (var dw = 0; dw < dadWidgets.length; dw++) {
+      var tool = $('.tool[data-widget="' + dadWidgets[dw].widget + '"]');
+      ok(tool, dadWidgets[dw].widget + ' 应仍在工具箱里');
+      tool.click(); await wait(80);
+      var info = JN.app.stageInfo();
+      ok(info && info.widget === dadWidgets[dw].widget && info.card !== dadWidgets[dw].id && (!info.card || !S.isDadOnly(S.byId(info.card))), dadWidgets[dw].widget + ' 在一起看里不该用 ' + dadWidgets[dw].id + ' 的参数：' + JSON.stringify(info));
+      leak('工具箱里的 ' + dadWidgets[dw].widget);
+      await back(); await wait(200);
+    }
+    var input = $('.search__input');
+    ['的', dads[0].title.slice(0, 3), '爸爸', '太太'].forEach(function (qw) {
+      input.value = qw; input.dispatchEvent(new W.Event('input', { bubbles: true }));
+      $$('.search__results .crow').forEach(function (r) { ok(!S.isDadOnly(S.byId(r.getAttribute('data-id'))), '搜索「' + qw + '」出现了只给爸爸的卡片'); });
+      leak('搜索「' + qw + '」');
+    });
+    input.value = ''; input.dispatchEvent(new W.Event('input', { bubbles: true }));
+    JN.app.show('saved'); await wait(40);
+    leak('收藏');
+    click('#page-saved [data-tab="done"]');
+    leak('做过');
+    click('#page-saved [data-tab="fav"]');
+    JN.app.show('me'); await wait(40);
+    leak('我的');
+    click('#page-me .row--link'); await wait(60);
+    eq($$('.sheet .ref').length, S.allRefs().length, '来源汇总条数');
+    leak('全部参考来源');
+    await back(); await wait(300);
+    JN.app.show('feed'); await wait(120);
+    click('#rescueBtn');
+    for (var r = 0; r < 40; r++) { leak('救场第 ' + r + ' 张'); click('.rescue__next'); }
+    click('.rescue .overlay__close'); await wait(150);
+    ok(!JN.app.gotoCard(dads[0].id), '一起看时不该能跳到只给爸爸的卡片');
+    // 用链接打开一张现在看不到的卡片：给一句提示，留在一起看，什么都不露
+    var here = F.current().id;
+    W.location.hash = '#c=' + dads[0].id; await wait(250); await settle(40);
+    eq(S.state.mode, 'together', '打开看不到的卡片不该切模式');
+    eq(F.current().id, here, '也不该跳走');
+    ok($('#toasts').textContent.indexOf('不显示') >= 0, '应给一句提示');
+    W.location.hash = '#stage=' + (dadWidgets[0] ? dadWidgets[0].id : dads[0].id); await wait(250);
+    ok(!visible($('.stage')), '也不该用爸爸卡片进舞台');
+    leak('最后');
+  });
+
+  test('从一起看切回我看：轻点不行，要长按 0.8 秒（有进度环）', async function () {
+    eq(S.state.mode, 'together', '上一项应停在一起看');
+    var me = $('.mode__me');
+    ok(me.querySelector('.mode__ring-fg'), '应有进度环');
+    ptr('pointerdown', me, 30, 30);
+    await wait(250);
+    ok(me.classList.contains('is-holding'), '按住时应显示进度');
+    ptr('pointerup', me, 30, 30); me.click();
+    await wait(60);
+    eq(S.state.mode, 'together', '轻点不该切回去');
+    ok(!me.classList.contains('is-holding'), '松手后进度应收回');
+    ptr('pointerdown', me, 30, 30);
+    await wait(700);
+    eq(S.state.mode, 'together', '0.7 秒还不该切');
+    await wait(200);
+    eq(S.state.mode, 'me', '按满 0.8 秒应切回我看');
+    ptr('pointerup', me, 30, 30);
+    eq($('#app').getAttribute('data-mode'), 'me');
+    ok($('#toasts').textContent.indexOf('我看') >= 0, '切换时应有一句说明');
+    ok($$('.typebar__chip').some(function (b) { return b.getAttribute('data-type') === 'insight'; }), '锦囊类型回来了');
+    S.clearRecords();
+  });
+
+  /* ---------------- 筛选、救场、发现、收藏、我的 ---------------- */
+  test('筛选：类型条、筛选抽屉（场景、时长）、空状态', async function () {
+    click('.typebar__chip[data-type="puzzle"]');
+    await settle(40);
+    ok(S.deck().length > 0 && S.deck().every(function (c) { return c.type === 'puzzle'; }), '只剩烧脑');
+    eq(cur().getAttribute('data-type'), 'puzzle');
+    eq(F.total(), S.typeCount('puzzle'));
+    ok($('.typebar__chip[data-type="puzzle"]').classList.contains('is-on'), '类型条高亮');
+    click('#filterBtn'); await wait(60);
+    var sh = $('.sheet--filter');
+    ok(sh, '没有打开筛选抽屉');
+    var chip = function (t) { return Array.prototype.filter.call(sh.querySelectorAll('.jn-chip'), function (b) { return b.textContent.trim() === t; })[0]; };
+    chip('车上').click(); chip('10 分钟内').click();
+    ok(S.deck().every(function (c) { return c.type === 'puzzle' && c.scenes.indexOf('车上') >= 0 && c.mins <= 10; }), '场景和时长一起生效');
+    ok(sh.querySelector('.filter__go').textContent.indexOf(String(S.deck().length)) >= 0, '按钮上报出张数');
+    eq($('.topbar__n').textContent, '2', '筛选按钮上的数字');
+    chip('饭桌').click();
+    ok(S.deck().every(function (c) { return c.scenes.indexOf('车上') >= 0 || c.scenes.indexOf('饭桌') >= 0; }), '场景多选是「或」');
+    click(sh.querySelector('.filter__reset'));
+    ok(!S.filterActive(), '重置');
+    // 找一个结果为空的组合
+    var combo = null;
+    S.types().forEach(function (t) { JN.SCENES.forEach(function (s) { if (!combo && !S.count({ type: t.id, scenes: [s.id], mins: 2 })) combo = { type: t.id, scenes: [s.id], mins: 2 }; }); });
+    var note = '';
+    if (combo) {
+      S.setFilter(combo);
+      await wait(40);
+      eq($$('.feed__track > .card').length, 0, '空结果时不该有卡片');
+      ok(visible($('.feed__empty')) && $('.feed__empty .jn-btn'), '应有友好的空状态');
+      click('.feed__empty .jn-btn');
+      await settle(40);
+      note = '空组合：' + combo.type + ' + ' + combo.scenes[0] + ' + 2 分钟内';
+    }
+    await back(); await wait(300);
+    ok(!S.filterActive() && $$('.feed__track > .card').length === 3, '清掉筛选后卡片回来');
+    return note;
+  });
+
+  test('救场：点开就有一张；选场景取交集；换一个；就这个跳到那张', async function () {
+    click('#rescueBtn');
+    var rs = $('.rescue');
+    ok(visible(rs) && $('.rcard'), '点开就应该有一张');
+    solid(rs, '救场');
+    ok(!(W.Intl && W.Intl.Segmenter) || $('.rcard__title .word'), '救场标题也按词折行');
+    ok(S.byId($('.rcard').getAttribute('data-id')).scenes.indexOf('救场') >= 0, '应是带「救场」标签的卡片');
+    eq($$('.rescue__scenes .jn-chip').length, 8, '不限 + 七个场景');
+    var chip = Array.prototype.filter.call(rs.querySelectorAll('.rescue__scenes .jn-chip'), function (b) { return b.textContent.trim() === '车上'; })[0];
+    chip.click();
+    var seen = {};
+    for (var k = 0; k < 25; k++) {
+      var c = S.byId($('.rcard').getAttribute('data-id'));
+      ok(c.scenes.indexOf('救场') >= 0 && c.scenes.indexOf('车上') >= 0, '选了场景应取交集');
+      seen[c.id] = 1;
+      click('.rescue__next');
+    }
+    ok(Object.keys(seen).length > 1 || S.rescueList('车上').length < 2, '换一个应该会换');
+    var pick = $('.rcard').getAttribute('data-id');
+    S.setFilter({ type: 'insight' });                        // 故意让筛选把它排除掉
+    click('.rescue__go');
+    await settle(80);
+    ok(!visible(rs), '就这个：浮层应关掉');
+    eq(JN.app.view(), 'feed');
+    eq(F.current().id, pick, '应跳到选中的那张');
+    ok(!S.filterActive(), '被筛掉的卡片：应自动清掉筛选');
+    click('#rescueBtn'); await wait(40);
+    await back();
+    ok(!visible(rs), '返回键关闭救场');
+  });
+
+  test('发现：类型入口带数量、场景入口、搜索、工具箱直达舞台', async function () {
+    JN.app.show('discover'); await wait(40);
+    eq(JN.app.view(), 'discover');
+    eq($$('.tile').length, S.types().length, '类型入口');
+    ok($('.tile[data-type="talk"] .tile__n').textContent.indexOf(String(S.typeCount('talk'))) >= 0, '入口上的数量');
+    eq($$('.scene').length, JN.SCENES.length, '场景入口');
+    eq($$('.tool').length, Object.keys(JN.widgets).length, '工具箱列出所有已注册组件');
+    click('.tile[data-type="talk"]'); await settle(60);
+    eq(JN.app.view(), 'feed');
+    ok(S.deck().every(function (c) { return c.type === 'talk'; }) && F.index() === 0, '按类型去刷，从头开始');
+    JN.app.show('discover'); await wait(40);
+    click('.scene[data-scene="睡前"]'); await settle(60);
+    ok(S.deck().length > 0 && S.deck().every(function (c) { return c.scenes.indexOf('睡前') >= 0; }), '按场景去刷');
+    S.resetFilter();
+    JN.app.show('discover'); await wait(40);
+    var target = S.deck()[Math.min(40, S.deck().length - 1)], input = $('.search__input');
+    input.value = target.title.slice(0, 4);
+    input.dispatchEvent(new W.Event('input', { bubbles: true }));
+    var rows = $$('.search__results .crow');
+    var row = rows.filter(function (r) { return r.getAttribute('data-id') === target.id; })[0];
+    ok(row, '按标题应搜得到（输入即搜）');
+    ok($('.discover__browse').hidden, '搜索时收起入口');
+    if (target.tags && target.tags.length) { input.value = target.tags[0]; input.dispatchEvent(new W.Event('input', { bubbles: true })); ok($$('.search__results .crow').some(function (r) { return r.getAttribute('data-id') === target.id; }), '按 tags 应搜得到'); input.value = target.title.slice(0, 4); input.dispatchEvent(new W.Event('input', { bubbles: true })); row = $$('.search__results .crow').filter(function (r) { return r.getAttribute('data-id') === target.id; })[0]; }
+    click(row.querySelector('.crow__main')); await settle(60);
+    eq(JN.app.view(), 'feed');
+    eq(F.current().id, target.id, '点列表项应跳到那张卡片');
+    JN.app.show('discover'); await wait(40);
+    input = $('.search__input');
+    input.value = 'zzqqxx'; input.dispatchEvent(new W.Event('input', { bubbles: true }));
+    ok($('.search__results .empty'), '搜不到时的空状态');
+    input.value = ''; input.dispatchEvent(new W.Event('input', { bubbles: true }));
+    var tool = $('.tool'), wid = tool.getAttribute('data-widget');
+    tool.click(); await wait(80);
+    ok(visible($('.stage')) && JN.app.stageInfo().widget === wid, '工具箱应直达舞台');
+    var first = S.firstCardOfWidget(wid);
+    eq(JN.app.stageInfo().card, first ? first.id : null, '用该组件第一张卡片的参数');
+    await back(); await wait(150);
+    ok(!visible($('.stage')) && JN.app.view() === 'discover', '关掉舞台回到发现');
+    await back(); await wait(150);
+    eq(JN.app.view(), 'feed', '再按返回回到卡片流');
+  });
+
+  test('收藏：两个分段、列表、空状态、点了跳转', async function () {
+    S.clearRecords();
+    var a = S.deck()[5], b = S.deck()[6];
+    JN.app.show('saved'); await wait(40);
+    ok($('#page-saved .empty'), '空状态');
+    S.setFav(a.id, true); S.setDone(b.id, true);
+    var rows = $$('#page-saved .crow');
+    eq(rows.length, 1); eq(rows[0].getAttribute('data-id'), a.id, '收藏列表');
+    click('#page-saved [data-tab="done"]');
+    rows = $$('#page-saved .crow');
+    eq(rows.length, 1); eq(rows[0].getAttribute('data-id'), b.id, '做过列表');
+    click(rows[0].querySelector('.crow__act'));
+    ok(!S.isDone(b.id) && $('#page-saved .empty'), '从列表里取消做过');
+    click('#page-saved [data-tab="fav"]');
+    click($('#page-saved .crow__main')); await settle(60);
+    eq(JN.app.view(), 'feed'); eq(F.current().id, a.id, '点列表项跳到卡片');
+    ok(cur().querySelector('.rail__fav').classList.contains('is-on'), '卡片上的收藏状态');
+    S.clearRecords();
+  });
+
+  test('我的：进度、设置开关、安装指引、离线状态、来源、关于、清空要二次确认', async function () {
+    var x = S.deck()[3];
+    S.setDone(x.id, true); S.setFav(x.id, true);
+    JN.app.show('me'); await wait(40);
+    eq($('.prog__big .jn-big').textContent, '1', '做过的总数');
+    eq($$('.prog__row').length, S.types().length, '各类型进度');
+    var sw = $$('#page-me [role="switch"]');
+    eq(sw.length, 2, '音效和震动两个开关');
+    var s0 = JN.settings.sfx, h0 = JN.settings.haptic;
+    sw[0].click(); eq(JN.settings.sfx, !s0, '音效开关'); eq(JN.store.get('settings').sfx, !s0, '设置应存下来');
+    sw[0].click(); eq(JN.settings.sfx, s0);
+    sw[1].click(); eq(JN.settings.haptic, !h0, '震动开关'); sw[1].click();
+    ok($('.install__steps li') || $('.install__ok'), '安装指引');
+    ok($('.offline').textContent.length > 4 && $('.offline__meta').textContent.indexOf(JN.version) >= 0, '离线状态与版本号');
+    ok($('.about__text').textContent.indexOf('不上传') >= 0 && $('.about__text').textContent.indexOf('医生') >= 0, '关于与说明');
+    click('#page-me .row--link'); await wait(60);
+    eq($$('.sheet .ref').length, S.allRefs().length, '来源去重汇总');
+    ok($$('.sheet a').every(function (a) { return a.target === '_blank' && /noopener/.test(a.rel) && /^https?:/.test(a.getAttribute('href')); }), '链接应是 target=_blank rel=noopener');
+    await back(); await wait(300);
+    click('.clear__btn');
+    ok($('.clear__ask') && S.isDone(x.id), '第一下只是问，不清');
+    click('.clear__no');
+    ok(!$('.clear__ask') && $('.clear__btn') && S.isDone(x.id), '算了：回到原样');
+    click('.clear__btn'); click('.clear__yes');
+    ok(!S.isDone(x.id) && !S.isFav(x.id) && !Object.keys(S.state.done).length, '确认后清空');
+    eq($('.prog__big .jn-big').textContent, '0', '进度归零');
+    ok(JN.store.get('state').done && !Object.keys(JN.store.get('state').done).length, '存储里也清掉了');
+    JN.app.show('feed'); await wait(150);
+    return '离线状态：' + JN.app.sw().state;
+  });
+
+  /* ---------------- 返回键、深链接、引导 ---------------- */
+  test('返回键逐层关闭：舞台里的规则抽屉 → 舞台；页面 → 卡片流；Esc', async function () {
+    var wid = Object.keys(JN.widgets).filter(function (id) { return JN.widgets[id].rules; })[0];
+    ok(wid, '没有带规则的组件');
+    JN.app.openStage(null, wid); await wait(60);
+    click('.stage__rules'); await wait(60);
+    ok($('.sheet') && $('.sheet').textContent.indexOf(JN.widgets[wid].rules.slice(0, 8)) >= 0, '规则抽屉');
+    eq(JN.ui.layers.depth(), 2, '应有两层');
+    await back(); await wait(300);
+    ok(!$('.sheet') && visible($('.stage')), '第一下只关抽屉');
+    await back();
+    ok(!visible($('.stage')), '第二下关舞台');
+    eq(JN.ui.layers.depth(), 0);
+    JN.app.show('me'); await wait(40);
+    eq(JN.ui.layers.depth(), 1, '离开卡片流算一层');
+    JN.app.show('saved'); await wait(40);
+    eq(JN.ui.layers.depth(), 1, '页面之间切换不加层');
+    await back();
+    eq(JN.app.view(), 'feed', '返回键回到卡片流');
+    click('#filterBtn'); await wait(60);
+    key('Escape'); await wait(350);
+    ok(!$('.sheet'), 'Esc 关闭抽屉');
+    await wait(200);
+  });
+
+  test('深链接：#c #view #rescue #stage #mode #onboard，可以组合', async function () {
+    var c = S.deck()[Math.min(77, S.deck().length - 1)];
+    var go = async function (h) { W.location.hash = h; await wait(200); await settle(40); };
+    await go('#c=' + c.id);
+    eq(F.current().id, c.id, '#c'); eq(W.location.hash, '', '读完拿掉 #');
+    await go('#view=discover'); eq(JN.app.view(), 'discover', '#view=discover');
+    await go('#view=saved'); eq(JN.app.view(), 'saved', '#view=saved');
+    await go('#view=me'); eq(JN.app.view(), 'me', '#view=me');
+    await go('#rescue'); ok(visible($('.rescue')), '#rescue'); eq(JN.app.view(), 'feed');
+    var w = firstOf(function (c) { return c.format === 'widget' && JN.widgets[c.widget]; });
+    await go('#stage=' + w.id);
+    ok(visible($('.stage')) && JN.app.stageInfo().card === w.id, '#stage');
+    ok(!visible($('.rescue')), '新的深链接应收起之前的浮层');
+    var all = firstOf(function (c) { return !S.isDadOnly(c) && c.id !== w.id; });
+    await go('#c=' + all.id + '&mode=together');           // 分享出去的链接就是这个写法
+    eq(S.state.mode, 'together', '带 mode=together 的链接应切到一起看'); eq(F.current().id, all.id, '并定位到那张卡片');
+    ok(!cur().querySelector('.card__hint'), '打开以后看不到爸爸提示');
+    ok(!visible($('.stage')));
+    await go('#mode=me&onboard=1');
+    eq(S.state.mode, 'me', '#mode=me');
+    var ob = $('.onboard');
+    ok(ob, '#onboard=1 强制显示引导');
+    solid(ob, '引导');
+    eq(ob.querySelectorAll('.onboard__page').length, 3, '引导三屏');
+    ok(ob.querySelector('.onboard__skip') && !ob.querySelector('.onboard__skip').hidden, '可以跳过');
+    click('.onboard__next'); click('.onboard__next');
+    eq(ob.getAttribute('data-page'), '3');
+    eq(ob.querySelector('.onboard__next').textContent, '开始用');
+    click('.onboard__next'); await wait(150);
+    ok(!$('.onboard') && S.state.onboarded, '看完引导并记下来');
+    await go('#onboard=1');
+    click('.onboard__skip'); await wait(150);
+    ok(!$('.onboard'), '跳过');
+    await go('#c=no-such-card');
+    ok($('#toasts').textContent.indexOf('没有找到') >= 0, '不存在的卡片给一句提示');
+  });
+
+  test('标题按词折行：不把一个词拆到两行，标点不落到行首', async function () {
+    if (!(W.Intl && W.Intl.Segmenter)) return '这个浏览器没有 Intl.Segmenter：保持原来的折法';
+    var words = function (el) { return Array.prototype.map.call(el.querySelectorAll('.word'), function (w) { return w.textContent; }); };
+    var cases = [['show-011', '太阳'], ['talk-005', '只能']], seen = [];
+    for (var i = 0; i < cases.length; i++) {
+      var c = S.byId(cases[i][0]);
+      if (!c || c.title.indexOf(cases[i][1]) < 0) continue;
+      var el = await goto(c.id), ws = words(el.querySelector('.card__title'));
+      ok(ws.some(function (w) { return w.indexOf(cases[i][1]) >= 0; }), c.title + ' 里的「' + cases[i][1] + '」应是一个不拆开的词，得到 ' + ws.join('|'));
+      seen.push(ws.join('|'));
+    }
+    var toks = JN.ui.wordTokens('终场前 3 秒，落后 1 分（上半场）吗？').filter(function (k) { return !k.space; }).map(function (k) { return k.t; });
+    ok(toks.indexOf('3 秒，') >= 0 && toks.indexOf('1 分') >= 0, '数字和量词、后面的标点应粘在一起：' + toks.join('|'));
+    ok(toks.every(function (t) { return !/^[，。？！、；：）」』”’》]/.test(t); }), '不该有以标点开头的词：' + toks.join('|'));
+    ok(toks.some(function (t) { return t.charAt(0) === '（' && t.length > 1; }), '左括号应跟着后一个词：' + toks.join('|'));
+    var e = firstOf(function (c) { return c.format === 'either'; });
+    if (e) { var ee = await goto(e.id); ok(ee.querySelector('.either__txt .word'), '二选一的选项文字也按词包'); eq(ee.querySelector('[data-k="b"] .either__txt').textContent, e.either.b); }
+    return seen.join('  ；  ');
+  });
+
+  test('冷启动：筛选不保留，第一张回到今日锦囊；看法、收藏和设置保留；同一次使用里筛选一直在', async function () {
+    var keep = S.deck()[4];
+    S.setFav(keep.id, true);
+    S.setFilter({ type: 'puzzle', scenes: ['车上'], mins: 10 });
+    S.setMode('together');
+    JN.setSetting('haptic', false);
+    await wait(60);
+    ok(F.current().type === 'puzzle', '这一次使用里筛选生效');
+    await reload('#view=feed');                          // 重新打开应用
+    eq(S.state.mode, 'together', '看法应保留');
+    ok(!S.filterActive(), '筛选不该跨次启动保留');
+    eq(JN.store.get('state').filter, undefined, '筛选不该写进存储');
+    eq(F.index(), 0); eq(F.current().id, S.today().id, '第一张应是今日锦囊');
+    ok(cur().querySelector('.card__today'), '今日锦囊的徽标');
+    eq($('.typebar__chip.is-on').getAttribute('data-type'), 'all', '类型条回到全部');
+    ok(S.isFav(keep.id), '收藏应保留');
+    eq((JN.store.get('settings') || {}).haptic, false, '设置应保留');
+    S.setMode('me'); await wait(60);
+    // 同一次使用里：切页面、进舞台再回来，筛选都还在
+    click('.typebar__chip[data-type="puzzle"]'); await settle(40);
+    JN.app.show('me'); await wait(40); JN.app.show('discover'); await wait(40); JN.app.show('feed'); await wait(150);
+    eq(S.state.filter.type, 'puzzle', '切页面回来筛选还在');
+    JN.app.openStage(null, Object.keys(JN.widgets)[0]); await wait(80);
+    await back(); await wait(200);
+    ok(S.state.filter.type === 'puzzle' && F.current().type === 'puzzle', '进舞台再回来筛选还在');
+    S.resetFilter(); S.clearRecords();
+  });
+
+  /* ---------------- 运行 ---------------- */
+  /** 载入（或重新载入）被测页面，把 W / D / JN / S / F 绑到它身上 */
+  var loads = 0;
+  async function bind(hash) {
+    await load('../index.html?run=' + (++loads) + (hash || ''));
+    try { W = frame.contentWindow; D = W.document; JN = W.JN; S = JN.S; F = JN.feed; }
+    catch (e) { errors.push('读不到 iframe 里的页面：直接开文件时要带 allow-file-access-from-files，或者改用本地服务器。' + e.message); return false; }
+    if (!JN || !F) { errors.push('被测页面没有启动起来'); return false; }
+    W.addEventListener('error', function (e) { errors.push(current + ' :: ' + e.message + ' @' + String(e.filename || '').split('/').pop() + ':' + e.lineno); });
+    W.addEventListener('unhandledrejection', function (e) { errors.push(current + ' :: promise ' + ((e.reason && e.reason.message) || e.reason)); });
+    var origErr = W.console.error;
+    W.console.error = function () { errors.push(current + ' :: console.error ' + Array.prototype.map.call(arguments, function (a) { return (a && a.stack) || String(a); }).join(' ').slice(0, 300)); origErr.apply(W.console, arguments); };
+    JN.settings.sfx = false;
+    JN.settings.haptic = false;
+    _dad = _shy = null;
+    return true;
+  }
+  async function reload(hash) { ok(await bind(hash), '重新载入失败'); await wait(300); }
+  async function recover() {
+    try {
+      JN.ui.layers.closeAll();
+      await wait(200);
+      JN.app.show('feed');
+      S.resetFilter();
+      await settle(60);
+    } catch (e) { /* noop */ }
+  }
+  async function main() {
+    var backup = {};
+    try {
+      for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('jn.') === 0) backup[k] = localStorage.getItem(k); }
+      Object.keys(backup).forEach(function (k) { localStorage.removeItem(k); });
+    } catch (e) { /* noop */ }
+    var bound = await bind('#view=feed');
+    if (bound) {
+      await wait(300);
+      for (var t = 0; t < tests.length; t++) {
+        var item = tests[t];
+        if (only.length && !only.some(function (w) { return item.name.indexOf(w) >= 0; })) continue;
+        current = item.name;
+        var before = errors.length;
+        try {
+          var info = await item.fn();
+          results.push({ name: item.name, ok: errors.length === before, info: info || '', err: errors.length === before ? '' : '期间有报错' });
+        } catch (e) {
+          results.push({ name: item.name, ok: false, err: String((e && e.message) || e) });
+          await recover();
+        }
+        report.textContent = 'running… ' + results.length + ' / ' + tests.length;
+      }
+      current = '(结束后)';
+      await wait(500);
+    }
+    try {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf('jn.') === 0) localStorage.removeItem(k); });
+      Object.keys(backup).forEach(function (k) { localStorage.setItem(k, backup[k]); });
+    } catch (e) { /* noop */ }
+    var failed = results.filter(function (r) { return !r.ok; });
+    var out = { size: size.w + 'x' + size.h, cards: S ? S.all.length : 0, tests: results.length, passed: results.length - failed.length, failed: failed.length, errors: errors, results: results };
+    window.__report = out;
+    report.textContent = 'SHELLTEST_JSON_BEGIN' + JSON.stringify(out) + 'SHELLTEST_JSON_END';
+    document.title = 'SHELLTEST DONE';
+  }
+  main();
+})();
+</script>
+</body>
+</html>

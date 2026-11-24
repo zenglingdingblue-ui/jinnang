@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SELFTEST RUNNING</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/widgets-basic.css">
+<link rel="stylesheet" href="../css/widgets-logic.css">
+<link rel="stylesheet" href="../css/widgets-duel.css">
+<link rel="stylesheet" href="../css/widgets-party.css">
+<link rel="stylesheet" href="../css/widgets-sim.css">
+<link rel="stylesheet" href="../css/widgets-phys.css">
+<style>
+  body { padding: 12px; }
+  #stage { width: 360px; height: 600px; background: var(--bg); outline: 1px solid var(--line); }
+  pre { white-space: pre-wrap; font: 12px var(--font-mono); }
+</style>
+</head>
+<body>
+<!-- 自动把每个组件按每张卡片的参数挂载一遍、乱点几下、再销毁，收集报错和溢出。
+     用法：浏览器打开本页，或
+     "Google Chrome" --headless=new --virtual-time-budget=120000 --dump-dom dev/selftest.html
+     结果在 <pre id="report"> 里，标题变成 SELFTEST DONE。 -->
+<div id="stage"></div>
+<pre id="report">running…</pre>
+<script>
+/* 无头浏览器的“虚拟时间”下 requestAnimationFrame 几乎不出帧，动画循环等于没测到。
+   这里换成 16 毫秒的定时器，让每个组件的动画循环真的跑起来。 */
+(function () {
+  var seq = 0, timers = {};
+  window.requestAnimationFrame = function (fn) {
+    var id = ++seq;
+    timers[id] = setTimeout(function () { delete timers[id]; fn(performance.now()); }, 16);
+    return id;
+  };
+  window.cancelAnimationFrame = function (id) { clearTimeout(timers[id]); delete timers[id]; };
+  window.__pendingFrames = function () { return Object.keys(timers).length; };
+})();
+</script>
+<script src="../js/core.js"></script>
+<script src="../js/sprites.js"></script>
+<script src="../data/cards.js"></script>
+<script src="../js/widgets/basic.js"></script>
+<script src="../js/widgets/logic.js"></script>
+<script src="../js/widgets/duel.js"></script>
+<script src="../js/widgets/party.js"></script>
+<script src="../js/widgets/sim.js"></script>
+<script src="../js/widgets/phys.js"></script>
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var errors = [];
+  var current = '';
+  window.addEventListener('error', function (e) { errors.push(current + ' :: ' + e.message + ' @' + (e.filename || '').split('/').pop() + ':' + e.lineno); });
+  window.addEventListener('unhandledrejection', function (e) { errors.push(current + ' :: promise ' + (e.reason && e.reason.message || e.reason)); });
+  var origErr = console.error;
+  console.error = function () { errors.push(current + ' :: console.error ' + Array.prototype.map.call(arguments, function (a) { return (a && a.stack) || String(a); }).join(' ').slice(0, 400)); origErr.apply(console, arguments); };
+  JN.settings.sfx = false;
+  JN.confetti = function () {};   // 彩带自己会跑 1.7 秒的动画帧，测试里关掉，免得被当成组件泄漏
+
+  var jobs = [];
+  var cards = (window.JN_CARDS || []).filter(function (c) { return c.format === 'widget'; });
+  var only = (new URLSearchParams(location.search).get('ids') || '').split(',').filter(Boolean);
+  Object.keys(JN.widgets).sort().filter(function (id) { return !only.length || only.indexOf(id) >= 0; }).forEach(function (id) {
+    jobs.push({ id: id, params: {}, label: id + ' {}' });
+    cards.filter(function (c) { return c.widget === id; }).forEach(function (c) { jobs.push({ id: id, params: c.params || {}, label: id + ' ' + c.id }); });
+    if (JN.widgets[id].preview) jobs.push({ id: id, params: {}, label: id + ' preview', preview: true });
+  });
+  if (!only.length) cards.forEach(function (c) { if (!JN.widgets[c.widget]) errors.push('卡片 ' + c.id + ' 引用了不存在的组件 ' + c.widget); });
+
+  var sizes = [[360, 600], [320, 480], [430, 860]];
+  var results = [];
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function overflow() {
+    var out = [];
+    var sr = stage.getBoundingClientRect();
+    stage.querySelectorAll('*').forEach(function (n) {
+      if (out.length > 3) return;
+      var r = n.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      var cs = getComputedStyle(n);
+      if (cs.position === 'fixed' || cs.visibility === 'hidden') return;
+      if (r.right > sr.right + 2 || r.left < sr.left - 2) {
+        // 在可滚动容器里的不算
+        var p = n.parentElement, scroll = false;
+        while (p && p !== stage) { var o = getComputedStyle(p).overflowX; if (o === 'auto' || o === 'scroll' || o === 'hidden') { scroll = true; break; } p = p.parentElement; }
+        if (!scroll) out.push((n.className || n.tagName) + ' 横向超出 ' + Math.round(Math.max(r.right - sr.right, sr.left - r.left)) + 'px');
+      }
+    });
+    return out;
+  }
+
+  async function runJob(job) {
+    for (var s = 0; s < sizes.length; s++) {
+      stage.style.width = sizes[s][0] + 'px';
+      stage.style.height = sizes[s][1] + 'px';
+      current = job.label + ' @' + sizes[s].join('x');
+      var before = errors.length;
+      var doneCalls = 0;
+      var inst = JN.mountWidget(job.id, stage, JSON.parse(JSON.stringify(job.params)), { preview: !!job.preview, onDone: function () { doneCalls++; } });
+      await wait(250);
+      var of = overflow();
+      if (!job.preview && s === 0) {
+        // 乱点：按钮、可点元素
+        for (var k = 0; k < 14; k++) {
+          var btns = Array.prototype.filter.call(stage.querySelectorAll('button, [role="button"], input[type="range"], .jn-chip, canvas'), function (b) { return !b.disabled && b.offsetParent !== null; });
+          if (!btns.length) break;
+          var b = btns[Math.floor(Math.random() * btns.length)];
+          try {
+            if (b.tagName === 'CANVAS') {
+              var r = b.getBoundingClientRect();
+              var o = { bubbles: true, clientX: r.left + r.width * Math.random(), clientY: r.top + r.height * Math.random(), pointerId: 1, isPrimary: true, pointerType: 'touch' };
+              b.dispatchEvent(new PointerEvent('pointerdown', o)); b.dispatchEvent(new PointerEvent('pointermove', o)); b.dispatchEvent(new PointerEvent('pointerup', o)); b.dispatchEvent(new MouseEvent('click', o));
+            } else if (b.tagName === 'INPUT') { b.value = b.min || 0; b.dispatchEvent(new Event('input', { bubbles: true })); }
+            else b.click();
+          } catch (e) { errors.push(current + ' :: click threw ' + e.message); }
+          await wait(60);
+        }
+      }
+      await wait(200);
+      var empty = stage.children.length === 0;
+      try { inst.destroy(); } catch (e) { errors.push(current + ' :: destroy threw ' + e.message); }
+      await wait(60);
+      var leak = window.__pendingFrames();
+      await wait(60);
+      if (leak && window.__pendingFrames()) errors.push(current + ' :: 销毁后仍有动画帧在跑（' + window.__pendingFrames() + '）');
+      results.push({ job: current, errors: errors.length - before, overflow: of, rendered: !empty });
+      if (empty) errors.push(current + ' :: 挂载后舞台是空的');
+      of.forEach(function (m) { errors.push(current + ' :: 溢出 ' + m); });
+    }
+  }
+
+  (async function () {
+    for (var i = 0; i < jobs.length; i++) await runJob(jobs[i]);
+    current = '(结束后)';
+    await wait(600);   // 销毁后还在跑的计时器如果报错，会记到这里
+    var bad = results.filter(function (r) { return r.errors || r.overflow.length || !r.rendered; });
+    var report = {
+      widgets: Object.keys(JN.widgets).length,
+      jobs: jobs.length,
+      runs: results.length,
+      failedRuns: bad.length,
+      errors: errors
+    };
+    window.__report = report;
+    document.getElementById('report').textContent = 'SELFTEST_JSON_BEGIN' + JSON.stringify(report) + 'SELFTEST_JSON_END';
+    document.title = 'SELFTEST DONE';
+  })();
+})();
+</script>
+</body>
+</html>

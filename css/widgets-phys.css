@@ -1,0 +1,138 @@
+/* 锦囊 · widgets/phys 的样式（G5：物理与视觉）。
+ * 类名一律 w-<组件 id>- 开头，只用 base.css 里的变量。七个组件共用同一套骨架，所以前半部分的规则把七个 id 并列写在一起：
+ *   -stage 画布区（占满剩余空间） · -cv 画布 · -panel 控件区 · -top 状态文字 +「为什么」 · -row 一行按钮
+ *   -sl 一行滑块 · -why 说明抽屉
+ * 可点的东西（按钮、小标签、分段、滑块）在这里统一撑到 44px 高。
+ */
+
+/* ---------- 骨架 ---------- */
+.w-pendulum-stage, .w-wavependulum-stage, .w-curves-stage, .w-fractal-stage, .w-hoopshot-stage, .w-illusion-stage, .w-scale-stage {
+  position: relative; flex: 1 1 auto; min-height: 0; min-width: 0; overflow: hidden;
+}
+.w-pendulum-cv, .w-wavependulum-cv, .w-curves-cv, .w-fractal-cv, .w-hoopshot-cv, .w-illusion-cv, .w-scale-cv {
+  position: absolute; left: 0; top: 0;
+}
+.w-pendulum-panel, .w-wavependulum-panel, .w-curves-panel, .w-fractal-panel, .w-hoopshot-panel, .w-illusion-panel, .w-scale-panel {
+  flex: none; display: flex; flex-direction: column; gap: 6px;
+  padding: var(--sp-2) var(--sp-3) var(--sp-3);
+  background: var(--surface); border-top: 1px solid var(--line);
+}
+.w-pendulum-top, .w-wavependulum-top, .w-curves-top, .w-fractal-top, .w-hoopshot-top, .w-illusion-top, .w-scale-top {
+  display: flex; align-items: center; gap: var(--sp-2); min-height: var(--tap);
+}
+.w-pendulum-hud, .w-wavependulum-hud, .w-curves-hud, .w-fractal-hud, .w-hoopshot-hud, .w-illusion-hud {
+  flex: 1 1 auto; min-width: 0; font-size: var(--fs-sm); line-height: 1.4; color: var(--ink-2); font-weight: 500;
+}
+.w-pendulum-row, .w-wavependulum-row, .w-curves-row, .w-fractal-row, .w-hoopshot-row, .w-illusion-row, .w-scale-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-2); min-height: var(--tap);
+}
+.w-pendulum-row > .jn-btn, .w-wavependulum-row > .jn-btn, .w-curves-row > .jn-btn, .w-fractal-row > .jn-btn,
+.w-hoopshot-row > .jn-btn, .w-illusion-row > .jn-btn, .w-scale-row > .jn-btn {
+  min-height: var(--tap); padding: 0 var(--sp-4); flex: 1 1 auto;
+}
+.w-hoopshot-row > .jn-chip, .w-wavependulum-marks > .jn-chip { min-height: var(--tap); }
+.w-wavependulum-seg > button, .w-hoopshot-seg > button, .w-scale-seg > button, .w-fractal-seg > button {
+  min-height: var(--tap); min-width: var(--tap); padding: 0 var(--sp-3);
+}
+
+/* ---------- 滑块 ---------- */
+.w-wavependulum-sl, .w-curves-sl, .w-fractal-sl, .w-hoopshot-sl, .w-illusion-sl {
+  display: flex; align-items: center; gap: var(--sp-2); min-height: var(--tap);
+}
+.w-wavependulum-sl-name, .w-curves-sl-name, .w-fractal-sl-name, .w-hoopshot-sl-name, .w-illusion-sl-name {
+  flex: none; min-width: 2.2em; font-size: var(--fs-sm); color: var(--muted);
+}
+.w-wavependulum-sl > .jn-range, .w-curves-sl > .jn-range, .w-fractal-sl > .jn-range, .w-hoopshot-sl > .jn-range, .w-illusion-sl > .jn-range {
+  flex: 1 1 auto; min-width: 0; width: auto; height: var(--tap); margin: 0;
+}
+.w-wavependulum-sl-val, .w-curves-sl-val, .w-fractal-sl-val, .w-hoopshot-sl-val, .w-illusion-sl-val {
+  flex: none; min-width: 3.2em; text-align: right; font-size: var(--fs-sm); color: var(--ink);
+}
+.w-illusion-sl-val { display: none; }                 /* 缪勒—莱尔：调长度时不给看数字，不然就不用猜了 */
+.w-hoopshot-sl-val { min-width: 5.4em; }
+.w-hoopshot-nudge { flex: none; width: var(--tap); min-height: var(--tap); padding: 0; font-size: var(--fs-lg); }
+
+/* ---------- 「为什么」：小按钮 + 盖在底部的说明抽屉 ---------- */
+.w-pendulum-whybtn, .w-wavependulum-whybtn, .w-curves-whybtn, .w-fractal-whybtn, .w-hoopshot-whybtn, .w-illusion-whybtn, .w-scale-whybtn {
+  flex: none; min-height: var(--tap); align-self: flex-start;
+}
+.w-pendulum-why, .w-wavependulum-why, .w-curves-why, .w-fractal-why, .w-hoopshot-why, .w-illusion-why, .w-scale-why {
+  position: absolute; left: var(--sp-2); right: var(--sp-2); bottom: var(--sp-2); z-index: 5;
+  max-height: 74%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-m); box-shadow: var(--shadow-1);
+  animation: jn-pop 0.2s var(--ease) both;
+}
+.w-pendulum-why-head, .w-wavependulum-why-head, .w-curves-why-head, .w-fractal-why-head, .w-hoopshot-why-head, .w-illusion-why-head, .w-scale-why-head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  font-size: var(--fs-md); color: var(--accent);
+}
+.w-pendulum-why-head > .jn-btn, .w-wavependulum-why-head > .jn-btn, .w-curves-why-head > .jn-btn, .w-fractal-why-head > .jn-btn,
+.w-hoopshot-why-head > .jn-btn, .w-illusion-why-head > .jn-btn, .w-scale-why-head > .jn-btn { min-height: var(--tap); }
+.w-pendulum-why-body, .w-wavependulum-why-body, .w-curves-why-body, .w-fractal-why-body, .w-hoopshot-why-body, .w-illusion-why-body, .w-scale-why-body {
+  font-size: var(--fs-sm); line-height: 1.65; color: var(--ink-2);
+}
+.w-pendulum-why-body p, .w-wavependulum-why-body p, .w-curves-why-body p, .w-fractal-why-body p, .w-hoopshot-why-body p, .w-illusion-why-body p, .w-scale-why-body p {
+  margin: var(--sp-2) 0 0;
+}
+.w-pendulum-why-body strong, .w-wavependulum-why-body strong, .w-curves-why-body strong, .w-fractal-why-body strong,
+.w-hoopshot-why-body strong, .w-illusion-why-body strong, .w-scale-why-body strong { color: var(--ink); }
+
+/* ---------- wavependulum ---------- */
+.w-wavependulum-hud { font-size: var(--fs-xs); }
+.w-wavependulum-marks { display: flex; gap: 6px; }
+.w-wavependulum-marks > .jn-chip { flex: 1 1 0; justify-content: center; padding: 0 var(--sp-1); }
+.w-wavependulum-row > .jn-btn { flex: 0 0 auto; min-width: 76px; }
+
+/* ---------- curves ---------- */
+.w-curves-count { flex: none; font-size: var(--fs-md); color: var(--accent); }
+.w-curves-ask { font-size: var(--fs-md); font-weight: 650; line-height: 1.35; }
+.w-curves-opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); }
+.w-curves-opt { min-height: 48px; padding: 0; font-family: var(--font-num); font-size: var(--fs-lg); font-weight: 750; }
+.w-curves-opt.is-picked { box-shadow: inset 0 0 0 2px var(--ink); }
+.w-curves-opt.is-right { background: var(--ok); color: var(--bg); opacity: 1; }
+.w-curves-opt.is-wrong { background: var(--danger); color: var(--on-color); opacity: 1; }
+.w-curves-row > .w-curves-whybtn { flex: none; align-self: center; }
+.w-curves-say { min-height: 4.2em; font-size: var(--fs-sm); line-height: 1.4; color: var(--ink-2); }
+
+/* ---------- fractal ---------- */
+.w-fractal-top { justify-content: space-between; }
+.w-fractal-body { display: flex; flex-direction: column; gap: 6px; }
+.w-fractal-hud { flex: none; }
+.w-fractal-stat { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); min-height: 24px; }
+.w-fractal-stat > span { flex: none; width: 11.5em; color: var(--ink); }
+.w-fractal-bar { position: relative; flex: 1 1 auto; height: 10px; border-radius: var(--r-pill); background: var(--surface-3); }
+.w-fractal-fill { display: block; height: 100%; border-radius: var(--r-pill); background: var(--p1); transition: width 0.5s var(--ease); }
+.w-fractal-fill.is-area { background: var(--p2); }
+.w-fractal-cap { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--accent); }
+
+/* ---------- hoopshot ---------- */
+.w-hoopshot-top { align-items: stretch; }
+.w-hoopshot-whybtn { flex-direction: column; justify-content: center; gap: 0; padding: 4px 6px 2px; border-radius: var(--r-m); font-size: var(--fs-xs); line-height: 1.3; white-space: nowrap; }
+.w-hoopshot-eye { display: block; pointer-events: none; }
+.w-hoopshot-says { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 76px; }
+.w-hoopshot-eyesay { font-size: var(--fs-xs); line-height: 1.35; color: var(--ok); font-weight: 650; }
+.w-hoopshot-eyesay.is-bad { color: var(--danger); }
+.w-hoopshot-hud { flex: none; }
+.w-hoopshot-row > .w-hoopshot-go { flex: 0 0 auto; min-width: 88px; }
+.w-hoopshot-score { flex: 1 1 auto; min-width: 0; font-size: var(--fs-sm); line-height: 1.35; color: var(--ink); text-align: right; }
+.w-hoopshot-lab, .w-scale-lab { flex: none; font-size: var(--fs-sm); color: var(--muted); }
+
+/* ---------- illusion ---------- */
+.w-illusion-hud { min-height: 2.8em; }
+.w-illusion-ask { font-size: var(--fs-md); font-weight: 650; line-height: 1.35; }
+.w-illusion-opts { display: flex; gap: var(--sp-2); }
+.w-illusion-opt { flex: 1 1 0; min-width: 0; min-height: var(--tap); padding: 0 var(--sp-1); font-size: var(--fs-sm); }
+.w-illusion-opt.is-right { background: var(--ok); color: var(--bg); opacity: 1; }
+.w-illusion-opt.is-wrong { background: var(--danger); color: var(--on-color); opacity: 1; }
+.w-illusion-say { min-height: 4.2em; font-size: var(--fs-sm); line-height: 1.4; color: var(--ink-2); }
+
+/* ---------- scale ---------- */
+.w-scale-title { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+.w-scale-name { font-size: var(--fs-lg); font-weight: 750; }
+.w-scale-real { font-size: var(--fs-xs); color: var(--muted); }
+.w-scale-fact { min-height: 2.8em; font-size: var(--fs-sm); line-height: 1.4; color: var(--ink); }
+.w-scale-pos { flex: none; min-width: 2.6em; text-align: center; font-size: var(--fs-sm); color: var(--muted); }
+.w-scale-row > .jn-btn--icon { flex: none; width: var(--tap); padding: 0; }
+.w-scale-seg { flex: 1 1 auto; }
+.w-scale-seg > button { flex: 1 1 0; padding: 0 var(--sp-1); }

@@ -1,0 +1,22 @@
+{
+  "name": "锦囊",
+  "short_name": "锦囊",
+  "description": "365 个小主意：冷场的时候翻一张。装在主屏幕上，断网也能用。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "categories": ["lifestyle", "entertainment"],
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "救场", "short_name": "救场", "description": "冷场了，马上来一张", "url": "./#rescue" },
+    { "name": "一起看", "short_name": "一起看", "description": "把手机递给孩子时用", "url": "./#mode=together" }
+  ]
+}

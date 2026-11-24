@@ -1,0 +1,166 @@
+[
+  {
+    "id": "play-501", "type": "play", "sub": "篮球", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上", "周末"], "mins": 5,
+    "title": "罚球线：进 5 个要几投？",
+    "body": "调角度和速度，点出手。小心：你的手会抖一点点，瞄得准不等于投得进。",
+    "more": "这里只算重力。罚球线到篮筐中心 4.225 米，篮筐高 3.05 米，出手点默认 2 米高。\n\n挑战里的“手抖”是随机的：每次出手，速度大约差 1%，角度大约差 1°。所以同一个瞄准，有时进，有时不进。\n\n想少投几次，就得找一条“差一点也能进”的弧线。线索在左上角：球眼里的篮筐。",
+    "widget": "hoopshot", "params": {"mode": "challenge", "spot": "ft"}, "cta": "上罚球线",
+    "hint": "你先投，挑一条很平的弧线，投丢了别找理由。他的成绩比你好就认输，请他讲讲诀窍。",
+    "refs": [
+      {"t": "FIBA 篮球规则·器材（篮筐、篮球与球场尺寸）", "lv": "官方"},
+      {"t": "Basketball court · Wikipedia", "u": "https://en.wikipedia.org/wiki/Basketball_court", "lv": "常识"}
+    ],
+    "art": "ball", "tags": ["篮球", "罚球", "物理", "抛物线"]
+  },
+  {
+    "id": "play-502", "type": "play", "sub": "篮球", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["球场", "周末", "车上", "出游"], "mins": 6,
+    "title": "三分线：敢不敢比一局",
+    "body": "比罚球远了 2.5 米，能进的那条缝更窄。两个人轮流，各投进 5 个，出手次数少的赢。",
+    "more": "三分线离篮筐 6.75 米（国际篮联的标准，NBA 是 7.24 米）。离得越远，同样的手抖，落点偏得越多，所以三分天生比罚球难。\n\n和罚球一样：弧线高一点，球眼里的篮筐就大一点；可是弧线越高，出手越费力。",
+    "widget": "hoopshot", "params": {"mode": "challenge", "spot": "three"}, "cta": "开投",
+    "hint": "轮流玩，各记各的出手次数。输了就认，别拿“手抖”当借口。他要是赢了，问一句：你是怎么选弧线的？",
+    "refs": [
+      {"t": "FIBA 篮球规则·器材（篮筐、篮球与球场尺寸）", "lv": "官方"},
+      {"t": "Basketball court · Wikipedia", "u": "https://en.wikipedia.org/wiki/Basketball_court", "lv": "常识"}
+    ],
+    "art": "hoop", "tags": ["篮球", "三分", "物理", "对决"]
+  },
+  {
+    "id": "play-503", "type": "play", "sub": "猜猜看", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "车上", "睡前"], "mins": 4,
+    "title": "猜猜这朵花有几瓣",
+    "body": "大圈 96 个齿，小轮 36 个齿，小轮在大圈里滚，笔尖画出一朵花。它有几个花瓣？先猜，再看它画。",
+    "more": "小轮每滚过自己的一圈齿，画出一个花瓣。要等大圈和小轮同时回到出发的位置，线才接得上。\n\n所以：**花瓣数 = 大圈齿数 ÷ 两个齿数的最大公因数**。\n\n大圈 96、小轮 36：最大公因数是 12，花瓣 96 ÷ 12 = 8 个，小轮要绕 3 圈。两个齿数互质的时候，花瓣最多。",
+    "widget": "curves", "params": {"quiz": true}, "cta": "猜花瓣",
+    "hint": "别讲最大公因数。你也一题一题跟着猜，猜错了就认。猜过几题以后，各说一条自己琢磨的规律，下一题当场验。",
+    "refs": [
+      {"t": "Hypotrochoid · Wikipedia", "u": "https://en.wikipedia.org/wiki/Hypotrochoid", "lv": "常识"},
+      {"t": "Spirograph · Wikipedia", "u": "https://en.wikipedia.org/wiki/Spirograph", "lv": "常识"}
+    ],
+    "art": "pencil", "tags": ["数学", "最大公因数", "万花尺", "曲线"]
+  },
+  {
+    "id": "play-504", "type": "play", "sub": "猜猜看", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "车上", "饭桌"], "mins": 4,
+    "title": "种一棵只有一条规则的树",
+    "body": "每根树枝分两个叉，一直分下去。调角度和比例，看你能种出什么：西兰花？珊瑚？还是一团乱麻？",
+    "more": "分形就是：同一条规则，在越来越小的地方一遍遍重复。\n\n树：每根枝分两叉，9 层就有 511 根树枝。折下任何一根，它都和整棵树长得一样。\n\n切到「科赫雪花」：每条边中间鼓出一个小尖角。每加一层，周长变成原来的 4/3，可以一直涨下去；面积却有封顶，永远超不过最初那个三角形的 1.6 倍。",
+    "widget": "fractal", "params": {"kind": "tree"}, "cta": "去种树",
+    "hint": "让他调一棵最怪的，你负责起名字。再切到「科赫雪花」一层层往上加，各押一个：面积会不会也跟着一直涨？押错的认输。",
+    "refs": [
+      {"t": "Fractal · Wikipedia", "u": "https://en.wikipedia.org/wiki/Fractal", "lv": "常识"},
+      {"t": "Koch snowflake · Wikipedia", "u": "https://en.wikipedia.org/wiki/Koch_snowflake", "lv": "常识"}
+    ],
+    "art": "tree", "tags": ["数学", "分形", "科赫雪花"]
+  },
+  {
+    "id": "play-505", "type": "play", "sub": "猜猜看", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "车上", "睡前"], "mins": 4,
+    "title": "5 关：你的眼睛靠得住吗",
+    "body": "5 张图，5 个问题，每个都有标准答案。先凭眼睛回答，再当场验证。",
+    "more": "这 5 种错觉骗的不是你一个人，是所有人的视觉系统。知道答案以后再看，它们还是老样子。\n\n有的大体弄明白了：同一种灰放在深色旁边显得浅，是因为眼睛只比较“和周围差多少”。有的到现在还没有定论：线头朝外张的线为什么显得长，科学家还在争论。",
+    "widget": "illusion", "params": {"kind": "tour"}, "cta": "闯关",
+    "hint": "两个人各答各的，先别商量。被骗了不用解释，这些图连研究它们的人也照样上当。比一比谁被骗得少。",
+    "refs": [
+      {"t": "Optical illusion · Wikipedia", "u": "https://en.wikipedia.org/wiki/Optical_illusion", "lv": "常识"}
+    ],
+    "art": "magnifier", "tags": ["错觉", "视觉", "大脑"]
+  },
+  {
+    "id": "show-201", "type": "show", "sub": "物理", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "车上"], "mins": 3,
+    "title": "这只摆不按套路出牌",
+    "body": "两根杆连在一起，松手。盯着那条线看：它会不会重复自己？",
+    "more": "只有一根杆的摆，来回的路线每次都一样。接上第二根，两根杆互相拉扯，甩起来就看着毫无规律，几乎不会走回同一条路线。\n\n奇怪的是，这里没有任何随机：每一步都严格照着同一条物理规则走。规则完全确定，结果却没法长期预测，这种现象叫**混沌**。\n\n拖动小球可以换个起点。起点低，它摆得规规矩矩；抬得越高，越没有规律。",
+    "widget": "pendulum", "params": {}, "cta": "甩一下",
+    "hint": "先别解释“混沌”。让他摆一个最刁钻的姿势，你们赌它 10 秒后甩在左边还是右边。",
+    "refs": [
+      {"t": "Double pendulum · Wikipedia", "u": "https://en.wikipedia.org/wiki/Double_pendulum", "lv": "常识"}
+    ],
+    "art": "atom", "tags": ["物理", "混沌", "双摆"]
+  },
+  {
+    "id": "show-202", "type": "show", "sub": "物理", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "睡前"], "mins": 3,
+    "title": "只差 0.057°，能同步几秒？",
+    "body": "两只一模一样的双摆，同时松手，起点只差 0.057°，肉眼看不出来。先猜：它们能一起走多久？",
+    "more": "两只摆的规则完全相同，松手时上面那根杆只差 0.001 弧度，也就是 0.057°。\n\n这点差别不会老实待着，它每过一小会儿就翻一倍。下面的曲线画的是两只摆的角度差，纵轴每一格是 10 倍：先是一条往上爬的斜线，爬到头，两只摆就各走各的了。\n\n气象学家洛伦茨在算天气时撞见过同样的事，“蝴蝶效应”说的就是它。天气预报只能准几天，主要就是因为这个：一开始总有一点量不准。",
+    "widget": "pendulum", "params": {"twins": true}, "cta": "同时松手",
+    "hint": "先各报一个秒数，谁离得近谁赢。然后让他拖个新起点再来一次：每次分开的时间都不一样。",
+    "refs": [
+      {"t": "Butterfly effect · Wikipedia", "u": "https://en.wikipedia.org/wiki/Butterfly_effect", "lv": "常识"},
+      {"t": "Double pendulum · Wikipedia", "u": "https://en.wikipedia.org/wiki/Double_pendulum", "lv": "常识"}
+    ],
+    "art": "magnet", "tags": ["物理", "混沌", "蝴蝶效应"]
+  },
+  {
+    "id": "show-203", "type": "show", "sub": "物理", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "睡前", "饭桌"], "mins": 2,
+    "title": "15 只摆，自己会排队",
+    "body": "一起松手，它们先扭成一条蛇，再散开、分队。等满 60 秒，看会发生什么。",
+    "more": "一只摆来回一次要多久，只看绳子多长，跟球多重没关系。\n\n这 15 只摆的绳长是算好的：60 秒里，最长的那只正好摆 51 次，旁边的 52 次，一只比一只多一次，最短的 65 次。\n\n一起松手后，快的一点点领先，队伍就拉成一条蛇。30 秒时，摆了双数次的回到原位，单数次的正好在对面，于是分成两队。60 秒时每只都摆了整数次，同时回到起点。",
+    "widget": "wavependulum", "params": {}, "cta": "松手",
+    "hint": "别剧透 60 秒时会怎样。到 55 秒一起倒数。看完各猜一个：再多等 1 分钟，会怎样？",
+    "refs": [
+      {"t": "Pendulum wave · Wikipedia", "u": "https://en.wikipedia.org/wiki/Pendulum_wave", "lv": "常识"},
+      {"t": "哈佛大学自然科学演示实验：Pendulum Waves", "lv": "经典"}
+    ],
+    "art": "hourglass", "tags": ["物理", "单摆", "周期"]
+  },
+  {
+    "id": "show-204", "type": "show", "sub": "篮球", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["球场", "周末", "饭桌"], "mins": 5,
+    "title": "平着投，还是高高地抛？",
+    "body": "同一个罚球，换个出手角度，“力气大一点小一点都能进”的余地能差好几倍。拖一拖，找出最稳的角度。",
+    "more": "球是斜着飞向篮筐的，所以篮圈在它“眼里”是一个被压扁的椭圆：\n\n**看起来的宽度 = 篮圈直径 × sin(入筐角)**\n\n篮圈内径 45 厘米，球直径约 24.6 厘米。垂直掉下去，篮筐有 45 厘米宽；入筐角 45° 时只剩 31.8 厘米；小于 33° 时这条缝比球还窄，不蹭筐不可能进。\n\n弧线高一点，缝就宽一点，可是也更费力。这个模型只算重力，没有空气阻力和旋转，它给的“最稳角度”只是模型里的答案。",
+    "widget": "hoopshot", "params": {"mode": "explore", "spot": "ft"}, "cta": "找角度",
+    "hint": "先让他站起来比划自己平时的出手角度，再让他拖滑块。结论由他讲给你听，你只负责“哦——”。",
+    "refs": [
+      {"t": "FIBA 篮球规则·器材（篮筐、篮球与球场尺寸）", "lv": "官方"},
+      {"t": "Basketball court · Wikipedia", "u": "https://en.wikipedia.org/wiki/Basketball_court", "lv": "常识"}
+    ],
+    "art": "hoop", "tags": ["篮球", "物理", "抛物线", "入筐角"]
+  },
+  {
+    "id": "show-205", "type": "show", "sub": "人体", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "睡前"], "mins": 2,
+    "title": "盯住这个蓝球 20 秒",
+    "body": "眼睛别动，盯住球心的小黑点。倒计时结束的那一下，看看白底上多了什么。",
+    "more": "眼睛里有 3 种管颜色的感光细胞。盯着蓝色看久了，对蓝色起反应的那些细胞“累了”，反应变弱。\n\n这时再看白色（白光里各种颜色都有），蓝色的信号偏弱，剩下的颜色占了上风，你看到的就是它的补色。过几秒细胞缓过来，残像就散了。",
+    "widget": "illusion", "params": {"kind": "afterimage"}, "cta": "开始盯",
+    "hint": "你也一起盯，结束时各自说看到了什么颜色，别抢答。他说没看到，就让他别眨眼再来一次。",
+    "refs": [
+      {"t": "Afterimage · Wikipedia", "u": "https://en.wikipedia.org/wiki/Afterimage", "lv": "常识"}
+    ],
+    "art": "camera", "tags": ["错觉", "视觉", "补色", "残像"]
+  },
+  {
+    "id": "show-206", "type": "show", "sub": "人体", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "周末"], "mins": 3,
+    "title": "你的眼睛里有个洞",
+    "body": "闭上一只眼，盯住十字，把手机慢慢拉近。旁边那个圆点会在某个距离突然不见。",
+    "more": "眼球后面有一小块地方，是视神经穿出去的出口，那里没有感光细胞。圆点的像正好落在那儿时，你就看不见它。\n\n平时没感觉，是因为两只眼睛的盲点不在同一个位置，互相补上了。只用一只眼时，大脑会用周围的颜色和图案把这个洞“补”上，所以你看到的不是黑洞，而是一片连续的背景。",
+    "widget": "illusion", "params": {"kind": "blindspot"}, "cta": "找盲点",
+    "hint": "你先来，找到了别说距离，把手机递给他自己找。再点「换成一条线」，看大脑怎么把缺口补上。",
+    "refs": [
+      {"t": "Blind spot (vision) · Wikipedia", "u": "https://en.wikipedia.org/wiki/Blind_spot_(vision)", "lv": "常识"}
+    ],
+    "art": "magnifier", "tags": ["错觉", "视觉", "盲点"]
+  },
+  {
+    "id": "show-207", "type": "show", "sub": "天上地下", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["球场", "周末", "出游", "车上"], "mins": 5,
+    "title": "地球缩成篮球，月亮在哪？",
+    "body": "先猜：月亮有多大，离这个篮球几米？太阳呢？猜完再一站一站走过去。",
+    "more": "所有数字都用同一个比例：真实尺寸除以 5185 万。\n\n- 月球：一个网球那么大，离篮球 7.4 米\n- 太阳：直径 27 米，差不多一个篮球场那么长，在 2.9 千米外\n- 离太阳最近的恒星比邻星：在 77.5 万千米外，比真的月亮还远一倍\n\n按这个比例，光每秒只走 5.8 米，和骑自行车差不多。它从太阳“骑”到地球要 8 分 19 秒。\n\n课本上的太阳系图把距离缩得比大小狠得多，不然一页纸画不下。",
+    "widget": "scale", "params": {"ball": "basketball"}, "cta": "出发",
+    "hint": "在球场边最好：先各猜一个，用步子把月亮“放”到自己猜的地方，再点开看谁近。太阳那一站的答案让他念。",
+    "refs": [
+      {"t": "NASA Planetary Fact Sheet", "u": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/", "lv": "官方"},
+      {"t": "Proxima Centauri · Wikipedia", "u": "https://en.wikipedia.org/wiki/Proxima_Centauri", "lv": "常识"}
+    ],
+    "art": "planet", "tags": ["天文", "太阳系", "比例", "篮球"]
+  }
+]

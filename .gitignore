@@ -1,0 +1,8 @@
+dev/shots/
+.DS_Store
+__pycache__/
+*.pyc
+dist/
+.claude/
+tools/private_words.txt
+dev/verify_insight_refs.py

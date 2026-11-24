@@ -1,0 +1,360 @@
+/* 锦囊 · theme —— 皮肤
+ * 在 css/app.css 之后加载。只管颜色、渐变、花纹、阴影、贴纸的大小和位置；不管版面和交互。
+ * 选择器只依赖 docs/SPEC.md 2.4 的卡片 DOM 约定和 base.css 的 .jn-* 通用类。
+ * 设计说明、给外壳的建议见 docs/DESIGN.md。由视觉设计师 V1 维护。
+ *
+ * 目录
+ *   1. 令牌取值（覆盖 base.css 的 :root，另加一组可选的 --c-*-hi）
+ *   2. 七种类型的颜色世界（--k-* 是这套皮肤自己的变量；别处要读请带兜底值）
+ *   3. 卡片背景：渐变 + 暗纹 + 柔光
+ *   4. 贴纸（外壳用 --jn-art-* 五个变量微调）
+ *   5. 卡片上的文字、徽标、按钮、提示、页脚
+ *   6. 锦囊类型（深蓝 + 金）
+ *   7. 动效、减少动效、更高对比度
+ */
+
+/* ---------- 1. 令牌取值 ---------- */
+:root {
+  /* 类型色加深到「压白字」对比度 ≥ 4.5:1：a 是亮的一端，b 是渐变终点。
+     原来的亮色（如 #ff7a45）压白字只有 2.6:1，正文不合格。
+     对比度（白字）：talk 4.7 / 6.0，play 4.9 / 6.6，puzzle 5.4 / 11.5，show 4.7 / 6.1，do 4.7 / 6.5，trio 4.7 / 6.1。
+     注意：加深以后它们是「底色」——上面压白字。直接拿来当深色界面上的字、细线就偏暗了（约 3–4:1），那种用法请用下面的 -hi。 */
+  --c-talk-a: #d43b10;    --c-talk-b: #c21650;
+  --c-play-a: #2b66f0;    --c-play-b: #6238e0;
+  --c-puzzle-a: #8a3fe0;  --c-puzzle-b: #3b1e98;
+  --c-show-a: #04808c;    --c-show-b: #0b5fc2;
+  --c-do-a: #14863a;      --c-do-b: #0b6a57;
+  --c-trio-a: #d8267f;    --c-trio-b: #982dc0;
+  --c-insight-a: #1b2a4a; --c-insight-b: #0d162b;
+
+  /* 新增（可选）：类型色的亮色版，给「压在深色界面上的字、细线、小图标」用，
+     压在 --bg / --surface / --surface-2 / --surface-3 上都 ≥ 4.5:1。基本就是 base.css 原来的那组亮色。
+     用的时候带上兜底：var(--c-talk-hi, var(--c-talk-a)) */
+  --c-talk-hi: #ff7a45;   --c-play-hi: #6f95ff;   --c-puzzle-hi: #a98bff;  --c-show-hi: #00b8a9;
+  --c-do-hi: #2fb36a;     --c-trio-hi: #ff66ad;   --c-insight-hi: #ffd166;
+
+  --on-color-2: rgba(255, 255, 255, 0.86);
+}
+
+::selection { background: rgba(255, 209, 102, 0.32); }
+
+/* ---------- 2. 七种类型的颜色世界 ----------
+ * --k-a / --k-b   底色渐变的两端        --k-angle  渐变方向
+ * --k-glow        贴纸背后那盏柔光的颜色（r,g,b），--k-glow-a 是它最亮处的不透明度
+ * --k-tint        对角的第二种色相（r,g,b），只换色相不提亮，保证字的对比度
+ * --k-deep        这个世界里最深的颜色（r,g,b），用在底部压暗和投影里
+ * --k-ink         白底按钮、白底徽标上的字色
+ * --k-tilt        贴纸的倾斜角            --k-art-fit / --k-art-size 贴纸宽度（算法见第 4 节）
+ * --k-pat         花纹（当蒙版用的 data URI） --k-pat-c 花纹的颜色（r,g,b）  --k-pat-a 花纹的不透明度
+ * 这些变量挂在 [data-type] 上，所以卡片以外带 data-type 的元素（类型入口、救场卡……）也取得到；
+ * 外壳要用的话请带兜底，例如 color: var(--k-ink, #14161c)。
+ */
+.card {
+  --k-a: var(--surface-3);  --k-b: var(--surface);  --k-angle: 170deg;
+  --k-glow: 255, 255, 255;  --k-glow-a: 0.14;
+  --k-tint: 0, 0, 0;  --k-tx: 0%;  --k-ty: 100%;
+  --k-deep: 4, 6, 12;
+  --k-ink: #14161c;
+  --k-art: var(--on-color);  --k-tilt: 8deg;
+  --k-vh: 1vh;                                                  /* 支持 dvh 的浏览器在下面换成 1dvh */
+  --k-art-fit: clamp(36%, calc(var(--k-vh) * 60 - 240px), 62%);   /* 这种形态放得下多大的贴纸，见第 4 节 */
+  --k-art-size: var(--k-art-fit);                               /* 贴纸实际的宽度 */
+  --k-pat: none;  --k-pat-size: 210px;  --k-pat-rot: 8deg;  --k-pat-c: var(--k-deep);  --k-pat-a: 0;
+
+  isolation: isolate;            /* 让背景和贴纸用负的 z-index 垫在文字下面 */
+  overflow: hidden;              /* 贴纸会从右边出血 */
+  color: var(--on-color);
+}
+[data-type="talk"] {
+  --k-a: var(--c-talk-a);  --k-b: var(--c-talk-b);  --k-angle: 166deg;
+  --k-glow: 255, 150, 54;  --k-glow-a: 0.82;
+  --k-tint: 150, 16, 110;  --k-tx: -6%;  --k-ty: 96%;
+  --k-deep: 92, 6, 38;  --k-ink: #ae123f;  --k-tilt: 8deg;  --k-pat-a: 0.27;
+}
+[data-type="play"] {
+  --k-a: var(--c-play-a);  --k-b: var(--c-play-b);  --k-angle: 196deg;
+  --k-glow: 56, 190, 255;  --k-glow-a: 0.66;
+  --k-tint: 150, 30, 210;  --k-tx: 104%;  --k-ty: 88%;
+  --k-deep: 30, 14, 110;  --k-ink: #3c2bc8;  --k-tilt: -8deg;  --k-pat-a: 0.27;
+}
+[data-type="puzzle"] {
+  --k-a: var(--c-puzzle-a);  --k-b: var(--c-puzzle-b);  --k-angle: 178deg;
+  --k-glow: 224, 130, 255;  --k-glow-a: 0.56;
+  --k-tint: 36, 60, 190;  --k-tx: -8%;  --k-ty: 84%;
+  --k-deep: 22, 10, 74;  --k-ink: #3b1e98;  --k-tilt: 6deg;  --k-pat-a: 0.27;
+}
+[data-type="show"] {
+  --k-a: var(--c-show-a);  --k-b: var(--c-show-b);  --k-angle: 152deg;
+  --k-glow: 40, 232, 214;  --k-glow-a: 0.58;
+  --k-tint: 60, 50, 190;  --k-tx: 100%;  --k-ty: 100%;
+  --k-deep: 6, 30, 92;  --k-ink: #0a4f9e;  --k-tilt: -7deg;  --k-pat-a: 0.27;
+}
+[data-type="do"] {
+  --k-a: var(--c-do-a);  --k-b: var(--c-do-b);  --k-angle: 188deg;
+  --k-glow: 176, 232, 70;  --k-glow-a: 0.54;
+  --k-tint: 0, 92, 130;  --k-tx: -8%;  --k-ty: 92%;
+  --k-deep: 4, 46, 40;  --k-ink: #0a5c45;  --k-tilt: 10deg;  --k-pat-a: 0.27;
+}
+[data-type="trio"] {
+  --k-a: var(--c-trio-a);  --k-b: var(--c-trio-b);  --k-angle: 160deg;
+  --k-glow: 255, 150, 110;  --k-glow-a: 0.7;
+  --k-tint: 70, 40, 200;  --k-tx: 102%;  --k-ty: 96%;
+  --k-deep: 62, 10, 96;  --k-ink: #8a1f9e;  --k-tilt: -5deg;  --k-pat-a: 0.27;
+}
+[data-type="insight"] {
+  --k-a: var(--c-insight-a);  --k-b: var(--c-insight-b);  --k-angle: 172deg;
+  --k-glow: 255, 209, 102;  --k-glow-a: 0.2;
+  --k-tint: 40, 70, 150;  --k-tx: -10%;  --k-ty: 70%;
+  --k-deep: 4, 8, 20;  --k-ink: var(--accent-ink);
+  --k-art: var(--accent);  --k-art-size: min(var(--k-art-fit), 46%);  --k-tilt: 4deg;      /* 锦囊的贴纸小一号，安静一点 */
+  --k-pat-size: 118px;  --k-pat-rot: 0deg;  --k-pat-c: 255, 209, 102;  --k-pat-a: 0.07;
+}
+
+/* PAT:BEGIN 以下七行由 assets/icons.svg 的 pat-* 生成（当蒙版用的线稿），不要手改；改了花纹后重新生成，办法见 docs/DESIGN.md */
+[data-type="talk"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath transform='rotate(-8 44 42)' d='M24 16h40a10 10 0 0 1 10 10v18a10 10 0 0 1-10 10H44L31 66V54h-7a10 10 0 0 1-10-10V26a10 10 0 0 1 10-10z'/%3E%3Cg transform='translate(118 44)'%3E%3Ccircle r='6.5' fill='%23fff' stroke='none'/%3E%3Cpath d='M-6.5 0c0-10 4-16 12-19'/%3E%3Ccircle cx='21' r='6.5' fill='%23fff' stroke='none'/%3E%3Cpath d='M14.5 0c0-10 4-16 12-19'/%3E%3C/g%3E%3Cpath d='M152 92a15 15 0 1 1-9 27l-10 3 3.5-9.5A15 15 0 0 1 152 92z'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Ccircle cx='30' cy='112' r='3.5'/%3E%3Ccircle cx='43' cy='112' r='3.5'/%3E%3Ccircle cx='56' cy='112' r='3.5'/%3E%3C/g%3E%3Cg transform='translate(86 152) rotate(180)'%3E%3Ccircle r='6.5' fill='%23fff' stroke='none'/%3E%3Cpath d='M-6.5 0c0-10 4-16 12-19'/%3E%3Ccircle cx='21' r='6.5' fill='%23fff' stroke='none'/%3E%3Cpath d='M14.5 0c0-10 4-16 12-19'/%3E%3C/g%3E%3Cpath transform='rotate(7 146 166)' d='M124 150h44a8 8 0 0 1 8 8v12a8 8 0 0 1-8 8h-4v9l-11-9h-29a8 8 0 0 1-8-8v-12a8 8 0 0 1 8-8z'/%3E%3Cpath d='M170 50a7 7 0 1 1 9 6.7c-1.6.6-2.5 1.8-2.5 3.8v1.5M176.5 70h.01'/%3E%3Cpath d='M22 166q7-7 14 0t14 0'/%3E%3C/g%3E%3C/svg%3E"); }
+[data-type="play"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath transform='translate(42 46)' d='M-7-22H7v15h15V7H7v15H-7V7h-15V-7h15z'/%3E%3Ccircle cx='134' cy='36' r='11'/%3E%3Ccircle cx='160' cy='60' r='11'/%3E%3Ccircle cx='134' cy='36' r='3' fill='%23fff' stroke='none'/%3E%3Cpath transform='translate(152 142) rotate(45)' d='M-4-15H4v11h11V4H4v11H-4V4h-11V-4h11z'/%3E%3Crect transform='rotate(-20 62 118)' x='44' y='111' width='36' height='14' rx='7'/%3E%3Ccircle cx='96' cy='170' r='13'/%3E%3Ccircle cx='96' cy='170' r='4.5' fill='%23fff' stroke='none'/%3E%3Cpath d='M92 84l8 8 8-8 8 8 8-8'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Ccircle cx='24' cy='104' r='3'/%3E%3Ccircle cx='184' cy='104' r='3'/%3E%3Ccircle cx='96' cy='24' r='3'/%3E%3Ccircle cx='30' cy='172' r='3'/%3E%3C/g%3E%3Cpath d='M38 150l-8 14h16z'/%3E%3C/g%3E%3C/svg%3E"); }
+[data-type="puzzle"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-12 50c5 0 7 3 5 8-3 8 1 16 7 16s10-8 7-16c-2-5 0-8 5-8H88c5 0 7-3 5-8-3-8 1-16 7-16s10 8 7 16c-2 5 0 8 5 8h76c5 0 7 3 5 8-3 8 1 16 7 16s10-8 7-16c-2-5 0-8 5-8'/%3E%3Cpath d='M-12 150c5 0 7-3 5-8-3-8 1-16 7-16s10 8 7 16c-2 5 0 8 5 8H88c5 0 7 3 5 8-3 8 1 16 7 16s10-8 7-16c-2-5 0-8 5-8h76c5 0 7-3 5-8-3-8 1-16 7-16s10 8 7 16c-2 5 0 8 5 8'/%3E%3Cpath d='M50-12c0 5-3 7-8 5-8-3-16 1-16 7s8 10 16 7c5-2 8 0 8 5V88c0 5 3 7 8 5 8-3 16 1 16 7s-8 10-16 7c-5-2-8 0-8 5v76c0 5-3 7-8 5-8-3-16 1-16 7s8 10 16 7c5-2 8 0 8 5'/%3E%3Cpath d='M150-12c0 5 3 7 8 5 8-3 16 1 16 7s-8 10-16 7c-5-2-8 0-8 5V88c0 5-3 7-8 5-8-3-16 1-16 7s8 10 16 7c5-2 8 0 8 5v76c0 5 3 7 8 5 8-3 16 1 16 7s-8 10-16 7c-5-2-8 0-8 5'/%3E%3C/g%3E%3C/svg%3E"); }
+[data-type="show"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M48 22c2.8 17.2 12.8 27.2 30 30-17.2 2.8-27.2 12.8-30 30-2.8-17.2-12.8-27.2-30-30 17.2-2.8 27.2-12.8 30-30z'/%3E%3Cg transform='rotate(-24 134 130)'%3E%3Cellipse cx='134' cy='130' rx='48' ry='17'/%3E%3Ccircle cx='134' cy='130' r='10'/%3E%3Ccircle cx='182' cy='130' r='4' fill='%23fff' stroke='none'/%3E%3C/g%3E%3Cpath d='M150 22c1.3 7.7 5.3 11.7 13 13-7.7 1.3-11.7 5.3-13 13-1.3-7.7-5.3-11.7-13-13 7.7-1.3 11.7-5.3 13-13z'/%3E%3Cpath d='M56 152c1 6 4 9 10 10-6 1-9 4-10 10-1-6-4-9-10-10 6-1 9-4 10-10z' fill='%23fff'/%3E%3Cpath d='M100 90v14M93 97h14'/%3E%3Ccircle cx='104' cy='24' r='5'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Ccircle cx='24' cy='118' r='3'/%3E%3Ccircle cx='182' cy='76' r='3'/%3E%3Ccircle cx='92' cy='182' r='2.5'/%3E%3Ccircle cx='110' cy='58' r='2.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+[data-type="do"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke-width='4.5' stroke-dasharray='.1 11' d='M0 72c30 0 36-40 68-36s34 62 68 58 40-22 64-22'/%3E%3Cpath d='M150 112a13 13 0 0 1 13 13c0 10-13 23-13 23s-13-13-13-23a13 13 0 0 1 13-13z'/%3E%3Ccircle cx='150' cy='125' r='4.5'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Cg transform='translate(40 140) rotate(24)'%3E%3Cpath d='M-6-3c0-7 2.5-12 6-12s6 5 6 12c0 3.5-.8 6.5-1.8 9h-8.4C-5.2 3.5-6 .5-6-3z'/%3E%3Cpath d='M-4.3 10h8.6v1.2a4.3 4.3 0 0 1-8.6 0z'/%3E%3C/g%3E%3Cg transform='translate(66 164) rotate(24)'%3E%3Cpath d='M-6-3c0-7 2.5-12 6-12s6 5 6 12c0 3.5-.8 6.5-1.8 9h-8.4C-5.2 3.5-6 .5-6-3z'/%3E%3Cpath d='M-4.3 10h8.6v1.2a4.3 4.3 0 0 1-8.6 0z'/%3E%3C/g%3E%3C/g%3E%3Cpath d='M104 152l14 14M118 152l-14 14'/%3E%3Cpath d='M166 22v30M166 24l18 6.5-18 6.5'/%3E%3Cpath d='M22 26l9 9 9-9M22 40l9 9 9-9'/%3E%3Ccircle cx='68' cy='36' r='6'/%3E%3Ccircle cx='136' cy='94' r='6'/%3E%3C/g%3E%3C/svg%3E"); }
+[data-type="trio"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath transform='rotate(12 50 58)' d='M50 24l30 52H20z'/%3E%3Ccircle cx='140' cy='34' r='9'/%3E%3Ccircle cx='127' cy='57' r='9'/%3E%3Ccircle cx='153' cy='57' r='9'/%3E%3Cpath transform='rotate(-18 162 132)' d='M162 118l13 22h-26z' fill='%23fff'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Ccircle cx='40' cy='138' r='4'/%3E%3Ccircle cx='31' cy='154' r='4'/%3E%3Ccircle cx='49' cy='154' r='4'/%3E%3C/g%3E%3Cpath d='M100 176l-22-38h44z'/%3E%3Ccircle cx='100' cy='86' r='5'/%3E%3Ccircle cx='86' cy='110' r='5'/%3E%3Ccircle cx='114' cy='110' r='5'/%3E%3Cpath d='M97.5 90.3l-9 15.4M102.5 90.3l9 15.4M91 110h18'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Ccircle cx='184' cy='90' r='3'/%3E%3Ccircle cx='16' cy='104' r='3'/%3E%3Ccircle cx='96' cy='20' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+[data-type="insight"] { --k-pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M24 24h52v52H24V37h39v26H37V50h13'/%3E%3Cpath d='M176 24h-52v52h52V37h-39v26h26V50h-13'/%3E%3Cpath d='M24 176h52v-52H24v39h39v-26H37v13h13'/%3E%3Cpath d='M176 176h-52v-52h52v39h-39v-26h26v13h-13'/%3E%3Cpath d='M100 92l8 8-8 8-8-8zM0-8l8 8-8 8-8-8zM200-8l8 8-8 8-8-8zM0 192l8 8-8 8-8-8zM200 192l8 8-8 8-8-8z'/%3E%3Cpath d='M100-3v6M100 197v6M-3 100h6M197 100h6'/%3E%3C/g%3E%3C/svg%3E"); }
+/* PAT:END */
+
+/* ---------- 3. 卡片背景 ----------
+ * 三层：.card__bg 本身是渐变和压暗，::before 是暗纹，::after 是贴纸背后的柔光。
+ * 几何属性都写全了（包括 left / bottom / border 这些「归零」的），免得被 app.css 默认皮肤里的同名伪元素带歪。 */
+.card[data-type] .card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(var(--k-deep), 0.36), rgba(var(--k-deep), 0) 14%),                      /* 顶部压暗，托住状态栏和筛选条 */
+    linear-gradient(to top, rgba(var(--k-deep), 0.78), rgba(var(--k-deep), 0) 42%),                         /* 底部压暗，托住页脚和标签栏 */
+    radial-gradient(ellipse 78% 46% at var(--k-tx) var(--k-ty), rgba(var(--k-tint), 0.62), rgba(var(--k-tint), 0) 100%),   /* 对角换一点色相 */
+    linear-gradient(var(--k-angle), var(--k-a) 6%, var(--k-b) 76%);
+}
+/* 花纹：用这个世界里最深的颜色斜着印一层暗纹（像球衣上的同色印花）。
+   暗纹只会让底色更深，所以压在它上面的白字对比度只升不降；越往下底色越深，花纹自然隐去 */
+.card[data-type] .card__bg::before {
+  content: "";
+  position: absolute;
+  inset: -24% -34%;
+  background: linear-gradient(to bottom, rgba(var(--k-pat-c), var(--k-pat-a)) 41%, rgba(var(--k-pat-c), calc(var(--k-pat-a) * 0.24)) 60%);   /* 上半截清楚，到文字那里淡下去 */
+  -webkit-mask: var(--k-pat) 0 0 / var(--k-pat-size) var(--k-pat-size) repeat;
+          mask: var(--k-pat) 0 0 / var(--k-pat-size) var(--k-pat-size) repeat;
+  transform: rotate(var(--k-pat-rot));
+}
+/* 一角的柔光：贴纸背后的那盏灯。圆心跟着贴纸走，直径是贴纸的 1.6 倍，
+   所以贴纸变小（内容多的卡片）时光也跟着收，不会漫到文字下面 */
+.card[data-type] .card__bg::after {
+  --k-s: var(--jn-art-size, var(--k-art-size));
+  content: "";
+  position: absolute;
+  top: var(--jn-art-top, 13%);
+  right: calc(var(--jn-art-right, -7%) - var(--k-s) * 0.3);
+  bottom: auto;
+  left: auto;
+  width: calc(var(--k-s) * 1.6);
+  height: auto;
+  margin: calc(var(--k-s) * -0.3) 0 0;        /* 百分比的 margin 按宽度算，正好和贴纸的边长同一个基准 */
+  aspect-ratio: 1 / 1;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    rgba(var(--k-glow), var(--k-glow-a)) 0%,
+    rgba(var(--k-glow), calc(var(--k-glow-a) * 0.64)) 36%,
+    rgba(var(--k-glow), calc(var(--k-glow-a) * 0.1)) 63%,      /* 63% 处正好是贴纸包围盒的边：出了盒子光就基本没了 */
+    rgba(var(--k-glow), 0) 100%);
+}
+
+/* ---------- 4. 贴纸 ----------
+ * 绝对定位在右上角，稍微出血、稍微倾斜，垫在文字下面。
+ * 外壳可以在 .card 上用这五个变量微调，不必改本文件（背后的柔光会跟着走）：
+ *   --jn-art-size     宽度。默认按「屏幕有多高、这种形态的文字要占多少」算出来，见下面的表
+ *   --jn-art-top      默认 13%（相对卡片高度）      --jn-art-right  默认 -7%（负数 = 从右边出血）
+ *   --jn-art-tilt     倾斜角，默认每种类型不同        --jn-art-opacity 默认 0.95；文字压上来时调到 0.14，贴纸退成水印
+ */
+.card[data-type] .card__art {
+  position: absolute;
+  z-index: -1;
+  top: var(--jn-art-top, 13%);
+  right: var(--jn-art-right, -7%);
+  left: auto;
+  bottom: auto;
+  width: var(--jn-art-size, var(--k-art-size));
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  color: var(--k-art);
+  transform: rotate(var(--jn-art-tilt, var(--k-tilt)));
+  filter: drop-shadow(0 18px 20px rgba(var(--k-deep), 0.5));
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+}
+/* 不透明度单独放在一条优先级最低的规则里：外壳的状态（文字压上来、贴纸缺失）要能盖过它 */
+:where(.card[data-type]) .card__art { opacity: var(--jn-art-opacity, 0.95); }
+
+/* 贴纸多大：屏幕越高越大，文字越多的形态越小。
+ * 写成 clamp(下限, 屏高的几成 − 这种形态的文字大约要占的高度, 上限)，百分比都相对卡片宽度。
+ * 系数是在真外壳里拿全部 365 张卡片、12 种手机尺寸（320×568 到 430×932）量出来的：
+ * 按这张表，九成五以上的卡片文字碰不到贴纸；剩下的由外壳判定后把贴纸退成水印（--jn-art-opacity）。 */
+.card[data-format="either"] { --k-art-fit: clamp(34%, calc(var(--k-vh) * 50 - 200px), 62%); }
+.card[data-format="steps"]  { --k-art-fit: clamp(30%, calc(var(--k-vh) * 45 - 160px), 60%); }
+.card[data-format="reveal"] { --k-art-fit: clamp(28%, calc(var(--k-vh) * 55 - 260px), 56%); }
+.card[data-format="quiz"]   { --k-art-fit: clamp(24%, calc(var(--k-vh) * 30 - 100px), 46%); }
+.card[data-format="widget"] { --k-art-fit: clamp(26%, calc(var(--k-vh) * 50 - 290px), 38%); }
+@supports (height: 1dvh) {
+  .card { --k-vh: 1dvh; }
+}
+
+/* 没有贴纸、用类型图标顶替时：粗线、半透明，像印在布上的大号水印 */
+.card[data-type] .card__art.jn-ic {
+  fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  opacity: var(--jn-art-opacity, 0.5);
+}
+.card[data-type] .card__art:has(> use[href^="#i-"]) {
+  fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  opacity: var(--jn-art-opacity, 0.5);
+}
+
+/* ---------- 5. 卡片上的文字和部件 ---------- */
+.card .card__title {
+  color: var(--on-color);
+  text-shadow: 0 2px 22px rgba(var(--k-deep), 0.55);
+}
+.card .card__body { color: var(--on-color); }
+.card .card__body strong { font-weight: 700; }
+.card .card__meta,
+.card .card__foot { color: var(--on-color-2); }
+.card .card__foot a { color: inherit; text-decoration-color: rgba(255, 255, 255, 0.4); text-underline-offset: 0.2em; }
+.card .jn-muted,
+.card .jn-sub { color: var(--on-color-2); }
+.card :focus-visible { outline-color: #fff; }
+
+/* 徽标：类型徽标是白底、类型色的字；其余是半透明深底 */
+.card .card__meta .jn-badge {
+  background: rgba(var(--k-deep), 0.42);
+  color: var(--on-color);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.card .card__meta .jn-badge.card__type {
+  background: #fff;
+  color: var(--k-ink);
+  box-shadow: 0 4px 14px -4px rgba(var(--k-deep), 0.7);
+}
+
+/* 按钮：主按钮白底、类型色的字 */
+.card .card__action .jn-btn {
+  background: #fff;
+  color: var(--k-ink);
+  box-shadow: 0 10px 22px -8px rgba(var(--k-deep), 0.85), inset 0 -2px 0 rgba(var(--k-deep), 0.1);
+}
+.card .card__action .jn-btn--ghost,
+.card .jn-btn--ghost {
+  background: rgba(var(--k-deep), 0.4);
+  color: var(--on-color);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.26);
+}
+.card .card__action .jn-btn--line,
+.card .jn-btn--line {
+  background: rgba(var(--k-deep), 0.16);
+  color: var(--on-color);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.62);
+}
+.card .card__action .jn-btn--danger { background: var(--danger); color: #fff; }
+
+.card .jn-chip { background: rgba(var(--k-deep), 0.36); color: var(--on-color); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16); }
+.card .jn-chip.is-on { background: #fff; color: var(--k-ink); box-shadow: none; }
+.card .jn-seg { background: rgba(var(--k-deep), 0.3); }
+.card .jn-seg > button { color: var(--on-color-2); }
+.card .jn-seg > button.is-on { background: #fff; color: var(--k-ink); }
+.card .jn-panel {
+  background: rgba(var(--k-deep), 0.5);
+  color: var(--on-color);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 组件的预览动画：一块深色的小屏幕 */
+.card .card__preview:not(:empty) {
+  overflow: hidden;
+  border-radius: var(--r-m);
+  background: rgba(8, 10, 18, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 14px 28px -14px rgba(var(--k-deep), 0.9);
+}
+
+/* 爸爸提示：每张彩色卡片上唯一的一点锦囊金 */
+.card .card__hint {
+  border: 0;
+  border-radius: var(--r-m);
+  background: rgba(var(--k-deep), 0.5);
+  color: var(--on-color);
+  box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.5);
+}
+.card .card__hint .jn-ic:first-child { color: var(--accent); }      /* 只有打头的灯泡是金色 */
+
+/* ---------- 6. 锦囊类型：深蓝的绸面，金线 ---------- */
+.card[data-type="insight"] .card__bg {
+  background:
+    linear-gradient(to bottom, rgba(var(--k-deep), 0.4), rgba(var(--k-deep), 0) 14%),
+    linear-gradient(to top, rgba(var(--k-deep), 0.8), rgba(var(--k-deep), 0) 40%),
+    linear-gradient(118deg, rgba(150, 180, 255, 0) 18%, rgba(150, 180, 255, 0.075) 31%, rgba(150, 180, 255, 0) 44%, rgba(150, 180, 255, 0) 58%, rgba(150, 180, 255, 0.05) 70%, rgba(150, 180, 255, 0) 82%),   /* 绸面的两道反光 */
+    radial-gradient(ellipse 78% 46% at var(--k-tx) var(--k-ty), rgba(var(--k-tint), 0.3), rgba(var(--k-tint), 0) 100%),
+    linear-gradient(var(--k-angle), var(--k-a) 4%, var(--k-b) 70%);
+}
+/* 贴纸外面两圈金色细线，像一枚印 */
+.card[data-type="insight"] .card__bg::after {
+  background:
+    radial-gradient(closest-side, rgba(255, 209, 102, 0) calc(76% - 1px), rgba(255, 209, 102, 0.3) 76%, rgba(255, 209, 102, 0) calc(76% + 1px)),
+    radial-gradient(closest-side, rgba(255, 209, 102, 0) calc(99% - 1px), rgba(255, 209, 102, 0.16) 99.5%, rgba(255, 209, 102, 0) 100%),
+    radial-gradient(closest-side, rgba(var(--k-glow), var(--k-glow-a)) 0%, rgba(var(--k-glow), calc(var(--k-glow-a) * 0.4)) 50%, rgba(var(--k-glow), 0) 76%);
+}
+.card[data-type="insight"] .card__art { filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.35)); }
+.card[data-type="insight"] .card__title { color: #fff3d1; text-shadow: none; }
+.card[data-type="insight"] .card__body { color: #e9edf6; }
+.card[data-type="insight"] .card__meta,
+.card[data-type="insight"] .card__foot { color: rgba(214, 222, 240, 0.82); }
+.card[data-type="insight"] :focus-visible { outline-color: var(--accent); }
+.card[data-type="insight"] .card__meta .jn-badge {
+  background: rgba(255, 255, 255, 0.07);
+  color: #d6def0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.card[data-type="insight"] .card__meta .jn-badge.card__type {
+  background: rgba(255, 209, 102, 0.12);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.62);
+}
+.card[data-type="insight"] .card__action .jn-btn { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.8); }
+.card[data-type="insight"] .card__action .jn-btn--ghost,
+.card[data-type="insight"] .jn-btn--ghost { background: rgba(255, 209, 102, 0.12); color: var(--accent); box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.34); }
+.card[data-type="insight"] .card__action .jn-btn--line,
+.card[data-type="insight"] .jn-btn--line { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 1.5px rgba(255, 209, 102, 0.62); }
+.card[data-type="insight"] .jn-chip { background: rgba(255, 255, 255, 0.08); color: #d6def0; }
+.card[data-type="insight"] .jn-chip.is-on { background: var(--accent); color: var(--accent-ink); }
+.card[data-type="insight"] .jn-seg > button.is-on { background: var(--accent); color: var(--accent-ink); }
+/* 页脚上方一道金色的缝线（不占高度） */
+.card[data-type="insight"] .card__foot {
+  background: repeating-linear-gradient(90deg, rgba(255, 209, 102, 0.55) 0 7px, rgba(255, 209, 102, 0) 7px 13px) left top / 100% 1px no-repeat;
+}
+
+/* ---------- 7. 动效 ----------
+ * 只有柔光在很慢地游走（transform + opacity，不触发重绘）。用户要求减少动效时完全静止。 */
+@keyframes jn-glow-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(0.97); opacity: 0.84; }
+  to   { transform: translate3d(3%, 3%, 0) scale(1.06); opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card[data-type] .card__bg::after { animation: jn-glow-drift 14s ease-in-out infinite alternate; }
+  .card[data-type="insight"] .card__bg::after { animation: none; }      /* 锦囊是静的 */
+}
+@media (prefers-reduced-motion: reduce) {
+  .card[data-type] .card__bg::after { animation: none; }
+  .card[data-type] .card__art { transition: none; }
+}
+/* 用户要求更高对比度时：去掉花纹和柔光，只留干净的底色 */
+@media (prefers-contrast: more) {
+  .card[data-type] { --k-pat-a: 0; --k-glow-a: 0; }
+}

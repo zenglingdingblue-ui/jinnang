@@ -1,0 +1,88 @@
+[
+  {
+    "id": "talk-901", "type": "talk", "sub": "二选一", "format": "either", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "饭桌"], "mins": 2,
+    "title": "终场前 3 秒，落后 1 分",
+    "body": "球在你手里。你选哪个？",
+    "either": {"a": "自己投这一球", "b": "传给空位的队友", "ask": "为什么？换成你最喜欢的球星呢？"},
+    "hint": "他选完别评对错。你也选一个，再讲一次你自己搞砸的关键时刻。",
+    "art": "ball"
+  },
+  {
+    "id": "talk-902", "type": "talk", "sub": "你教我", "format": "plain", "audience": "all", "for": "kid",
+    "scenes": ["球场", "周末"], "mins": 5,
+    "title": "教我一个你会我不会的",
+    "body": "什么都行：一个运球动作、一个游戏操作、一句最近的梗。给我三分钟，我来当学生。",
+    "hint": "真学，学得笨一点没关系。中途不纠正他，不说“这有什么用”。学完当着别人的面用一次。",
+    "art": "highfive"
+  },
+  {
+    "id": "puz-901", "type": "puzzle", "sub": "逻辑", "format": "reveal", "audience": "all", "for": "kid",
+    "scenes": ["救场", "车上", "饭桌"], "mins": 3,
+    "title": "三个开关一盏灯",
+    "body": "门外有三个开关，只有一个连着屋里那盏老式灯泡。门关着看不见光，你只能进屋一次。怎么确定是哪个开关？",
+    "reveal": {
+      "label": "看答案",
+      "text": "先打开第一个，等几分钟关掉；再打开第二个，然后进屋。",
+      "explain": "灯亮着，是第二个；灯灭了但灯泡是热的，是第一个；灯灭而且是凉的，是第三个。灯泡除了“亮不亮”，还带着“热不热”这条信息。"
+    },
+    "hint": "他卡住时只给一句提示：“灯泡除了会亮，还会怎样？”别直接讲答案。",
+    "refs": [{"t": "经典逻辑题", "lv": "经典"}],
+    "art": "bulb"
+  },
+  {
+    "id": "show-901", "type": "show", "sub": "篮球", "format": "quiz", "audience": "all", "for": "kid",
+    "scenes": ["救场", "球场", "车上"], "mins": 2,
+    "title": "最早的篮筐是什么做的？",
+    "body": "1891 年篮球刚被发明出来，球要投进一个现成的东西里。",
+    "options": ["铁桶", "装桃子的篮子", "渔网"], "answer": 1,
+    "explain": "发明人奈史密斯让人把两个装桃子的篮子钉在看台栏杆上。篮子有底，早期每进一球都得有人把球取出来。",
+    "refs": [{"t": "James Naismith · Wikipedia", "u": "https://en.wikipedia.org/wiki/James_Naismith", "lv": "常识"}],
+    "art": "hoop"
+  },
+  {
+    "id": "do-901", "type": "do", "sub": "球场", "format": "steps", "audience": "all", "for": "kid",
+    "scenes": ["球场", "周末"], "mins": 20,
+    "title": "投篮接龙",
+    "body": "一个人选位置和投法，投进了，另一个人必须照做。投丢一次记一个字，先凑满“输了”两个字的人请喝水。",
+    "steps": ["猜拳决定谁先出题", "出题人选位置和姿势，先说出来再投", "投进了：对方原样照做，投丢记一个字", "没投进：换对方出题", "谁先被记满两个字，谁请喝水"],
+    "need": ["一个球", "一个篮筐"],
+    "hint": "多选他擅长的点位，让他有机会难倒你。全程不讲动作要领。",
+    "art": "hoop"
+  },
+  {
+    "id": "trio-901", "type": "trio", "sub": "饭桌", "format": "plain", "audience": "all", "for": "three",
+    "scenes": ["饭桌", "救场"], "mins": 5,
+    "title": "今天最好和最难",
+    "body": "每人说一件今天最好的事，和一件最难的事。大人先说，说真的。别人只听，不点评。",
+    "hint": "你的“最难”要是真事，比如开会被怼了。他只说一个字也算数，别追问。",
+    "refs": [{"t": "The Family Dinner Project：Rose and Thorn", "u": "https://thefamilydinnerproject.org/fun/rose-and-thorn/", "lv": "专家意见"}],
+    "art": "table"
+  },
+  {
+    "id": "ins-901", "type": "insight", "sub": "球场", "format": "plain", "audience": "dad", "for": "kid",
+    "scenes": ["球场"], "mins": 1,
+    "title": "回家路上只说一句",
+    "body": "打完球，只说“我喜欢看你打球”。不复盘，不提那个没传的球。要不要聊，由他定。",
+    "more": "两位美国教练在约三十年里问过数百名大学运动员：父母说什么让你感觉最好？最多的回答就是这一句；最不喜欢的，是比赛后回家路上的点评。\n\n这是教练的非正式访谈，不是发表的研究，但几位青少年体育教练的建议方向一致。",
+    "refs": [{"t": "Bruce Brown 与 Rob Miller 的访谈（Daniel Coyle 转述）", "u": "https://danielcoyle.com/2013/09/19/best-parenting-tip-ever/", "lv": "专家意见"}],
+    "art": "car"
+  },
+  {
+    "id": "ins-902", "type": "insight", "sub": "给太太", "format": "plain", "audience": "dad", "for": "wife",
+    "scenes": [], "mins": 2,
+    "title": "打球会耽误学习吗",
+    "body": "这个担心很合理。目前的证据是：适度运动对成绩是小幅正向或没有差别，没有发现会拖后腿。",
+    "more": "一项汇总 115 项研究的分析发现，运动参与对学业成绩的平均影响是小幅正向，每周一两个小时最明显，不过这些研究质量参差。\n\n所以不必为了成绩取消打球，也不必指望打球提分。真正起作用的是另一件事：孩子从父母那里感到的是支持还是压力。\n\n可以只守两条：打球那天作业照常完成，照常时间上床。",
+    "refs": [{"t": "运动参与与学业成绩：115 项研究的元分析", "u": "https://www.pubmed.gov/34559728/", "lv": "实证"}],
+    "art": "ball"
+  },
+  {
+    "id": "ins-903", "type": "insight", "sub": "给自己", "format": "plain", "audience": "dad", "for": "self",
+    "scenes": [], "mins": 1,
+    "title": "他要的不是更多时间",
+    "body": "一项全国调查里，孩子最常许的愿不是“爸妈多陪我”，而是“爸妈别那么累、别那么大压力”。今天先把自己照顾好。",
+    "refs": [{"t": "Ellen Galinsky《Ask the Children》调查（1999）", "u": "https://www.familiesandwork.org/wp-content/uploads/2025/07/FindingFromATC.pdf", "lv": "实证"}],
+    "art": "battery"
+  }
+]

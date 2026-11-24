@@ -1,0 +1,139 @@
+[
+  {
+    "id": "play-301", "type": "play", "sub": "篮球", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["球场"], "mins": 15,
+    "title": "打到 11 分，输的请水",
+    "body": "把手机立在场边当计分板：字够大，+1、+2、+3 随手点，点错了能撤销。先到 11 分的赢，退出再回来比分还在。",
+    "widget": "scoreboard", "params": {"mode": "score", "target": 11}, "cta": "开始计分",
+    "hint": "比分落后别放水，他看得出来。输了就认，水是真的要买；回家路上不复盘这一场。",
+    "art": "scoreboard", "tags": ["篮球", "计分", "单挑", "工具"]
+  },
+  {
+    "id": "play-302", "type": "play", "sub": "篮球", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["球场", "周末"], "mins": 15,
+    "title": "投篮接龙，手机帮你记字",
+    "body": "一个人选位置和投法，投进了，下一个人必须原样照做。照做的人投丢，就记一个字；先凑满“输了”的人出局。",
+    "more": "**怎么玩**\n\n- 猜拳决定谁先出题。\n- 出题的人先说清楚位置和投法（比如“罚球线，单手”），再投。\n- 投进了：下一个人原样照做，没进就记一个字。\n- 出题的人自己没进：不记字，换下一个人出题。\n- 先凑满整个词的人出局，剩到最后的人赢。\n\n词可以换：“输了”2 个字最快，“请喝水”3 个字；英文的 HORSE 5 个字母，是这个游戏在美国球场上的老叫法。",
+    "widget": "scoreboard", "params": {"mode": "horse", "word": "输了", "players": 2}, "cta": "开始记字",
+    "hint": "他出的怪招你也得老老实实照做，做不出来就认字。今天你只是对手，不教动作。",
+    "refs": [{"t": "传统投篮游戏 H-O-R-S-E", "lv": "经典"}],
+    "art": "hoop", "tags": ["篮球", "投篮", "HORSE", "工具"]
+  },
+  {
+    "id": "play-303", "type": "play", "sub": "篮球", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["球场"], "mins": 10,
+    "title": "罚球 10 投，谁更准",
+    "body": "每人 10 个罚球，进一个点一下。命中率、连中了几个、个人最好纪录，手机都记着。下次来，看谁先破纪录。",
+    "widget": "scoreboard", "params": {"mode": "ft", "players": 2, "shots": 10}, "cta": "站上罚球线",
+    "hint": "你先投，投丢了自嘲一句。他投的时候你只报数，不纠正手型；破了纪录，击个掌就够。",
+    "art": "ball", "tags": ["篮球", "罚球", "命中率", "工具"]
+  },
+  {
+    "id": "play-304", "type": "play", "sub": "默契", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["救场", "饭桌", "睡前", "出游"], "mins": 5,
+    "title": "你猜我会选哪个",
+    "body": "一个人悄悄选，另一个人猜他选了什么。5 道题：最后一攻自己投还是传？火锅第一筷子夹什么？猜完互换，看谁更懂谁。",
+    "widget": "tacit", "params": {"pack": "kid", "rounds": 5}, "cta": "开始互猜",
+    "hint": "你先当被猜的那个。他猜错了别急着纠正，问一句“你为什么觉得我会选那个”，听他说完。",
+    "art": "question", "tags": ["默契", "互猜", "两个人"]
+  },
+  {
+    "id": "play-305", "type": "play", "sub": "默契", "format": "widget", "audience": "dad", "for": "wife",
+    "scenes": [], "mins": 5,
+    "title": "这么多年了，还猜得中吗",
+    "body": "孩子睡了以后，两个人玩 5 题：一个悄悄选，另一个猜。题目只关于你们俩——累了一天最想怎样，难得单独吃饭去哪儿。",
+    "widget": "tacit", "params": {"pack": "couple", "rounds": 5}, "cta": "两个人玩",
+    "hint": "猜错了别辩解，更别说“你怎么会这么想”。记住她选的那个，这周找一天照着做一次。",
+    "art": "heart", "tags": ["默契", "夫妻", "两个人"]
+  },
+  {
+    "id": "play-306", "type": "play", "sub": "默契", "format": "widget", "audience": "all", "for": "kid",
+    "scenes": ["周末", "睡前", "出游"], "mins": 8,
+    "title": "这一局只许喊英文",
+    "body": "屏幕给一个英文词，画的人只能画、不能出声，猜的人必须用英文喊出答案。一共 6 个词，看两个人能对上几个。",
+    "widget": "sketch", "params": {"category": "english", "players": 2, "seconds": 60}, "cta": "开始画",
+    "hint": "你的英文多半不如他，这正好。猜不出来就让他教你念一遍，然后老老实实跟着读。",
+    "art": "abc", "tags": ["你画我猜", "英文", "画画"]
+  },
+  {
+    "id": "trio-101", "type": "trio", "sub": "一部手机", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["周末", "饭桌", "出游"], "mins": 10,
+    "title": "灵魂画手请就位",
+    "body": "按住偷看一个词，60 秒内画出来，另外两个人抢着猜。猜对了，画的和猜的各得 1 分。画得越离谱，笑得越大声。",
+    "widget": "sketch", "params": {"category": "mix", "players": 3, "seconds": 60}, "cta": "开始画",
+    "hint": "你画得烂是加分项，大方亮出来让他们笑。他画的时候只管猜，不评价画得像不像。",
+    "art": "pencil", "tags": ["你画我猜", "画画", "三个人"]
+  },
+  {
+    "id": "trio-102", "type": "trio", "sub": "抽签", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "周末", "出游"], "mins": 1,
+    "title": "今晚谁说了算",
+    "body": "选电影、定晚饭、谁洗碗、谁坐副驾——吵不出结果的事，交给转盘。指针停在谁那儿，就是谁。",
+    "widget": "wheel", "params": {"preset": "who", "title": "今晚谁说了算？"}, "cta": "转一下",
+    "hint": "转之前三个人先说好：转到谁就是谁。转到你也认；转到他，就真的让他做一回主。",
+    "art": "target", "tags": ["转盘", "抽签", "谁来", "三个人"]
+  },
+  {
+    "id": "trio-103", "type": "trio", "sub": "抽签", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "车上", "周末"], "mins": 2,
+    "title": "“随便”不是一道菜",
+    "body": "先一起把今晚吃不了的删掉，把想吃的加进去，然后转。转到什么吃什么——转到「爸爸下厨」也得认。",
+    "widget": "wheel", "params": {"preset": "dinner"}, "cta": "转一下",
+    "hint": "转出来的就照做，别临时改口说“太油了”。实在做不到的那几项，转之前就删掉。",
+    "art": "pizza", "tags": ["转盘", "吃什么", "晚饭", "三个人"]
+  },
+  {
+    "id": "trio-104", "type": "trio", "sub": "抽签", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "周末", "出游"], "mins": 2,
+    "title": "输的人，过来转一下",
+    "body": "刚才那局谁输了？来领一个小惩罚：用播音腔读说明书、慢动作表演绝杀、太空步滑过客厅……运气好能转到免罚金牌。",
+    "widget": "wheel", "params": {"preset": "forfeit"}, "cta": "领惩罚",
+    "hint": "你输了就认认真真演，越投入越好笑。他实在不想做的那一项别硬逼，让他再转一次。",
+    "art": "whistle", "tags": ["转盘", "惩罚", "搞怪", "三个人"]
+  },
+  {
+    "id": "trio-105", "type": "trio", "sub": "一部手机", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "车上", "出游"], "mins": 5,
+    "title": "谁最可能把遥控器放进冰箱",
+    "body": "屏幕出一句「谁最可能……」，三个人轮流悄悄投票，可以投自己。全部投完一起揭晓，看谁众望所归。",
+    "widget": "whois", "params": {"players": 3, "pack": "daily"}, "cta": "开始投票",
+    "hint": "被投成“最可能”的那位，认了，再讲一个真事。票投到你头上时别解释，先笑。",
+    "art": "family", "tags": ["投票", "糗事", "三个人"]
+  },
+  {
+    "id": "trio-106", "type": "trio", "sub": "一部手机", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "睡前", "出游"], "mins": 5,
+    "title": "外星人会选谁当地球代表",
+    "body": "脑洞版「谁最可能」：谁能在荒岛上活到最后？谁当了特工第一天就说漏嘴？悄悄投票，一起揭晓。",
+    "widget": "whois", "params": {"players": 3, "pack": "wild"}, "cta": "开始投票",
+    "hint": "别总让着他，也别总投他。当选的人可以用一句话为自己辩护；你当选了，就带头辩。",
+    "art": "planet", "tags": ["投票", "脑洞", "假如", "三个人"]
+  },
+  {
+    "id": "trio-107", "type": "trio", "sub": "一部手机", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "车上", "饭桌", "睡前", "出游"], "mins": 5,
+    "title": "这 6 样东西，编得圆吗",
+    "body": "掷出 6 颗骰子：有人、有地方、有几样东西，还有一个意外。每人说一句，全都得编进同一个故事里，谁也不许跳过。",
+    "widget": "storydice", "params": {"theme": "any", "count": 6}, "cta": "掷骰子",
+    "hint": "故事跑偏、越编越离谱，都别往回拉。你那一句尽量短，把最好玩的转折留给他。",
+    "art": "dice", "tags": ["故事", "接龙", "骰子", "三个人"]
+  },
+  {
+    "id": "trio-108", "type": "trio", "sub": "一部手机", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "车上", "出游"], "mins": 3,
+    "title": "给你们 2 分钟",
+    "body": "随机抽一条 2 分钟挑战：说出 15 种球类运动、从 A 到 Z 接英文单词、三个人合作数到 30……这条不想做，就换一条。",
+    "widget": "timer", "params": {"seconds": 120}, "cta": "抽一条",
+    "hint": "你和他们一起做，别当裁判。做不到的那条认输就行，不找理由；时间到就收，不加时。",
+    "art": "stopwatch", "tags": ["计时", "挑战", "倒计时", "三个人"]
+  },
+  {
+    "id": "trio-109", "type": "trio", "sub": "一部手机", "format": "widget", "audience": "all", "for": "three",
+    "scenes": ["救场", "饭桌", "睡前", "周末"], "mins": 3,
+    "title": "1 分钟，谁都不许笑",
+    "body": "一个人板着脸坐好，另外两个人想尽办法逗：鬼脸、冷笑话、怪声音都行，就是不许碰到他。撑满 1 分钟算赢，然后换人。",
+    "widget": "timer", "params": {"seconds": 60, "challenge": "1 分钟不许笑：一个人憋住，另外两个人负责逗，不许碰到他"}, "cta": "开始憋",
+    "hint": "你先当那个不许笑的，输得越快越好。轮到你逗他时，拿自己的糗事开刀，别拿他的。",
+    "art": "hourglass", "tags": ["计时", "挑战", "不许笑", "三个人"]
+  }
+]

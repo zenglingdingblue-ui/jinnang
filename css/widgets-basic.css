@@ -1,0 +1,27 @@
+/* 锦囊 · widgets/basic 的样式。类名一律 w-<组件 id>- 开头，只用 base.css 里的变量。 */
+
+/* ---------- picker 点兵点将 ---------- */
+.w-picker-pad {
+  position: relative; flex: 1 1 auto; min-height: 0;
+  margin: var(--sp-3); border-radius: var(--r-l);
+  background: radial-gradient(120% 90% at 50% 40%, var(--surface-2), var(--surface));
+  box-shadow: inset 0 0 0 1.5px var(--line);
+  touch-action: none; overflow: hidden;
+}
+.w-picker-msg { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-2); pointer-events: none; text-align: center; padding: var(--sp-5); }
+.w-picker-tip { font-size: var(--fs-xl); font-weight: 750; }
+.w-picker-sub { color: var(--muted); font-size: var(--fs-sm); }
+.w-picker-dot {
+  position: absolute; width: 104px; height: 104px; margin: -52px 0 0 -52px; border-radius: 50%;
+  border: 6px solid var(--dot); pointer-events: none;
+  box-shadow: 0 0 0 0 var(--dot); animation: jn-pop 0.2s var(--ease) both;
+  transition: transform 0.35s var(--ease), opacity 0.35s, box-shadow 0.35s;
+}
+.w-picker-dot::after { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: var(--dot); opacity: 0.22; }
+.w-picker-pad.is-counting .w-picker-dot::after { animation: w-picker-fill 2s linear both; }
+.w-picker-dot.is-win { transform: scale(1.35); box-shadow: 0 0 0 14px color-mix(in srgb, var(--dot) 30%, transparent); }
+.w-picker-dot.is-win::after { opacity: 0.9; inset: 8px; }
+.w-picker-dot.is-lose { transform: scale(0.6); opacity: 0.18; }
+@keyframes w-picker-fill { from { opacity: 0.15; inset: 40px; } to { opacity: 0.6; inset: 8px; } }
+.w-picker-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: 0 var(--sp-4) var(--sp-4); min-height: 60px; }
+.w-picker-result { font-size: var(--fs-xl); font-weight: 800; color: var(--accent); min-width: 3em; text-align: right; }

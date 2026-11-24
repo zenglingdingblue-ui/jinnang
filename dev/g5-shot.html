@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G5 截图 / 压力测试页</title>
+<!-- G5 自用的开发页（不进站点）。两个用途：
+     1) 截图：?m=<JSON 数组>（可加 &reduced=1 模拟“减少动效”），每项 { w, p, preview, size:[宽,高], label, act:[[毫秒,'click'|'set'|'drag'|'tap', 选择器或文字, 值]] }
+        无头浏览器的“虚拟时间”下 requestAnimationFrame 几乎不出帧，所以这里把它换成 16 毫秒的定时器，动画才会真的往前走。
+     2) 压力测试：?stress=1，把七个组件按每张卡片的参数在三种尺寸下挂载、让动画真的跑起来、乱点、销毁，
+        报告报错、横向溢出、销毁后是否还有动画帧在排队。结果在 <pre id="report">。 -->
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/widgets-phys.css">
+<style>
+  body { margin: 0; padding: 14px; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+  .ph { display: flex; flex-direction: column; background: var(--bg); box-shadow: 0 0 0 2px var(--surface-3); border-radius: 16px; overflow: hidden; }
+  .ph > b { flex: none; padding: 6px 12px; background: var(--surface); font-size: 12px; color: var(--ink-2); }
+  .ph > div { flex: 1 1 auto; min-height: 0; }
+  pre { width: 100%; white-space: pre-wrap; font: 12px var(--font-mono); }
+</style>
+</head>
+<body>
+<script>
+var RAF_REQ = 0;
+(function () {
+  if (new URLSearchParams(location.search).get('raf') === '0') return;
+  window.requestAnimationFrame = function (cb) { RAF_REQ++; return setTimeout(function () { cb(performance.now()); }, 16); };
+  window.cancelAnimationFrame = function (id) { clearTimeout(id); };
+})();
+</script>
+<script src="../js/core.js"></script>
+<script src="../js/sprites.js"></script>
+<script src="../js/widgets/phys.js"></script>
+<script>
+(function () {
+  var U = JN.util, q = new URLSearchParams(location.search);
+  JN.settings.sfx = false;
+  if (q.get('reduced')) {            // ?reduced=1：模拟“减少动效”，预览应当只画一帧、不请求动画帧
+    JN.reduced = true;
+    setTimeout(function () { document.body.appendChild(U.el('pre', { text: '减少动效：挂载后 2 秒内请求动画帧 ' + RAF_REQ + ' 次' })); }, 2000);
+  }
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function find(root, sel) {
+    if (sel.indexOf('text=') === 0) {
+      var t = sel.slice(5);
+      return Array.prototype.filter.call(root.querySelectorAll('button, .jn-chip'), function (b) { return b.textContent.indexOf(t) >= 0; })[0];
+    }
+    var m = /^(.*)>>(\d+)$/.exec(sel);
+    return m ? root.querySelectorAll(m[1])[+m[2]] : root.querySelector(sel);
+  }
+  function pointer(node, type, fx, fy) {
+    var r = node.getBoundingClientRect();
+    node.dispatchEvent(new PointerEvent(type, { bubbles: true, clientX: r.left + r.width * fx, clientY: r.top + r.height * fy, pointerId: 1, isPrimary: true, pointerType: 'touch' }));
+  }
+  function act(root, a) {
+    var node = find(root, a[2]);
+    if (!node) { console.warn('找不到', a[2]); return; }
+    if (a[1] === 'click') node.click();
+    else if (a[1] === 'set') { node.value = a[3]; node.dispatchEvent(new Event('input', { bubbles: true })); node.dispatchEvent(new Event('change', { bubbles: true })); }
+    else if (a[1] === 'tap') { pointer(node, 'pointerdown', a[3][0], a[3][1]); pointer(node, 'pointerup', a[3][0], a[3][1]); }
+    else if (a[1] === 'drag') { pointer(node, 'pointerdown', a[3][0], a[3][1]); pointer(node, 'pointermove', a[3][2], a[3][3]); pointer(node, 'pointerup', a[3][2], a[3][3]); }
+  }
+
+  /* ---------- 截图 ---------- */
+  if (!q.get('stress')) {
+    window.addEventListener('error', function (e) { document.body.appendChild(U.el('pre.err', { text: 'ERROR ' + e.message + ' @' + (e.filename || '').split('/').pop() + ':' + e.lineno })); });
+    JSON.parse(q.get('m') || '[]').forEach(function (it) {
+      var size = it.size || (it.preview ? [300, 200] : [390, 660]);
+      var stage = U.el('div');
+      var box = U.el('div.ph', { style: { width: size[0] + 'px', height: size[1] + 26 + 'px' } }, [U.el('b', { text: it.label || it.w + (it.preview ? ' 预览' : '') + ' ' + JSON.stringify(it.p || {}) }), stage]);
+      document.body.appendChild(box);
+      JN.mountWidget(it.w, stage, it.p || {}, { preview: !!it.preview, onError: function (e) { document.body.appendChild(U.el('pre', { text: String(e && e.stack || e) })); } });
+      (it.act || []).forEach(function (a) { setTimeout(function () { act(stage, a); }, a[0]); });
+    });
+    return;
+  }
+
+  /* ---------- 压力测试 ---------- */
+  var errors = [], current = '';
+  window.addEventListener('error', function (e) { errors.push(current + ' :: ' + e.message + ' @' + (e.filename || '').split('/').pop() + ':' + e.lineno); });
+  var ce = console.error;
+  console.error = function () { errors.push(current + ' :: console.error ' + Array.prototype.map.call(arguments, function (a) { return (a && a.stack) || String(a); }).join(' ').slice(0, 300)); ce.apply(console, arguments); };
+  var JOBS = [
+    ['pendulum', {}], ['pendulum', { twins: true }], ['wavependulum', {}], ['curves', {}], ['curves', { quiz: true }],
+    ['fractal', {}], ['fractal', { kind: 'koch' }],
+    ['hoopshot', {}], ['hoopshot', { mode: 'challenge', spot: 'ft' }], ['hoopshot', { mode: 'challenge', spot: 'three' }], ['hoopshot', { mode: 'challenge', spot: 'mix' }], ['hoopshot', { mode: 'explore', spot: 'ft' }],
+    ['illusion', {}], ['illusion', { kind: 'muller' }], ['illusion', { kind: 'cafewall' }], ['illusion', { kind: 'contrast' }], ['illusion', { kind: 'hermann' }],
+    ['illusion', { kind: 'afterimage' }], ['illusion', { kind: 'blindspot' }], ['illusion', { kind: 'tour' }],
+    ['scale', {}], ['scale', { ball: 'marble' }]
+  ];
+  var jobs = [];
+  JOBS.forEach(function (j) { jobs.push({ w: j[0], p: j[1], preview: false }); jobs.push({ w: j[0], p: j[1], preview: true }); });
+  var SIZES = [[360, 600], [320, 480], [430, 860], [300, 200]];
+  var stage = U.el('div', { style: { outline: '1px solid var(--line)' } });
+  document.body.appendChild(stage);
+  function overflow() {
+    var out = [], sr = stage.getBoundingClientRect();
+    stage.querySelectorAll('*').forEach(function (n) {
+      var r = n.getBoundingClientRect();
+      if (!r.width || !r.height || out.length > 3) return;
+      if (r.right > sr.right + 2 || r.left < sr.left - 2 || (n.parentElement === stage && r.bottom > sr.bottom + 2)) {
+        var p = n.parentElement, clip = false;
+        while (p && p !== stage) { var o = getComputedStyle(p); if (o.overflowX !== 'visible' || o.overflowY !== 'visible') { clip = true; break; } p = p.parentElement; }
+        if (!clip && getComputedStyle(n).position !== 'absolute') out.push((n.className || n.tagName) + ' 超出 ' + Math.round(Math.max(r.right - sr.right, sr.left - r.left, r.bottom - sr.bottom)) + 'px');
+      }
+    });
+    var cvs = stage.querySelector('canvas');
+    if (cvs && !jobPreview) { var c = cvs.getBoundingClientRect(); if (c.height < 150) out.push('画布只剩 ' + Math.round(c.height) + 'px 高'); }
+    return out;
+  }
+  var jobPreview = false, runs = 0, clicks = 0, doneCalls = 0;
+  (async function () {
+    for (var i = 0; i < jobs.length; i++) {
+      var job = jobs[i];
+      for (var s = 0; s < SIZES.length; s++) {
+        if (job.preview !== (s === 3)) continue;
+        jobPreview = job.preview;
+        stage.style.width = SIZES[s][0] + 'px'; stage.style.height = SIZES[s][1] + 'px';
+        current = job.w + ' ' + JSON.stringify(job.p) + (job.preview ? ' 预览' : '') + ' @' + SIZES[s].join('x');
+        var inst = JN.mountWidget(job.w, stage, JSON.parse(JSON.stringify(job.p)), { preview: job.preview, onDone: function () { doneCalls++; } });
+        runs++;
+        await wait(job.preview ? 2500 : 900);
+        overflow().forEach(function (m) { errors.push(current + ' :: ' + m); });
+        if (!job.preview) {
+          for (var k = 0; k < 40; k++) {
+            var btns = Array.prototype.filter.call(stage.querySelectorAll('button, input[type="range"], canvas'), function (b) { return !b.disabled && b.offsetParent !== null; });
+            if (!btns.length) break;
+            var b = btns[Math.floor(Math.random() * btns.length)];
+            clicks++;
+            if (b.tagName === 'CANVAS') { var fx = Math.random(), fy = Math.random(); pointer(b, 'pointerdown', fx, fy); pointer(b, 'pointermove', Math.random(), Math.random()); pointer(b, 'pointerup', fx, fy); }
+            else if (b.tagName === 'INPUT') { b.value = +b.min + Math.random() * (+b.max - +b.min); b.dispatchEvent(new Event('input', { bubbles: true })); }
+            else b.click();
+            await wait(k % 5 === 0 ? 700 : 90);
+          }
+          overflow().forEach(function (m) { errors.push(current + ' :: （乱点之后）' + m); });
+        }
+        if (stage.children.length === 0) errors.push(current + ' :: 舞台是空的');
+        inst.destroy();
+        var req = RAF_REQ;
+        await wait(250);
+        if (RAF_REQ !== req) errors.push(current + ' :: 销毁后还在请求动画帧（' + (RAF_REQ - req) + ' 次）');
+      }
+    }
+    current = '(结束后)';
+    await wait(500);
+    document.body.appendChild(U.el('pre#report', { text: 'G5_STRESS_BEGIN' + JSON.stringify({ runs: runs, clicks: clicks, doneCalls: doneCalls, frames: RAF_REQ, errors: errors }) + 'G5_STRESS_END' }));
+    document.title = 'G5 STRESS DONE';
+  })();
+})();
+</script>
+</body>
+</html>

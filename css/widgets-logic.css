@@ -1,0 +1,531 @@
+/* 锦囊 · widgets/logic 的样式（组件工程师 G1）
+ * 类名一律 w-<组件 id>-…；只用 base.css 的变量和 .jn-* 通用类。
+ * 跟舞台大小有关的尺寸（--card-h、--side、--cell …）由各组件在 JS 里按 ctx.size() 算好，写在自己的根节点上。
+ */
+
+/* ========== 十个组件共用的骨架：上栏 / 主区 / 提示行 / 按钮排 / 结果条 ========== */
+.w-make24, .w-bulls, .w-nim, .w-hanoi, .w-sudoku, .w-lights, .w-memory, .w-onestroke, .w-mindread, .w-cipher {
+  position: relative; flex: 1 1 auto; min-width: 0; min-height: 0;
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  padding: var(--sp-3);
+}
+.w-make24-top, .w-bulls-top, .w-nim-top, .w-hanoi-top, .w-sudoku-top, .w-lights-top, .w-memory-top, .w-onestroke-top {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+  min-height: var(--tap); color: var(--ink-2); font-size: var(--fs-sm);
+}
+.w-make24-top b, .w-hanoi-top b, .w-lights-top b, .w-memory-top b { color: var(--ink); font-size: var(--fs-lg); }
+.w-make24-msg, .w-bulls-msg, .w-nim-msg, .w-hanoi-msg, .w-sudoku-msg, .w-lights-msg, .w-onestroke-msg, .w-cipher-msg {
+  flex: none; height: 22px; line-height: 22px; text-align: center;
+  color: var(--ink-2); font-size: var(--fs-sm);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.w-make24-ctrl, .w-bulls-ctrl, .w-nim-ctrl, .w-hanoi-ctrl, .w-sudoku-ctrl, .w-lights-ctrl, .w-onestroke-ctrl, .w-cipher-ctrl {
+  flex: none; display: flex; gap: var(--sp-2);
+}
+.w-make24-ctrl > .jn-btn, .w-bulls-ctrl > .jn-btn, .w-nim-ctrl > .jn-btn, .w-hanoi-ctrl > .jn-btn, .w-sudoku-ctrl > .jn-btn,
+.w-lights-ctrl > .jn-btn, .w-onestroke-ctrl > .jn-btn, .w-cipher-ctrl > .jn-btn {
+  flex: 1 1 0; min-width: 0; padding: 0 var(--sp-2); font-size: var(--fs-sm); white-space: nowrap;
+}
+/* 上栏里的小标签和分段选择也要够 44 高 */
+.w-make24-level, .w-bulls-give, .w-memory-again, .w-nim-secret-btn { min-height: var(--tap); border: 0; }
+.w-nim-first, .w-sudoku-size, .w-lights-size { flex: none; padding: 0; }
+.w-nim-first > button, .w-sudoku-size > button, .w-lights-size > button { min-height: var(--tap); min-width: 58px; }
+
+.w-make24-end, .w-bulls-end, .w-nim-end, .w-hanoi-end, .w-sudoku-end, .w-lights-end, .w-memory-end, .w-onestroke-end, .w-cipher-end {
+  position: absolute; left: var(--sp-3); right: var(--sp-3); bottom: var(--sp-3); z-index: 5;
+  max-height: calc(100% - 2 * var(--sp-3)); overflow-y: auto;
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  padding: var(--sp-4); border-radius: var(--r-l);
+  background: var(--surface-2); box-shadow: var(--shadow-1), inset 0 0 0 1.5px var(--line);
+  text-align: center;
+}
+.w-make24-end[data-tone="win"], .w-bulls-end[data-tone="win"], .w-nim-end[data-tone="win"], .w-hanoi-end[data-tone="win"], .w-sudoku-end[data-tone="win"],
+.w-lights-end[data-tone="win"], .w-memory-end[data-tone="win"], .w-onestroke-end[data-tone="win"], .w-cipher-end[data-tone="win"] {
+  box-shadow: var(--shadow-1), inset 0 0 0 2px var(--accent);
+}
+.w-make24-end-title, .w-bulls-end-title, .w-nim-end-title, .w-hanoi-end-title, .w-sudoku-end-title, .w-lights-end-title, .w-memory-end-title,
+.w-onestroke-end-title, .w-cipher-end-title {
+  font-size: var(--fs-xl); font-weight: 800; line-height: 1.25; color: var(--ink);
+}
+.w-make24-end-sub, .w-bulls-end-sub, .w-nim-end-sub, .w-hanoi-end-sub, .w-sudoku-end-sub, .w-lights-end-sub, .w-memory-end-sub,
+.w-onestroke-end-sub, .w-cipher-end-sub {
+  color: var(--ink-2); font-size: var(--fs-md); line-height: 1.4;
+}
+.w-make24-end-more, .w-bulls-end-more, .w-nim-end-more, .w-hanoi-end-more, .w-sudoku-end-more, .w-lights-end-more, .w-memory-end-more,
+.w-onestroke-end-more, .w-cipher-end-more {
+  display: flex; flex-direction: column; align-items: center; gap: var(--sp-2);
+  color: var(--ink-2); font-size: var(--fs-sm);
+}
+.w-make24-end-btns, .w-bulls-end-btns, .w-nim-end-btns, .w-hanoi-end-btns, .w-sudoku-end-btns, .w-lights-end-btns, .w-memory-end-btns,
+.w-onestroke-end-btns, .w-cipher-end-btns {
+  display: flex; gap: var(--sp-2); margin-top: var(--sp-1);
+}
+.w-make24-end-btns > .jn-btn, .w-bulls-end-btns > .jn-btn, .w-nim-end-btns > .jn-btn, .w-hanoi-end-btns > .jn-btn, .w-sudoku-end-btns > .jn-btn,
+.w-lights-end-btns > .jn-btn, .w-memory-end-btns > .jn-btn, .w-onestroke-end-btns > .jn-btn, .w-cipher-end-btns > .jn-btn {
+  flex: 1 1 0; min-width: 0; padding: 0 var(--sp-3); white-space: nowrap;
+}
+.w-make24-end--in, .w-bulls-end--in, .w-nim-end--in, .w-hanoi-end--in, .w-sudoku-end--in, .w-lights-end--in, .w-memory-end--in,
+.w-onestroke-end--in, .w-cipher-end--in {
+  animation: w-logic-rise 0.3s var(--ease) both;
+}
+@keyframes w-logic-rise { from { opacity: 0; transform: translateY(18px); } }
+@keyframes w-logic-pulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 55%, transparent); } }
+@keyframes w-logic-blink { 50% { opacity: 0.35; } }
+
+/* ========== make24 算 24 点 ========== */
+.w-make24-goal b { margin-left: 2px; color: var(--accent); }
+.w-make24-time { min-width: 3em; text-align: right; color: var(--ink); font-size: var(--fs-md); }
+.w-make24-cards {
+  flex: 1 1 auto; min-height: 0;
+  display: grid; grid-template-columns: repeat(2, var(--card-w, 140px)); grid-auto-rows: var(--card-h, 120px);
+  gap: 10px; place-content: center;
+}
+.w-make24-card {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; border-radius: var(--r-m);
+  background: var(--ink); color: var(--bg); box-shadow: var(--shadow-1);
+  transition: transform 0.17s var(--ease), opacity 0.17s, box-shadow 0.15s;
+}
+.w-make24-card.is-empty { visibility: hidden; }
+.w-make24-card.is-made { background: color-mix(in srgb, var(--accent) 26%, var(--ink)); }
+.w-make24-card.is-sel { transform: translateY(-5px); box-shadow: 0 0 0 4px var(--accent), var(--shadow-1); }
+.w-make24-card.is-hint { outline: 3px dashed var(--accent); outline-offset: 3px; animation: w-logic-pulse 0.9s ease-in-out infinite; }
+.w-make24-card--pop { animation: w-make24-pop 0.26s var(--ease); }
+@keyframes w-make24-pop { 0% { transform: scale(0.8); } 60% { transform: scale(1.05); } }
+.w-make24-val { display: inline-flex; align-items: center; gap: 0.06em; font-size: calc(var(--card-h, 120px) * 0.5 * var(--k, 1)); line-height: 1; }
+.w-make24-frac { display: inline-flex; flex-direction: column; align-items: center; font-size: 0.56em; line-height: 1.05; }
+.w-make24-frac > span:first-child { padding: 0 0.16em 0.05em; border-bottom: 0.09em solid currentColor; }
+.w-make24-frac > span:last-child { padding-top: 0.05em; }
+.w-make24-from {
+  position: absolute; left: 6px; right: 6px; bottom: 5px;
+  font-size: var(--fs-xs); line-height: 1.2; opacity: 0.62; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.w-make24-ops { flex: none; display: flex; justify-content: center; gap: var(--sp-3); }
+.w-make24-op {
+  width: var(--op, 56px); height: var(--op, 56px); padding: 0; border: 0; border-radius: 50%;
+  background: var(--surface-3); color: var(--ink);
+  font-family: var(--font-num); font-weight: 700; font-size: var(--fs-xl); line-height: 1;
+  transition: transform 0.12s var(--ease), background 0.15s;
+}
+.w-make24-op:active { transform: scale(0.93); }
+.w-make24-op.is-on { background: var(--accent); color: var(--accent-ink); }
+.w-make24-end-sub { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-lg); color: var(--accent); }
+.w-make24-pv, .w-bulls-pv, .w-nim-pv { flex: 1 1 auto; min-height: 0; pointer-events: none; }
+.w-make24-pv { --u: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--u) * 0.32); }
+.w-make24-pvrow { display: flex; gap: calc(var(--u) * 0.22); }
+.w-make24-pvcard {
+  width: var(--u); height: calc(var(--u) * 1.3); display: grid; place-items: center;
+  border-radius: calc(var(--u) * 0.2); background: var(--ink); color: var(--bg);
+  font-size: calc(var(--u) * 0.62); line-height: 1; box-shadow: var(--shadow-1);
+  animation: w-make24-hop 2.2s var(--ease) infinite;
+}
+.w-make24-pv.is-still .w-make24-pvcard { animation: none; }
+.w-make24-pvgoal { font-size: calc(var(--u) * 0.62); line-height: 1; color: var(--accent); }
+@keyframes w-make24-hop { 0%, 28%, 100% { transform: none; } 12% { transform: translateY(-22%) rotate(-5deg); } }
+
+/* ========== bulls 猜数字 ========== */
+.w-bulls { --who: var(--accent); --who-ink: var(--accent-ink); }
+.w-bulls-info { display: flex; align-items: center; gap: var(--sp-2); color: var(--ink); font-weight: 650; }
+.w-bulls-info::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--who); }
+.w-bulls-slots { flex: none; display: flex; justify-content: center; gap: var(--sp-2); }
+.w-bulls-slot {
+  width: var(--slot, 52px); height: var(--slot, 52px); display: grid; place-items: center;
+  border-radius: var(--r-s); background: var(--surface-2); box-shadow: inset 0 0 0 1.5px var(--line);
+  font-size: var(--fs-2xl); line-height: 1;
+}
+.w-bulls-slot.is-next { box-shadow: inset 0 0 0 2.5px var(--who); }
+.w-bulls-list {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: var(--sp-2); border-radius: var(--r-m); background: var(--surface);
+}
+.w-bulls-row {
+  flex: none; display: grid; grid-template-columns: 1.6em 1fr auto; align-items: center; gap: var(--sp-2);
+  padding: 5px var(--sp-3); border-radius: var(--r-s); background: var(--surface-2);
+  font-size: var(--fs-lg); line-height: 1.3;
+}
+.w-bulls-row.is-hit { box-shadow: inset 0 0 0 2px var(--ok); }
+.w-bulls-idx { color: var(--muted); font-size: var(--fs-sm); }
+.w-bulls-guess { letter-spacing: 0.06em; }
+.w-bulls-res { display: inline-flex; gap: var(--sp-2); }
+.w-bulls-a { color: var(--ok); }
+.w-bulls-b { color: var(--warn); }
+.w-bulls-legend { margin: auto; padding: var(--sp-2); text-align: center; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.8; }
+.w-bulls-legend b { font-family: var(--font-num); font-size: var(--fs-lg); }
+.w-bulls-warn { color: var(--ink); font-size: var(--fs-xl); font-weight: 800; }
+.w-bulls-pad { flex: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.w-bulls-key {
+  min-width: 0; height: var(--key, 46px); padding: 0; border: 0; border-radius: var(--r-s);
+  background: var(--surface-3); color: var(--ink); font-size: var(--fs-xl); line-height: 1;
+  transition: transform 0.1s var(--ease), opacity 0.12s;
+}
+.w-bulls-key:active { transform: scale(0.94); }
+.w-bulls-key[disabled] { opacity: 0.38; }
+.w-bulls-key.is-no { background: var(--surface); color: var(--muted); text-decoration: line-through; }
+.w-bulls-key.is-yes { box-shadow: inset 0 0 0 2.5px var(--ok); color: var(--ok); }
+.w-bulls-mark.is-on { background: var(--ink); color: var(--bg); }
+.w-bulls-ctrl > .w-bulls-go { flex: 1.5 1 0; background: var(--who); color: var(--who-ink); font-size: var(--fs-md); }
+.w-bulls-pv { --u: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--u) * 0.3); }
+.w-bulls-pvrow {
+  display: flex; gap: var(--u); padding: calc(var(--u) * 0.25) calc(var(--u) * 0.7);
+  border-radius: calc(var(--u) * 0.4); background: var(--surface-2);
+  font-size: var(--u); line-height: 1.2;
+  opacity: 0; transform: translateY(30%); transition: opacity 0.3s, transform 0.3s var(--ease);
+}
+.w-bulls-pvrow.is-in { opacity: 1; transform: none; }
+.w-bulls-pvrow.is-hit { box-shadow: inset 0 0 0 2px var(--ok); }
+.w-bulls-pvrow b + b { margin-left: 0.4em; }
+
+/* ========== nim 取石子 ========== */
+.w-nim { --who: var(--p1); --taker: var(--p1); }
+.w-nim[data-turn="1"] { --who: var(--p2); }
+.w-nim[data-turn="x"] .w-nim-turn { background: var(--surface-3); color: var(--ink-2); }
+.w-nim[data-game="heaps"] { padding-left: 6px; padding-right: 6px; }
+.w-nim[data-game="heaps"] > .w-nim-top, .w-nim[data-game="heaps"] > .w-nim-msg, .w-nim[data-game="heaps"] > .w-nim-ctrl { margin-left: 6px; margin-right: 6px; }
+.w-nim-turn {
+  display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--sp-4);
+  border-radius: var(--r-pill); background: var(--who); color: var(--on-color);
+  font-weight: 700; transition: background 0.2s;
+}
+.w-nim-rule { color: var(--ink); font-weight: 650; }
+.w-nim-first { align-self: center; }
+.w-nim-first > button { min-width: 92px; }
+.w-nim-first.is-off { visibility: hidden; pointer-events: none; }
+.w-nim-board { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-3); }
+.w-nim-left { display: flex; align-items: baseline; gap: var(--sp-2); color: var(--ink-2); }
+.w-nim-count { min-width: 1.2em; text-align: center; color: var(--ink); }
+.w-nim-dots { display: grid; grid-template-columns: repeat(7, var(--dot, 28px)); gap: 8px; }
+.w-nim-dot {
+  width: var(--dot, 28px); height: var(--dot, 28px); border-radius: 50%;
+  background: var(--ink-2); box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--bg) 22%, transparent);
+  transition: transform 0.34s var(--ease), opacity 0.34s, background 0.12s;
+}
+.w-nim-dot.is-going { background: var(--taker); transform: translateY(-60%) scale(0.5); opacity: 0; }
+.w-nim-dot.is-gone { opacity: 0.1; transform: scale(0.5); box-shadow: none; }
+.w-nim-log { display: flex; align-items: center; gap: 4px; max-width: 100%; min-height: 28px; overflow-x: auto; scrollbar-width: none; }
+.w-nim-log::-webkit-scrollbar { display: none; }
+.w-nim-chip {
+  flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--p1); color: var(--on-color); font-size: var(--fs-sm); line-height: 1;
+}
+.w-nim-chip.is-p1 { background: var(--p2); }
+.w-nim-heap { align-self: stretch; display: flex; justify-content: center; align-items: center; min-height: var(--stone-h, 52px); }
+.w-nim-heap.is-empty::after { content: "拿空了"; color: var(--muted); font-size: var(--fs-xs); }
+.w-nim-stone { position: relative; flex: none; width: var(--stone, 44px); height: var(--stone-h, 52px); padding: 0; border: 0; background: transparent; }
+.w-nim-stone::before {
+  content: ""; position: absolute; left: 5px; right: 5px; top: 50%;
+  height: calc(var(--stone, 44px) - 10px); margin-top: calc((var(--stone, 44px) - 10px) / -2);
+  border-radius: 50%; background: var(--ink-2); box-shadow: inset 0 -4px 0 color-mix(in srgb, var(--bg) 22%, transparent);
+  transition: transform 0.34s var(--ease), opacity 0.34s, background 0.12s;
+}
+.w-nim-stone.is-pick::before { background: var(--who); transform: translateY(-14%) scale(1.06); }
+.w-nim-stone.is-going::before { background: var(--taker); transform: translateY(-70%) scale(0.5); opacity: 0; }
+.w-nim-ctrl > .w-nim-take { background: var(--who); color: var(--on-color); font-size: var(--fs-md); transition: background 0.2s, opacity 0.12s; }
+.w-nim-secret { align-self: stretch; text-align: left; line-height: 1.6; }
+.w-nim-secret p { margin: 0 0 var(--sp-2); }
+.w-nim-secret strong { color: var(--accent); }
+.w-nim-secret-btn.is-on { background: var(--ink); color: var(--bg); }
+.w-nim-pv { --u: 30px; display: grid; grid-template-columns: repeat(6, var(--u)); gap: calc(var(--u) * 0.3); place-content: center; }
+.w-nim-pvdot { width: var(--u); height: var(--u); border-radius: 50%; background: var(--ink-2); transition: transform 0.4s var(--ease), opacity 0.4s, background 0.15s; }
+.w-nim-pvdot.is-gone { opacity: 0.22; transform: scale(0.5); }
+.w-nim-pvdot.is-p0 { background: var(--p1); }
+.w-nim-pvdot.is-p1 { background: var(--p2); }
+
+/* ========== hanoi 汉诺塔 ========== */
+.w-hanoi-size { display: inline-flex; align-items: center; gap: var(--sp-1); color: var(--ink); font-weight: 650; }
+.w-hanoi-n { min-width: 3.2em; text-align: center; }
+.w-hanoi-step {
+  width: var(--tap); height: var(--tap); padding: 0; border: 0; border-radius: 50%;
+  background: var(--surface-3); color: var(--ink); font-size: var(--fs-lg); line-height: 1;
+}
+.w-hanoi-step[disabled] { opacity: 0.35; }
+.w-hanoi-wrap, .w-sudoku-wrap, .w-lights-wrap, .w-memory-wrap, .w-onestroke-wrap {
+  flex: 1 1 auto; min-height: 0; display: grid; place-items: center;
+}
+.w-hanoi-board { position: relative; flex: none; width: var(--w, 296px); height: var(--h, 240px); }
+.w-hanoi-board::after {   /* 底座 */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px;
+  border-radius: 7px; background: var(--surface-3);
+}
+.w-hanoi-pegs { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+.w-hanoi-peg { position: relative; min-width: 0; padding: 0; border: 0; border-radius: var(--r-m); background: transparent; transition: background 0.15s; }
+.w-hanoi-peg::before {    /* 柱子 */
+  content: ""; position: absolute; left: 50%; bottom: 10px; width: 8px; margin-left: -4px;
+  height: var(--rod-h, 120px); border-radius: 4px; background: var(--surface-3); transition: background 0.15s;
+}
+button.w-hanoi-peg:active { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.w-hanoi-peg.is-to { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.w-hanoi-peg.is-to::before { background: var(--accent); }
+.w-hanoi-discs { position: absolute; inset: 0; pointer-events: none; }
+.w-hanoi-disc {
+  position: absolute; left: 0; top: 0; height: var(--disc-h, 22px);
+  transition: transform 0.2s var(--ease);
+}
+.w-hanoi-disc-in {
+  width: 100%; height: 100%; border-radius: var(--r-pill);
+  background: var(--c, var(--accent)); box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--bg) 24%, transparent);
+}
+.w-hanoi-disc.is-held .w-hanoi-disc-in { box-shadow: 0 0 0 3px var(--ink), inset 0 -3px 0 color-mix(in srgb, var(--bg) 24%, transparent); }
+.w-hanoi-disc[data-d="1"] { --c: var(--c-talk-a); }
+.w-hanoi-disc[data-d="2"] { --c: var(--accent); }
+.w-hanoi-disc[data-d="3"] { --c: var(--c-do-a); }
+.w-hanoi-disc[data-d="4"] { --c: var(--c-show-a); }
+.w-hanoi-disc[data-d="5"] { --c: var(--c-play-a); }
+.w-hanoi-disc[data-d="6"] { --c: var(--c-trio-a); }
+.w-hanoi-pv, .w-sudoku-pv, .w-lights-pv, .w-memory-pv, .w-onestroke-pv, .w-mindread-pv, .w-cipher-pv {
+  flex: 1 1 auto; min-height: 0; display: grid; place-items: center; pointer-events: none;
+}
+
+/* ========== sudoku 迷你数独 ========== */
+.w-sudoku-time { color: var(--ink); font-size: var(--fs-md); }
+.w-sudoku-board {
+  width: var(--side, 264px); height: var(--side, 264px);
+  display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); grid-template-rows: repeat(var(--n, 4), 1fr);
+  border-radius: var(--r-s); overflow: hidden;
+  background: var(--surface); box-shadow: 0 0 0 2.5px var(--ink-2);
+}
+.w-sudoku-cell {
+  display: grid; place-items: center; min-width: 0; min-height: 0; padding: 0; border-radius: 0;
+  border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: transparent; color: var(--accent);
+  font-size: calc(var(--cell, 60px) * 0.52); line-height: 1;
+}
+.w-sudoku-cell.is-edge-r { border-right: 2.5px solid var(--ink-2); }
+.w-sudoku-cell.is-edge-b { border-bottom: 2.5px solid var(--ink-2); }
+.w-sudoku-cell.is-given { background: var(--surface-2); color: var(--ink); }
+.w-sudoku-cell.is-hint { color: var(--ok); }
+.w-sudoku-cell.is-peer { background: color-mix(in srgb, var(--ink) 10%, var(--surface)); }
+.w-sudoku-cell.is-same { background: color-mix(in srgb, var(--accent) 28%, var(--surface)); }
+.w-sudoku-cell.is-sel { background: color-mix(in srgb, var(--accent) 38%, var(--surface)); box-shadow: inset 0 0 0 2.5px var(--accent); }
+.w-sudoku-cell.is-bad { background: color-mix(in srgb, var(--danger) 26%, var(--surface)); color: var(--danger); }
+.w-sudoku-cell.is-bad.is-given { color: var(--ink); }
+.w-sudoku-pad { flex: none; display: flex; gap: 6px; }
+.w-sudoku-num {
+  flex: 1 1 0; min-width: 0; height: var(--tap); padding: 0; border: 0; border-radius: var(--r-s);
+  background: var(--surface-3); color: var(--ink); font-size: var(--fs-xl); line-height: 1;
+  transition: transform 0.1s var(--ease), opacity 0.12s;
+}
+.w-sudoku-num:active { transform: scale(0.94); }
+.w-sudoku-num.is-full { opacity: 0.35; }
+
+/* ========== lights 关灯 ========== */
+.w-lights-board {
+  width: var(--side, 280px); height: var(--side, 280px);
+  display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); grid-template-rows: repeat(var(--n, 3), 1fr);
+  gap: var(--gap, 8px);
+}
+.w-lights-cell {
+  min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: var(--r-m);
+  background: var(--surface-2); box-shadow: inset 0 0 0 1.5px var(--line);
+  outline: 3px solid transparent; outline-offset: -3px;
+  transition: background 0.16s, box-shadow 0.16s;
+}
+.w-lights-cell.is-on {
+  background: var(--accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent), inset 0 -4px 0 color-mix(in srgb, var(--accent-ink) 24%, transparent);
+}
+.w-lights-cell.is-hint { outline-color: var(--ink); animation: w-lights-ring 0.8s ease-in-out infinite; }
+.w-lights-cell.is-tap { outline-color: var(--ink); }
+.w-lights-cell--tap { animation: w-lights-tap 0.2s var(--ease); }
+@keyframes w-lights-ring { 0%, 100% { outline-color: var(--ink); } 50% { outline-color: transparent; } }
+@keyframes w-lights-tap { 50% { transform: scale(0.9); } }
+
+/* ========== memory 记忆翻牌 ========== */
+.w-memory-time { margin-left: auto; color: var(--ink); font-size: var(--fs-md); }
+.w-memory-score {
+  --pc: var(--p1);
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 36px; padding: 0 var(--sp-4);
+  border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px var(--pc); color: var(--ink);
+  transition: background 0.2s;
+}
+.w-memory-score.is-p1 { --pc: var(--p2); }
+.w-memory-score.is-turn { background: var(--pc); color: var(--on-color); }
+.w-memory-score.is-turn b { color: var(--on-color); }
+.w-memory-score + .w-memory-again { margin-left: auto; }
+.w-memory-grid { display: grid; grid-template-columns: repeat(var(--cols, 4), var(--cw, 68px)); grid-auto-rows: var(--ch, 80px); gap: 8px; }
+.w-memory-pv .w-memory-grid { gap: 6px; }
+.w-memory-card { position: relative; min-width: 0; padding: 0; border: 0; border-radius: var(--r-s); background: transparent; perspective: 600px; }
+.w-memory-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.34s var(--ease); }
+.w-memory-card.is-up .w-memory-inner, .w-memory-card.is-done .w-memory-inner { transform: rotateY(180deg); }
+.w-memory-back, .w-memory-face {
+  position: absolute; inset: 0; display: grid; place-items: center; border-radius: var(--r-s);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.w-memory-back { transform: rotateY(0deg); background: var(--surface-3); box-shadow: inset 0 0 0 2px var(--line); }
+.w-memory-back::after {
+  content: ""; width: 30%; aspect-ratio: 1; border-radius: 24%; transform: rotate(45deg);
+  background: color-mix(in srgb, var(--accent) 75%, transparent);
+}
+.w-memory-face {
+  transform: rotateY(180deg); background: var(--tint, var(--p2)); color: var(--on-color);
+  box-shadow: inset 0 -4px 0 color-mix(in srgb, var(--bg) 22%, transparent);
+  transition: opacity 0.3s, box-shadow 0.3s;
+}
+.w-memory-face .w-memory-art { width: 66%; height: 66%; max-height: 90%; }
+.w-memory-shape { fill: currentColor; stroke: currentColor; stroke-width: 5; stroke-linejoin: round; }
+.w-memory-card.is-done .w-memory-face { opacity: 0.72; }
+.w-memory-card.is-done.is-p0 .w-memory-face { opacity: 0.85; box-shadow: 0 0 0 3px var(--p1); }
+.w-memory-card.is-done.is-p1 .w-memory-face { opacity: 0.85; box-shadow: 0 0 0 3px var(--p2); }
+
+/* ========== onestroke 一笔画 ========== */
+.w-onestroke-nav {
+  flex: none; width: var(--tap); height: var(--tap); padding: 0; border: 0; border-radius: 50%;
+  background: var(--surface-3); color: var(--ink); font-size: var(--fs-xl); line-height: 1;
+}
+.w-onestroke-nav[disabled] { opacity: 0.3; }
+.w-onestroke-title { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.3; }
+.w-onestroke-title b { color: var(--ink); font-size: var(--fs-md); white-space: nowrap; }
+.w-onestroke-title span { color: var(--muted); font-size: var(--fs-xs); }
+.w-onestroke-svg {
+  display: block; width: var(--side, 280px); height: var(--side, 280px);
+  border-radius: var(--r-l); background: var(--surface); touch-action: none;
+}
+.w-onestroke-pv .w-onestroke-svg { background: transparent; }
+.w-onestroke-edge { fill: none; stroke: var(--surface-3); stroke-width: 3.2; stroke-linecap: round; }
+.w-onestroke-edge.is-hint { stroke: var(--ink-2); animation: w-logic-blink 0.7s ease-in-out infinite; }
+.w-onestroke-ink {
+  fill: none; stroke: var(--accent); stroke-width: 3.4; stroke-linecap: round;
+  visibility: hidden; transition: stroke-dashoffset 0.22s var(--ease);
+}
+.w-onestroke-ink.is-on { visibility: visible; }
+.w-onestroke-rubber { stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 2 3; opacity: 0; pointer-events: none; }
+.w-onestroke-rubber.is-on { opacity: 0.8; }
+.w-onestroke-node { fill: var(--ink); stroke: var(--surface); stroke-width: 1.4; transition: fill 0.15s; }
+.w-onestroke-node.is-start { fill: var(--ok); animation: w-logic-blink 0.7s ease-in-out infinite; }
+.w-onestroke-node.is-odd { fill: var(--warn); }
+.w-onestroke-node.is-at { fill: var(--accent); stroke: var(--ink); stroke-width: 1.8; }
+.w-onestroke-degs { display: none; pointer-events: none; }
+.w-onestroke-svg.is-degrees .w-onestroke-degs { display: inline; }
+.w-onestroke-deg { fill: var(--bg); font-family: var(--font-num); font-weight: 800; font-size: 6.6px; }
+.w-onestroke-ctrl > .jn-btn.w-onestroke-ask { background: var(--accent); color: var(--accent-ink); }
+.w-onestroke-why { align-self: stretch; text-align: left; line-height: 1.6; }
+.w-onestroke-why p { margin: 0 0 var(--sp-2); }
+.w-onestroke-why ul { margin: 0 0 var(--sp-2); padding-left: 1.2em; }
+
+/* ========== mindread 读心术 ========== */
+.w-mindread { gap: var(--sp-3); }
+.w-mindread-head {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+  min-height: 28px; color: var(--ink-2); font-size: var(--fs-sm);
+}
+.w-mindread-dots { display: inline-flex; gap: 6px; }
+.w-mindread-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--surface-3); }
+.w-mindread-dots i.is-past { background: var(--ink-2); }
+.w-mindread-dots i.is-now { background: var(--accent); }
+.w-mindread-main {
+  flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--sp-4); text-align: center;
+}
+.w-mindread-main.is-text { justify-content: flex-start; gap: var(--sp-3); padding-top: var(--sp-2); overflow-y: auto; }
+.w-mindread-title { font-size: var(--fs-xl); font-weight: 800; line-height: 1.25; }
+.w-mindread-range { font-size: var(--fs-3xl); line-height: 1.1; color: var(--accent); }
+.w-mindread-note { max-width: 20em; color: var(--ink-2); }
+.w-mindread-card {
+  align-self: stretch; display: grid; grid-template-columns: repeat(8, 1fr);
+  padding: var(--sp-3) var(--sp-2); border-radius: var(--r-l);
+  background: var(--ink); color: var(--bg); box-shadow: var(--shadow-1);
+  font-size: var(--num, 17px); line-height: 2;
+}
+.w-mindread-card span { text-align: center; }
+.w-mindread-card span.is-key { box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--bg) 40%, transparent); }
+.w-mindread-ask { font-size: var(--fs-lg); font-weight: 700; line-height: 1.3; }
+.w-mindread-big { font-size: calc(var(--fs-3xl) * 2.2); line-height: 1; color: var(--muted); }
+.w-mindread-big.is-final { color: var(--accent); }
+.w-mindread-row { flex: none; display: flex; gap: var(--sp-2); }
+.w-mindread-row > .jn-btn { flex: 1 1 0; min-width: 0; padding: 0 var(--sp-2); white-space: nowrap; }
+.w-mindread-sum { font-size: var(--fs-xl); line-height: 1.2; color: var(--accent); }
+.w-mindread-bits { flex: none; display: flex; gap: 6px; }
+.w-mindread-bits span {
+  min-width: 40px; height: 40px; display: grid; place-items: center; border-radius: var(--r-s);
+  background: var(--surface-2); color: var(--muted);
+}
+.w-mindread-bits span.is-on { background: var(--accent); color: var(--accent-ink); }
+.w-mindread-why { align-self: stretch; text-align: left; color: var(--ink-2); line-height: 1.65; }
+.w-mindread-why p { margin: 0 0 var(--sp-2); }
+.w-mindread-why strong { color: var(--accent); }
+.w-mindread-pv { --u: 18px; }
+.w-mindread-pvrow { display: flex; align-items: center; gap: calc(var(--u) * 1.2); }
+.w-mindread-pv .w-mindread-card {
+  align-self: auto; grid-template-columns: repeat(4, 1fr); width: calc(var(--u) * 7.6);
+  padding: calc(var(--u) * 0.4); border-radius: calc(var(--u) * 0.6); font-size: calc(var(--u) * 0.86); line-height: 1.7;
+}
+.w-mindread-pv .w-mindread-big { min-width: 2.2ch; text-align: center; font-size: calc(var(--u) * 3.6); }
+
+/* ========== cipher 密码机 ========== */
+.w-cipher-game, .w-cipher-write, .w-cipher-crack { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-2); }
+.w-cipher-tabs { flex: none; align-self: center; padding: 0; }
+.w-cipher-tabs > button { min-height: var(--tap); min-width: 96px; }
+.w-cipher-panel {
+  flex: none; display: flex; flex-direction: column; gap: 4px;
+  padding: 8px var(--sp-3); border-radius: var(--r-m); background: var(--surface);
+}
+.w-cipher-head { display: flex; justify-content: space-between; gap: var(--sp-2); color: var(--muted); font-size: var(--fs-xs); line-height: 16px; }
+.w-cipher-status { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w-cipher-time { flex: none; color: var(--ink-2); }
+.w-cipher-text {
+  height: 48px; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center;
+  font-family: var(--font-mono); font-weight: 700; font-size: var(--fs-lg); line-height: 24px; letter-spacing: 0.04em;
+  color: var(--ink); overflow-wrap: anywhere;
+}
+.w-cipher-text[data-size="m"] { font-size: var(--fs-md); }
+.w-cipher-text.is-solved { color: var(--accent); }
+.w-cipher-wrap { flex: 1 1 auto; min-height: 0; display: grid; place-items: center; }
+.w-cipher-wheel {
+  position: relative; flex: none; width: var(--d, 240px); height: var(--d, 240px); border-radius: 50%;
+  background: var(--surface-2); box-shadow: inset 0 0 0 1.5px var(--line); touch-action: none;
+}
+.w-cipher-ring { position: absolute; inset: 0; border-radius: 50%; }
+.w-cipher-ring.is-outer { --r: calc(var(--d, 240px) * 0.435); color: var(--muted); font-size: calc(var(--d, 240px) * 0.066); }
+.w-cipher-ring.is-inner {
+  --r: calc(var(--d, 240px) * 0.3); inset: 13.5%;
+  background: var(--surface-3); box-shadow: 0 0 0 1.5px var(--line);
+  color: var(--accent); font-size: calc(var(--d, 240px) * 0.06);
+  transition: transform 0.18s var(--ease);
+}
+.w-cipher-ring span {
+  position: absolute; left: 50%; top: 50%; width: 1.5em; height: 1.5em; margin: -0.75em 0 0 -0.75em;
+  display: grid; place-items: center; border-radius: 50%;
+  font-family: var(--font-mono); font-weight: 700; line-height: 1;
+  transform: rotate(calc(var(--i) * 13.846deg)) translateY(calc(var(--r) * -1));
+}
+.w-cipher-ring.is-outer span.is-used { color: var(--ink); }
+.w-cipher-ring span.is-hint { background: var(--ok); color: var(--bg); }
+.w-cipher-hub {
+  position: absolute; left: 32%; top: 32%; width: 36%; height: 36%; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--bg); box-shadow: inset 0 0 0 1.5px var(--line);
+  color: var(--muted); font-size: var(--fs-xs); line-height: 1.2; pointer-events: none;
+}
+.w-cipher-hub b { color: var(--ink); font-size: calc(var(--d, 240px) * 0.13); line-height: 1; }
+.w-cipher-dial { flex: none; display: flex; align-items: center; gap: var(--sp-2); }
+.w-cipher-step {
+  flex: none; width: var(--tap); height: var(--tap); padding: 0; border: 0; border-radius: 50%;
+  background: var(--surface-3); color: var(--ink); font-size: var(--fs-lg); line-height: 1;
+}
+.w-cipher-range { flex: 1 1 auto; min-width: 0; min-height: var(--tap); margin: 0; touch-action: pan-y; }
+.w-cipher-shift { flex: 1 1 auto; min-width: 0; text-align: center; color: var(--ink-2); font-size: var(--fs-sm); }
+.w-cipher-shift b { color: var(--ink); font-size: var(--fs-lg); }
+.w-cipher-ctrl > .w-cipher-ok { flex: 1.4 1 0; font-size: var(--fs-md); }
+.w-cipher-input {
+  flex: none; display: block; padding: var(--sp-2) var(--sp-3); resize: none;
+  font-family: var(--font-mono); line-height: 1.4;
+  user-select: text; -webkit-user-select: text;
+}
+.w-cipher-out {
+  flex: 1 1 auto; min-height: 48px; overflow-y: auto; padding: var(--sp-3); border-radius: var(--r-m);
+  background: var(--surface); color: var(--accent);
+  font-family: var(--font-mono); font-weight: 700; font-size: var(--fs-lg); line-height: 1.5; letter-spacing: 0.04em;
+  overflow-wrap: anywhere; user-select: text; -webkit-user-select: text;
+}
+.w-cipher-out.is-empty { color: var(--muted); font-family: var(--font-ui); font-weight: 400; font-size: var(--fs-sm); letter-spacing: 0; }
+.w-cipher-end-sub { font-family: var(--font-mono); font-weight: 700; color: var(--accent); overflow-wrap: anywhere; }
+.w-cipher-pv { --u: 30px; }
+.w-cipher-pvbox { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.35); }
+.w-cipher-pvtext {
+  padding: calc(var(--u) * 0.3) calc(var(--u) * 0.6); border-radius: calc(var(--u) * 0.4); background: var(--surface-2);
+  font-family: var(--font-mono); font-weight: 700; font-size: var(--u); line-height: 1.2; letter-spacing: 0.06em;
+  color: var(--ink-2); white-space: nowrap;
+}
+.w-cipher-pvtext.is-solved { color: var(--accent); }
+.w-cipher-pvdial { color: var(--muted); font-size: calc(var(--u) * 0.5); }
