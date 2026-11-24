@@ -1,5 +1,5 @@
 /* 由 tools/build.py 生成，请勿手改 */
-self.__JN_VERSION = "fff2772dbe";
+self.__JN_VERSION = "498fd949ce";
 self.__JN_PRECACHE = [
 "./",
 "./index.html",
